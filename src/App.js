@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './index.css';
 import TopNav from './Components/layout/TopNav';
+import StickyNav from './Components/layout/StickyNav';
 import Footer from './Components/layout/Footer';
 import Main from './Components/main/Main';
 import Login from './Components/login/Login';
@@ -14,6 +15,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <TopNav/>
+        <StickyNav/>
         <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/login" component={Login} />

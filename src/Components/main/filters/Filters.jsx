@@ -10,6 +10,10 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles({
   root: {
@@ -25,6 +29,10 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12
   }
+  //   heading: {
+  //     fontSize: theme.typography.pxToRem(15),
+  //     fontWeight: theme.typography.fontWeightRegular
+  //   }
 });
 
 // function a11yProps(index) {
@@ -64,7 +72,12 @@ export default function Filters() {
 
   return (
     <Card
-      style={{ height: "83vh", margin: "10px", position: "fixed" }}
+      style={{
+        height: "83vh",
+        width: "25vw",
+        margin: "10px",
+        position: "fixed"
+      }}
       className={classes.card}
     >
       <Grid style={{ margin: "20px", marginTop: "0px" }}>
@@ -123,6 +136,45 @@ export default function Filters() {
             <TabPanel value={value} index={0} dir={theme.direction}></TabPanel>
             <TabPanel value={value} index={1} dir={theme.direction}></TabPanel>
           </SwipeableViews> */}
+        </div>
+        <div className={classes.root} style={{ marginTop: "10px" }}>
+          <ExpansionPanel style={{ width: "100%" }}>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography
+                className={classes.heading}
+                style={{ minWidth: "10px" }}
+              >
+                Language
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget.
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+          <ExpansionPanel style={{ minWidth: "100%" }}>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography className={classes.heading}>Resource Type</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget.
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
         </div>
       </Grid>
     </Card>

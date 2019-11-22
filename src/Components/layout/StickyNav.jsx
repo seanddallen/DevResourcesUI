@@ -1,9 +1,252 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { fade, makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import InputBase from "@material-ui/core/InputBase";
+import Badge from "@material-ui/core/Badge";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import MenuIcon from "@material-ui/icons/Menu";
+import SearchIcon from "@material-ui/icons/Search";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import MailIcon from "@material-ui/icons/Mail";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import MoreIcon from "@material-ui/icons/MoreVert";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Select from "react-select";
 
-class StickyNav extends Component {
-  render() {
-    return <div>STICKYNAV</div>;
+const languageOptions = [
+  { label: "javascript", value: "javascript", language: "Javascript" },
+  { label: "java", value: "java", language: "Java" },
+  { label: "c#", value: "c#", language: "C#" },
+  { label: "python", value: "python", language: "Python" },
+  { label: "php", value: "php", language: "PHP" },
+  { label: "ruby", value: "ruby", language: "Ruby" }
+];
+
+const resourceOptions = [
+  { label: "Courses", value: "Courses", resource: "Courses" },
+  { label: "Books", value: "Books", resource: "Books" },
+  { label: "Tutorials", value: "Tutorials", resource: "Tutorials" },
+  { label: "Blogs", value: "Blogs", resource: "Blogs" },
+  { label: "Podcasts", value: "Podcasts", resource: "Podcasts" },
+  {
+    label: "Challenge sites",
+    value: "Challenge sites",
+    resource: "Challenge sites"
+  },
+  { label: "Cheatsheets", value: "Cheatsheets", resource: "Cheatsheets" },
+  {
+    label: "Learning Paths",
+    value: "Learning Paths",
+    resource: "Learning Paths"
+  },
+  { label: "Gear", value: "Keyboards", resource: "Keyboards" },
+  { label: "Gear", value: "Chairs", resource: "Chairs" },
+  { label: "Gear", value: "Headphones", resource: "Headphones" }
+];
+
+const groupedOptions = [
+  { label: "Gear", options: resourceOptions },
+  { label: "Merch", options: resourceOptions },
+  { label: "YouTube", options: resourceOptions }
+];
+
+const useStyles = makeStyles(theme => ({
+  noPadding: {
+    padding: 0
+  },
+  grow: {
+    flexGrow: 1
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  title: {
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block"
+    }
+  },
+  search: {
+    position: "relative",
+    border: "1px solid #C7C7C7",
+    borderRadius: "3px",
+    backgroundColor: "#FFFFFF",
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25)
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: "100%",
+    height: "38px",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(0),
+      width: "auto"
+    }
+  },
+  searchIcon: {
+    width: theme.spacing(7),
+    color: "#C7C7C7",
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  inputRoot: {
+    // color: "inherit"
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 7),
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: 200
+    }
+  },
+  sectionDesktop: {
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "flex"
+    }
+  },
+  sectionMobile: {
+    display: "flex",
+    [theme.breakpoints.up("md")]: {
+      display: "none"
+    }
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200
   }
-}
+}));
 
-export default StickyNav;
+export default function StickyNav() {
+  const classes = useStyles();
+
+  const [isClearable, setIsClearable] = useState(true);
+  const [isSearchable, setIsSearchable] = useState(true);
+
+  const toggleClearable = () => {
+    setIsClearable(!isClearable);
+  };
+
+  const toggleSearchable = () => {
+    setIsSearchable(!isSearchable);
+  };
+
+  const groupStyles = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between"
+  };
+  const groupBadgeStyles = {
+    backgroundColor: "#EBECF0",
+    borderRadius: "2em",
+    color: "#172B4D",
+    display: "inline-block",
+    fontSize: 12,
+    fontWeight: "normal",
+    lineHeight: "1",
+    minWidth: 1,
+    padding: "0.16666666666667em 0.5em",
+    textAlign: "center"
+  };
+
+  const formatGroupLabel = data => (
+    <div style={groupStyles}>
+      <span>{data.label}</span>
+      <span style={groupBadgeStyles}>{data.options.length}</span>
+    </div>
+  );
+
+  return (
+    <div
+      className={classes.grow}
+      style={{
+        marginTop: "0px",
+        position: "sticky",
+        top: "0",
+        zIndex: "1000"
+      }}
+    >
+      <AppBar position="static" style={{ backgroundColor: "#EFEFEF" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <Toolbar style={{ width: "90vw" }}>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
+            </div>
+            <div className={classes.grow} />
+            <div style={{ margin: "0 10px 0 0", minWidth: "200px" }}>
+              <Select
+                className="basic-single"
+                classNamePrefix="select"
+                // defaultValue={languageOptions[0]}
+                isClearable={isClearable}
+                name="language"
+                options={languageOptions}
+                style={{ minWidth: "200px", color: "#C7C7C7" }}
+              />
+            </div>
+            <div style={{ margin: "0 10px 0 0", minWidth: "200px" }}>
+              <Select
+                className="basic-single"
+                classNamePrefix="select"
+                // defaultValue={resourceOptions[0]}
+                isClearable={isClearable}
+                name="resources"
+                options={groupedOptions}
+                formatGroupLabel={formatGroupLabel}
+                style={{ minWidth: "200px", color: "#C7C7C7" }}
+              />
+            </div>
+            {/* <div className={classes.grow} /> */}
+            <div>
+              <Button
+                variant="outlined"
+                size="medium"
+                className={classes.button}
+                style={{ margin: "0 10px" }}
+              >
+                FILTERS
+              </Button>
+            </div>
+            <div>
+              <Button
+                variant="contained"
+                size="medium"
+                color="primary"
+                className={classes.margin}
+              >
+                SEARCH
+              </Button>
+            </div>
+          </Toolbar>
+        </div>
+      </AppBar>
+    </div>
+  );
+}
