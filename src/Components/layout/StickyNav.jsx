@@ -27,32 +27,79 @@ const languageOptions = [
   { label: "ruby", value: "ruby", language: "Ruby" }
 ];
 
-const resourceOptions = [
-  { label: "Courses", value: "Courses", resource: "Courses" },
-  { label: "Books", value: "Books", resource: "Books" },
+const educationOptions = [
+  { label: "Online Courses", value: "Courses", resource: "Courses" },
   { label: "Tutorials", value: "Tutorials", resource: "Tutorials" },
-  { label: "Blogs", value: "Blogs", resource: "Blogs" },
+  { label: "Bootcamps", value: "Bootcamps", resource: "Bootcamps" }
+];
+const careerOptions = [
+  { label: "Job Sites", value: "Job Sites", resource: "Job Sites" },
+  { label: "Companies", value: "Companies", resource: "Companies" }
+];
+const printOptions = [
+  { label: "Books", value: "Books", resource: "Books" },
+  { label: "Blogs", value: "Blogs", resource: "Blogs" }
+];
+const mediaOptions = [
   { label: "Podcasts", value: "Podcasts", resource: "Podcasts" },
   {
-    label: "Challenge sites",
-    value: "Challenge sites",
-    resource: "Challenge sites"
+    label: "YouTube Channels",
+    value: "YouTube Channels",
+    resource: "YouTube Channels"
   },
+  {
+    label: "YouTube Playlists",
+    value: "YouTube Playlists",
+    resource: "YouTube Playlists"
+  },
+  {
+    label: "YouTube Videos",
+    value: "YouTube Videos",
+    resource: "YouTube Videos"
+  }
+];
+const practiceOptions = [
+  {
+    label: "Code Challenges",
+    value: "Code Challenges",
+    resource: "Code Challenges"
+  }
+];
+const techOptions = [
+  { label: "Languages", value: "Languages", resource: "Languages" },
+  { label: "Frameworks", value: "Frameworks", resource: "Frameworks" },
+  { label: "Libraries", value: "Libraries", resource: "Libraries" }
+];
+const referenceOptions = [
   { label: "Cheatsheets", value: "Cheatsheets", resource: "Cheatsheets" },
   {
     label: "Learning Paths",
     value: "Learning Paths",
     resource: "Learning Paths"
-  },
-  { label: "Gear", value: "Keyboards", resource: "Keyboards" },
-  { label: "Gear", value: "Chairs", resource: "Chairs" },
-  { label: "Gear", value: "Headphones", resource: "Headphones" }
+  }
 ];
+const gearOptions = [
+  { label: "Keyboards", value: "Keyboards", resource: "Keyboards" },
+  { label: "Chairs", value: "Chairs", resource: "Chairs" },
+  { label: "Headphones", value: "Headphones", resource: "Headphones" }
+];
+const merchOptions = [
+  { label: "Shirts", value: "Shirts", resource: "Shirts" },
+  { label: "Accessories", value: "Accessories", resource: "Accessories" }
+];
+const funOptions = [{ label: "Memes", value: "Memes", resource: "Memes" }];
 
 const groupedOptions = [
-  { label: "Gear", options: resourceOptions },
-  { label: "Merch", options: resourceOptions },
-  { label: "YouTube", options: resourceOptions }
+  { label: "EDUCATION", options: educationOptions },
+  { label: "CAREER", options: careerOptions },
+  { label: "PRINT", options: printOptions },
+  { label: "MEDIA", options: mediaOptions },
+  { label: "PRACTICE", options: practiceOptions },
+  { label: "REFERENCE", options: referenceOptions },
+  { label: "TECH", options: techOptions },
+  { label: "GEAR", options: gearOptions },
+  { label: "MERCH", options: merchOptions },
+  { label: "FUN", options: funOptions }
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -109,6 +156,9 @@ const useStyles = makeStyles(theme => ({
       width: 200
     }
   },
+  option: {
+    color: "black"
+  },
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
@@ -127,6 +177,32 @@ const useStyles = makeStyles(theme => ({
     width: 200
   }
 }));
+
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    borderBottom: "1px dotted pink",
+    color: "#C7C7C7",
+    padding: 20
+  }),
+  menu: (provided, state) => ({
+    ...provided,
+    width: state.selectProps.width,
+    borderBottom: "1px dotted pink",
+    color: state.selectProps.menuColor,
+    padding: 20
+  }),
+  control: () => ({
+    // none of react-select's styles are passed to <Control />
+    width: 200
+  }),
+  singleValue: (provided, state) => {
+    const opacity = state.isDisabled ? 0.5 : 1;
+    const transition = "opacity 300ms";
+
+    return { ...provided, opacity, transition };
+  }
+};
 
 export default function StickyNav() {
   const classes = useStyles();
@@ -208,6 +284,8 @@ export default function StickyNav() {
                 isClearable={isClearable}
                 name="language"
                 options={languageOptions}
+                className={classes.option}
+                placeholder="Language"
                 style={{ minWidth: "200px", color: "#C7C7C7" }}
               />
             </div>
@@ -220,7 +298,12 @@ export default function StickyNav() {
                 name="resources"
                 options={groupedOptions}
                 formatGroupLabel={formatGroupLabel}
-                style={{ minWidth: "200px", color: "#C7C7C7" }}
+                style={{
+                  minWidth: "200px",
+                  color: "#C7C7C7"
+                }}
+                placeholder="Resource Type"
+                className={classes.option}
               />
             </div>
             {/* <div className={classes.grow} /> */}
