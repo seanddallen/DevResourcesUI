@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -15,10 +16,20 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import StarIcon from "@material-ui/icons/Star";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+import StarHalfIcon from "@material-ui/icons/StarHalf";
+import ThumbUpIcon from "@material-ui/icons/ThumbUpAlt";
+import ThumbDownIcon from "@material-ui/icons/ThumbDownAlt";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    maxWidth: 345
+    margin: "20px",
+    width: "800px"
+  },
+  grow: {
+    flexGrow: 1
   },
   media: {
     height: 0,
@@ -48,41 +59,82 @@ export default function ResourceCard() {
   };
 
   return (
-    <Card className={classes.card} style={{ margin: "20px" }}>
+    <Card className={classes.card}>
       <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
+        // avatar={
+        //   <Avatar aria-label="recipe" className={classes.avatar}>
+        //     R
+        //   </Avatar>
+        // }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          // <IconButton aria-label="settings">
+          //   <MoreVertIcon />
+          // </IconButton>
+          <>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
+          </>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title="Resource Title"
+        subheader={
+          <a href="http://www.google.com" target="_blank">
+            Resource Link
+          </a>
+        }
       />
       {/* <CardMedia
         className={classes.media}
         image="/static/images/cards/paella.jpg"
         title="Paella dish"
       /> */}
-      <CardContent>
+      <CardContent style={{ paddingTop: "0px", paddingBottom: "0px" }}>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          Description: Donec aliquam ornare nunc, eget gravida diam sodales nec.
+          Morbi nec commodo felis, suscipit viverra orci. Pellentesque quis est
+          tincidunt, feugiat nisl vitae, ultrices mi. Sed tempor a tellus a
+          rhoncus. Nam pretium, velit nec imperdiet porttitor, tellus ipsum
+          pretium mauris, vitae sollicitudin nisi velit sed nunc. Cras ut magna
+          eu magna vestibulum finibus.
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
+      <CardActions
+        disableSpacing
+        style={{ margin: "0px 5px", paddingTop: "0px", paddingBottom: "0px" }}
+      >
+        <Grid style={{ display: "flex", alignItems: "center" }}>
+          <div>
+            <StarIcon />
+            <StarIcon />
+            <StarIcon />
+            <StarHalfIcon />
+            <StarBorderIcon />
+          </div>
+          <Button
+            color="primary"
+            style={{ marginLeft: "-10px", paddingLeft: "-10px" }}
+          >
+            236
+          </Button>
+        </Grid>
+        <div className={classes.grow}></div>
+        <div style={{ display: "flex", alignItems: "center", margin: "10px" }}>
+          <IconButton>
+            <ThumbUpIcon />
+          </IconButton>
+          <div style={{ marginLeft: "-5px" }}>36</div>
+        </div>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <IconButton>
+            <ThumbDownIcon />
+          </IconButton>
+          <div style={{ marginLeft: "-5px" }}>3</div>
+        </div>
+        {/* <div className={classes.grow}></div> */}
+        {/* <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded
           })}
@@ -91,7 +143,7 @@ export default function ResourceCard() {
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </IconButton>
+        </IconButton> */}
       </CardActions>
       {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
