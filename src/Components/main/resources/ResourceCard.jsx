@@ -98,7 +98,8 @@ export default function ResourceCard() {
           tincidunt, feugiat nisl vitae, ultrices mi. Sed tempor a tellus a
           rhoncus. Nam pretium, velit nec imperdiet porttitor, tellus ipsum
           pretium mauris, vitae sollicitudin nisi velit sed nunc. Cras ut magna
-          eu magna vestibulum finibus.
+          eu magna vestibulum finibus. Cras ut magna eu magna vestibulum
+          finibus.
         </Typography>
       </CardContent>
       <CardActions
