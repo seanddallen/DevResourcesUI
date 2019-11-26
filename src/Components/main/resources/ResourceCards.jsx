@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   // }
 }));
 
-export default function ResourceCards() {
+export default function ResourceCards(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -30,7 +30,7 @@ export default function ResourceCards() {
   const resources = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const listOfCards = resources.map(resource => {
-    return <ResourceCard />;
+    return <ResourceCard toggleDrawer={props.toggleDrawer} />;
   });
 
   return (

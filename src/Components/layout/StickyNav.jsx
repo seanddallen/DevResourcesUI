@@ -204,7 +204,7 @@ const customStyles = {
   }
 };
 
-export default function StickyNav() {
+export default function StickyNav(props) {
   const classes = useStyles();
 
   const [isClearable, setIsClearable] = useState(true);
@@ -313,6 +313,7 @@ export default function StickyNav() {
                 size="medium"
                 className={classes.button}
                 style={{ margin: "0 10px" }}
+                onClick={props.toggleDrawer("left", true)}
               >
                 FILTERS
               </Button>

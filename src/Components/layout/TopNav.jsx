@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function TopNav() {
+export default function TopNav(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -168,6 +168,7 @@ export default function TopNav() {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
+            onClick={props.toggleDrawer("left", true)}
           >
             <MenuIcon />
           </IconButton>

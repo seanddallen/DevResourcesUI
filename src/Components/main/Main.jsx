@@ -5,19 +5,15 @@ import Grid from "@material-ui/core/Grid";
 import Filters from "./filters/Filters";
 import Cards from "./resources/ResourceCards";
 
-class Main extends Component {
-  render() {
-    return (
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        {/* <Grid container style={{ width: "30vw", margin: "10px" }}>
+export default function Main(props) {
+  return (
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      {/* <Grid container style={{ width: "30vw", margin: "10px" }}>
           <Filters />
         </Grid> */}
-        <Grid container style={{ width: "100vw", margin: "10px" }}>
-          <Cards />
-        </Grid>
-      </div>
-    );
-  }
+      <Grid container style={{ width: "100vw", margin: "10px" }}>
+        <Cards toggleDrawer={props.toggleDrawer} />
+      </Grid>
+    </div>
+  );
 }
-
-export default Main;

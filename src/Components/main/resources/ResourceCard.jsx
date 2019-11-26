@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ResourceCard() {
+export default function ResourceCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -117,6 +117,7 @@ export default function ResourceCard() {
           <Button
             color="primary"
             style={{ marginLeft: "-10px", paddingLeft: "-10px" }}
+            onClick={props.toggleDrawer("right", true)}
           >
             236
           </Button>
