@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import TopNav from './Components/layout/TopNav';
 import StickyNav from './Components/layout/StickyNav';
 import Footer from './Components/layout/Footer';
@@ -15,6 +15,41 @@ import List from '@material-ui/core/List';
 import './index.css';
 
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+        // light: will be calculated from palette.primary.main,
+        main: '#EC5252',
+        // dark: '#F26837'
+        // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+        // light: '#F4C150',
+        main: '#F4C150'
+        // dark: will be calculated from palette.secondary.main,
+        // contrastText: will be calculated to contrast with palette.secondary.main
+    },
+    tertiary: {
+      // light: '#C6C6C6',
+      main: '#007791'
+      // dark: will be calculated from palette.secondary.main,
+      // contrastText: will be calculated to contrast with palette.secondary.main
+    },
+    grey: {
+      light: '#C6C6C6',
+      main: '#6D6E70'
+      // dark: will be calculated from palette.secondary.main,
+      // contrastText: will be calculated to contrast with palette.secondary.main
+    }
+    // error: will use the default color
+  },
+  // overrides: {
+  //     MuiInput: {
+  //         underline: 'green'
+  //     }
+  // }
+})
+
 const useStyles = makeStyles({
   list: {
     width: 500,
@@ -22,6 +57,9 @@ const useStyles = makeStyles({
   fullList: {
     width: 'auto',
   },
+  // topNav: {
+  //   backgroundColor: theme.palette.secondary.main
+  // }
 });
 
 //onClick={toggleDrawer('left', true)}
@@ -59,25 +97,27 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        { !window.location.pathname.includes('login') && !window.location.pathname.includes('registration') &&
-          <>
-            <TopNav toggleDrawer={toggleDrawer} />
-            <StickyNav toggleDrawer={toggleDrawer} />
-          </>
-        }
-        <Switch>
-          <Route exact path="/" component={() => <Main toggleDrawer={toggleDrawer}/>} />
-          <Route path="/login" component={Login} />
-          <Route path="/registration" component={Registration} />
-          <Route path="/profile" component={Profile} />
-        </Switch>
-        <Drawer open={drawer.left} onClose={toggleDrawer("left", false)}>
-          {sideList("left")}
-        </Drawer>
-        <Drawer anchor="right" open={drawer.right} onClose={toggleDrawer('right', false)}>
-          {sideList('right')}
-        </Drawer>
-        {/* <Footer/> */}
+        <MuiThemeProvider theme={theme}>
+          { !window.location.pathname.includes('login') && !window.location.pathname.includes('registration') &&
+            <>
+              <TopNav className={classes.topNav} toggleDrawer={toggleDrawer} />
+              <StickyNav toggleDrawer={toggleDrawer} />
+            </>
+          }
+          <Switch>
+            <Route exact path="/" component={() => <Main toggleDrawer={toggleDrawer}/>} />
+            <Route path="/login" component={Login} />
+            <Route path="/registration" component={Registration} />
+            <Route path="/profile" component={Profile} />
+          </Switch>
+          <Drawer open={drawer.left} onClose={toggleDrawer("left", false)}>
+            {sideList("left")}
+          </Drawer>
+          <Drawer anchor="right" open={drawer.right} onClose={toggleDrawer('right', false)}>
+            {sideList('right')}
+          </Drawer>
+          {/* <Footer/> */}
+        </MuiThemeProvider>
       </BrowserRouter>
     </div>
   );

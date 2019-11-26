@@ -1,7 +1,3 @@
-TASK LEFT:
-
-- Add Redux
-
 COMPONENTS LEFT:
 
 - Filter Drawer
