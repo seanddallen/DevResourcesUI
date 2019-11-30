@@ -219,9 +219,10 @@ export default function Registration() {
             >
               <div>Once Registered you will be able to:</div>
               <ol>
-                <li>Save/View your own favorite resources</li>
+                <li>Add resources</li>
                 <li>Review Resources</li>
                 <li>Vote on Resources</li>
+                <li>View Saved resources</li>
               </ol>
             </div>
           </div>
