@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import StarHalfIcon from "@material-ui/icons/StarHalf";
+import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -37,11 +38,17 @@ export default function Review(props) {
       <Grid style={{ margin: "20px" }}>
         <Grid style={{ display: "flex", justifyContent: "space-between" }}>
           <div>
-            <StarIcon />
+            {/* <StarIcon />
             <StarIcon />
             <StarIcon />
             <StarHalfIcon />
-            <StarBorderIcon />
+            <StarBorderIcon /> */}
+            <Rating
+              name="half-rating"
+              readOnly={true}
+              value={1.7}
+              precision={0.1}
+            />
           </div>
           <div>11/08/19</div>
         </Grid>

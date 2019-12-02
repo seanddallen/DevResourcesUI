@@ -174,7 +174,12 @@ export default function TopNav(props) {
             <MenuIcon />
           </IconButton>
           <Link to="/">
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography
+              className={classes.title}
+              variant="h6"
+              noWrap
+              style={{ color: "#ffffff" }}
+            >
               DevResources
             </Typography>
           </Link>

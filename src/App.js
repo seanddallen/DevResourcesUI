@@ -18,22 +18,27 @@ import ReviewDrawer from './Components/main/reviews/ReviewDrawer';
 
 
 const theme = createMuiTheme({
+  //PRIMARY (blue) - #007791
+  //SECONDARY (red) - #EC5252
+  //TERTIARY (blue) - #F4C150
+  //PRIMARY (blue) - #C6C6C6
+
   palette: {
     primary: {
         // light: will be calculated from palette.primary.main,
-        main: '#EC5252',
+        main: '#007791',
         // dark: '#F26837'
         // contrastText: will be calculated to contrast with palette.primary.main
     },
     secondary: {
         // light: '#F4C150',
-        main: '#F4C150'
+        main: '#EC5252'
         // dark: will be calculated from palette.secondary.main,
         // contrastText: will be calculated to contrast with palette.secondary.main
     },
     tertiary: {
       // light: '#C6C6C6',
-      main: '#007791'
+      main: '#F4C150'
       // dark: will be calculated from palette.secondary.main,
       // contrastText: will be calculated to contrast with palette.secondary.main
     },

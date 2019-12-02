@@ -22,6 +22,7 @@ import StarHalfIcon from "@material-ui/icons/StarHalf";
 import ThumbUpIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbDownIcon from "@material-ui/icons/ThumbDownAlt";
 import Button from "@material-ui/core/Button";
+import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -108,18 +109,26 @@ export default function ResourceCard(props) {
       >
         <Grid style={{ display: "flex", alignItems: "center" }}>
           <div>
-            <StarIcon />
+            {/* <StarIcon />
             <StarIcon />
             <StarIcon />
             <StarHalfIcon />
-            <StarBorderIcon />
+            <StarBorderIcon /> */}
+            <Rating
+              name="half-rating"
+              readOnly={true}
+              value={3.6}
+              precision={0.1}
+            />
           </div>
           <Button
             color="primary"
-            style={{ marginLeft: "-10px", paddingLeft: "-10px" }}
+            style={{ marginLeft: "0px", paddingLeft: "0px" }}
             onClick={props.toggleDrawer("right", true)}
           >
-            236
+            <div style={{ fontSize: "14px", marginLeft: "10px" }}>
+              236 Reviews
+            </div>
           </Button>
         </Grid>
         <div className={classes.grow}></div>

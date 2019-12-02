@@ -12,6 +12,7 @@ import StarHalfIcon from "@material-ui/icons/StarHalf";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Rating from "@material-ui/lab/Rating";
 
 import Review from "./Review";
 import ReviewForm from "./ReviewForm";
@@ -77,7 +78,7 @@ export default function ReviewDrawer() {
       {!openForm ? (
         <>
           <Grid style={{ margin: "20px" }}>
-            <Grid style={{ fontSize: "16px" }}>DEVELOPER RATING: 3.6</Grid>
+            <Grid style={{ fontSize: "16px" }}>DEVELOPER RATING: 4.6</Grid>
             <Grid
               style={{
                 display: "flex",
@@ -86,11 +87,18 @@ export default function ReviewDrawer() {
               }}
             >
               <div>
-                <StarIcon />
+                {/* <StarIcon />
                 <StarIcon />
                 <StarIcon />
                 <StarHalfIcon />
-                <StarBorderIcon />
+                <StarBorderIcon /> */}
+                <Rating
+                  name="half-rating"
+                  readOnly={true}
+                  size={"large"}
+                  value={4.6}
+                  precision={0.1}
+                />
               </div>
               <div style={{ marginLeft: "5px" }}>236</div>
             </Grid>
