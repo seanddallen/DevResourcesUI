@@ -13,6 +13,8 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 
 import './index.css';
+import FiltersDrawer from './Components/main/filters/FiltersDrawer';
+import ReviewDrawer from './Components/main/reviews/ReviewDrawer';
 
 
 const theme = createMuiTheme({
@@ -43,6 +45,10 @@ const theme = createMuiTheme({
     }
     // error: will use the default color
   },
+  typography: {
+    fontFamily:
+      '"Poppins", Roboto, "Helvetica Neue", Arial, sans-serif',
+  },
   // overrides: {
   //     MuiInput: {
   //         underline: 'green'
@@ -56,6 +62,12 @@ const useStyles = makeStyles({
   },
   fullList: {
     width: 'auto',
+  },
+  leftDrawer: {
+    width: 400,
+  },
+  rightDrawer: {
+    width: 500,
   },
   // topNav: {
   //   backgroundColor: theme.palette.secondary.main
@@ -76,19 +88,25 @@ function App() {
   };
 
   const sideList = side => (
-    <div
-      className={classes.list}
+    <div>
+      { side === 'left' ?
+      <div
+        className={classes.leftDrawer}
+        role="presentation"
+        onClick={toggleDrawer(side, false)}
+        onKeyDown={toggleDrawer(side, false)}
+      >
+          <FiltersDrawer />
+      </div> :
+      <div
+      className={classes.rightDrawer}
       role="presentation"
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      <List>
-        FILTERS
-      </List>
-      <Divider />
-      <List>
-        SEARCH
-      </List>
+        <ReviewDrawer />
+    </div> 
+    }
     </div>
   );
 
