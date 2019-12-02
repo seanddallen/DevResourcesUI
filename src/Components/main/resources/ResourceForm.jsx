@@ -37,7 +37,7 @@ export default function ResourceForm(props) {
         style={{ width: "120px" }}
         onClick={() => props.setOpenForm(!props.openForm)}
       >
-        Add Resource
+        {props.openForm ? "Close" : "Add Resource"}
       </Button>
       {props.openForm && (
         <>

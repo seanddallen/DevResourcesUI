@@ -93,7 +93,7 @@ function App() {
       <div
         className={classes.leftDrawer}
         role="presentation"
-        onClick={toggleDrawer(side, false)}
+        // onClick={toggleDrawer(side, false)}
         onKeyDown={toggleDrawer(side, false)}
       >
           <FiltersDrawer />
@@ -101,7 +101,7 @@ function App() {
       <div
       className={classes.rightDrawer}
       role="presentation"
-      onClick={toggleDrawer(side, false)}
+      // onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
         <ReviewDrawer />
