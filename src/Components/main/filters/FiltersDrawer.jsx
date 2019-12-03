@@ -16,6 +16,7 @@ import React from "react";
 import Select from "react-select";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import SwipeableViews from "react-swipeable-views";
@@ -50,12 +51,41 @@ const useStyles = makeStyles({
   //   }
 });
 
-// function a11yProps(index) {
-//   return {
-//     id: `full-width-tab-${index}`,
-//     "aria-controls": `full-width-tabpanel-${index}`
-//   };
-// }
+const levelOptions = [
+  { label: "Beginner", value: "Beginner", resource: "Beginner" },
+  { label: "Intermediate", value: "Intermediate", resource: "Intermediate" },
+  { label: "Advanced", value: "Advanced", resource: "Advanced" }
+];
+
+const ageOptions = [
+  { label: "0-1 Years", value: "new", resource: "new" },
+  { label: "1-5 Years", value: "old", resource: "old" },
+  { label: "5+ Years", value: "outdated", resource: "outdated" }
+];
+
+const priceOptions = [
+  { label: "FREE", value: "Free", resource: "Free" },
+  { label: "under $20", value: "under20", resource: "under20" },
+  { label: "$20 - $100", value: "over20", resource: "over20" },
+  { label: "over $100", value: "over100", resource: "over100" }
+];
+
+const tagOptions = [
+  { label: "react", value: "react", resource: "react" },
+  { label: "Redux", value: "Redux", resource: "Redux" },
+  { label: "Angular", value: "Angular", resource: "Angular" },
+  { label: "Vue", value: "Vue", resource: "Vue" },
+  { label: "Node", value: "Node", resource: "Node" },
+  { label: "Knex", value: "Knex", resource: "Knex" },
+  { label: "Postgres", value: "Postgres", resource: "Redux" },
+  { label: "Express", value: "Express", resource: "Express" },
+  { label: "SQL", value: "SQL", resource: "SQL" },
+  { label: "Spring", value: "Spring", resource: "Spring" },
+  { label: "MVC", value: "MVC", resource: "MVC" },
+  { label: "HTML", value: "HTML", resource: "Redux" },
+  { label: "CSS", value: "CSS", resource: "CSS" },
+  { label: "ES6", value: "ES6", resource: "ES6" }
+];
 
 function TabPanel(props) {
   const { value, index, ...other } = props;
@@ -91,13 +121,16 @@ export default function Filters() {
         container
         style={{
           display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center"
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: "10px",
+          marginBottom: "-20px"
         }}
       >
-        <h3>FILTERS</h3>
+        <h3 style={{ marginBottom: "-20px" }}>FILTERS</h3>
         <h6>Clear All</h6>
       </Grid>
+      <Divider style={{ width: "120%", marginLeft: "-20px" }} />
       {/* <Grid container spacing={1}>
           <Grid item xs={12} md={12}>
             <Grid container spacing={1} direction="column" alignItems="center">
@@ -115,25 +148,25 @@ export default function Filters() {
             </Grid>
           </Grid>
         </Grid> */}
-      <div className={classes.root}>
+      <div className={classes.root} style={{ marginTop: "20px" }}>
         <AppBar position="static" color="default">
           <Tabs
             value={value}
             onChange={handleChange}
-            indicatorColor="primary"
+            indicatorColor="secondary"
             textColor="primary"
             //   variant="fullWidth"
             aria-label="full width tabs example"
           >
             <Tab
-              label="All"
+              label={<span style={{ fontSize: "14px" }}>All</span>}
               style={{
                 minWidth: "10px",
                 width: "50%"
               }}
             />
             <Tab
-              label="Saved"
+              label={<span style={{ fontSize: "14px" }}>Saved</span>}
               style={{
                 minWidth: "10px",
                 width: "50%"
@@ -192,7 +225,7 @@ export default function Filters() {
           style={{
             marginTop: "40px",
             minWidth: "100%",
-            border: "2px solid #C7C7C7",
+            border: "1px solid #C7C7C7",
             borderRadius: "6px"
           }}
         >
@@ -202,7 +235,7 @@ export default function Filters() {
             // defaultValue={languageOptions[0]}
             // isClearable={isClearable}
             name="experience"
-            // options={languageOptions}
+            options={levelOptions}
             className={classes.option}
             placeholder="Resource Level"
             style={{ color: "#C7C7C7" }}
@@ -212,7 +245,7 @@ export default function Filters() {
           style={{
             marginTop: "20px",
             minWidth: "100%",
-            border: "2px solid #C7C7C7",
+            border: "1px solid #C7C7C7",
             borderRadius: "6px"
           }}
         >
@@ -222,7 +255,7 @@ export default function Filters() {
             // defaultValue={languageOptions[0]}
             // isClearable={isClearable}
             name="age"
-            // options={languageOptions}
+            options={ageOptions}
             className={classes.option}
             placeholder="Resource Age"
             style={{ color: "#C7C7C7" }}
@@ -232,7 +265,7 @@ export default function Filters() {
           style={{
             marginTop: "20px",
             minWidth: "100%",
-            border: "2px solid #C7C7C7",
+            border: "1px solid #C7C7C7",
             borderRadius: "6px"
           }}
         >
@@ -242,7 +275,7 @@ export default function Filters() {
             // defaultValue={languageOptions[0]}
             // isClearable={isClearable}
             name="price"
-            // options={languageOptions}
+            options={priceOptions}
             className={classes.option}
             placeholder="Resource Price"
             style={{ color: "#C7C7C7" }}
@@ -252,7 +285,7 @@ export default function Filters() {
           style={{
             marginTop: "20px",
             minWidth: "100%",
-            border: "2px solid #C7C7C7",
+            border: "1px solid #C7C7C7",
             borderRadius: "6px"
           }}
         >
@@ -262,7 +295,8 @@ export default function Filters() {
             // defaultValue={languageOptions[0]}
             // isClearable={isClearable}
             name="tags"
-            // options={languageOptions}
+            isMulti
+            options={tagOptions}
             className={classes.option}
             placeholder="Resource Tags"
             style={{ color: "#C7C7C7" }}

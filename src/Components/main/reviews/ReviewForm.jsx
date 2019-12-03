@@ -37,7 +37,9 @@ export default function ResourceForm(props) {
         style={{ width: "120px" }}
         onClick={() => props.setOpenForm(!props.openForm)}
       >
-        {props.openForm ? "Close" : "Add Review"}
+        <div style={{ fontSize: "14px" }}>
+          {props.openForm ? "Close" : "Add Review"}
+        </div>{" "}
       </Button>
       {props.openForm && (
         <>
@@ -83,7 +85,7 @@ export default function ResourceForm(props) {
             </form>
           </div>
           <Button
-            color="primary"
+            color="secondary"
             variant="contained"
             className={classes.button}
             style={{ width: "120px", marginTop: "20px" }}

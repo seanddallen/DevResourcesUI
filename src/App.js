@@ -99,7 +99,7 @@ function App() {
         className={classes.leftDrawer}
         role="presentation"
         // onClick={toggleDrawer(side, false)}
-        onKeyDown={toggleDrawer(side, false)}
+        // onKeyDown={toggleDrawer(side, false)}
       >
           <FiltersDrawer />
       </div> :
@@ -107,7 +107,7 @@ function App() {
       className={classes.rightDrawer}
       role="presentation"
       // onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
+      // onKeyDown={toggleDrawer(side, false)}
     >
         <ReviewDrawer />
     </div> 

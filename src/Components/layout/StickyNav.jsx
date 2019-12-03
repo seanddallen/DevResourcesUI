@@ -120,8 +120,8 @@ const useStyles = makeStyles(theme => ({
   },
   search: {
     position: "relative",
-    border: "1px solid #C7C7C7",
-    borderRadius: "3px",
+    border: "2px solid #C7C7C7",
+    borderRadius: "6px",
     backgroundColor: "#FFFFFF",
     "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25)
@@ -266,17 +266,26 @@ export default function StickyNav(props) {
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-                inputProps={{ "aria-label": "search" }}
-              />
+              <div>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput
+                  }}
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </div>
             </div>
             <div className={classes.grow} />
-            <div style={{ margin: "0 10px 0 0", minWidth: "200px" }}>
+            <div
+              style={{
+                margin: "0 10px 0 0",
+                minWidth: "200px",
+                border: "1px solid #C7C7C7",
+                borderRadius: "6px"
+              }}
+            >
               <Select
                 className="basic-single"
                 classNamePrefix="select"
@@ -286,10 +295,20 @@ export default function StickyNav(props) {
                 options={languageOptions}
                 className={classes.option}
                 placeholder="Language"
-                style={{ minWidth: "200px", color: "#C7C7C7" }}
+                style={{
+                  minWidth: "200px",
+                  color: "#C7C7C7"
+                }}
               />
             </div>
-            <div style={{ margin: "0 10px 0 0", minWidth: "200px" }}>
+            <div
+              style={{
+                margin: "0 10px 0 0",
+                minWidth: "200px",
+                border: "1px solid #C7C7C7",
+                borderRadius: "6px"
+              }}
+            >
               <Select
                 className="basic-single"
                 classNamePrefix="select"
