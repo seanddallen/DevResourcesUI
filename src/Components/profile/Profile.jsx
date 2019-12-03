@@ -8,6 +8,8 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import { makeStyles } from "@material-ui/core/styles";
 
+import ProfileCard from "./ProfileCard";
+
 const useStyles = makeStyles(theme => ({
   card: {
     margin: "20px",
@@ -18,13 +20,19 @@ const useStyles = makeStyles(theme => ({
 export default function Profile() {
   const classes = useStyles();
 
+  const favorites = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const listOfFavorites = favorites.map(favorite => {
+    return <ProfileCard favorite={favorite} />;
+  });
+
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        marginTop: "40px",
+        marginTop: "0px",
         width: "100vw"
       }}
     >
@@ -148,33 +156,7 @@ export default function Profile() {
         }}
       >
         <h3>USER FAVORITES</h3>
-
-        <Card className={classes.card}>
-          <CardHeader
-            action={
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginTop: "10px"
-                }}
-              >
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                  <ShareIcon />
-                </IconButton>
-              </div>
-            }
-            title="Resource Title"
-            subheader={
-              <a href="http://www.google.com" target="_blank">
-                Resource Link
-              </a>
-            }
-          />
-        </Card>
+        {listOfFavorites}
       </div>
     </div>
   );

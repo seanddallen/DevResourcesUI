@@ -124,7 +124,9 @@ function App() {
           { !window.location.pathname.includes('login') && !window.location.pathname.includes('registration') &&
             <>
               <TopNav className={classes.topNav} toggleDrawer={toggleDrawer} />
+              { !window.location.pathname.includes('profile') &&
               <StickyNav toggleDrawer={toggleDrawer} />
+              }
             </>
           }
           <Switch>
