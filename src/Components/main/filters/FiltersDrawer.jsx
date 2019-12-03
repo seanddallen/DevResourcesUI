@@ -239,6 +239,15 @@ export default function Filters() {
             className={classes.option}
             placeholder="Resource Level"
             style={{ color: "#C7C7C7" }}
+            theme={theme => ({
+              ...theme,
+              borderRadius: "6px",
+              borderWidth: "2px",
+              colors: {
+                ...theme.colors,
+                primary: "#EC5252"
+              }
+            })}
           />
         </div>
         <div
@@ -259,6 +268,15 @@ export default function Filters() {
             className={classes.option}
             placeholder="Resource Age"
             style={{ color: "#C7C7C7" }}
+            theme={theme => ({
+              ...theme,
+              borderRadius: "6px",
+              borderWidth: "2px",
+              colors: {
+                ...theme.colors,
+                primary: "#EC5252"
+              }
+            })}
           />
         </div>
         <div
@@ -279,6 +297,15 @@ export default function Filters() {
             className={classes.option}
             placeholder="Resource Price"
             style={{ color: "#C7C7C7" }}
+            theme={theme => ({
+              ...theme,
+              borderRadius: "6px",
+              borderWidth: "2px",
+              colors: {
+                ...theme.colors,
+                primary: "#EC5252"
+              }
+            })}
           />
         </div>
         <div
@@ -300,6 +327,15 @@ export default function Filters() {
             className={classes.option}
             placeholder="Resource Tags"
             style={{ color: "#C7C7C7" }}
+            theme={theme => ({
+              ...theme,
+              borderRadius: "6px",
+              borderWidth: "2px",
+              colors: {
+                ...theme.colors,
+                primary: "#EC5252"
+              }
+            })}
           />
         </div>
         <div

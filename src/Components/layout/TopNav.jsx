@@ -163,7 +163,7 @@ export default function TopNav(props) {
   return (
     <div className={classes.grow}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar style={{ display: "flex", alignItems: "center" }}>
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -178,7 +178,10 @@ export default function TopNav(props) {
               className={classes.title}
               variant="h6"
               noWrap
-              style={{ color: "#ffffff" }}
+              style={{
+                color: "#ffffff",
+                fontSize: "24px"
+              }}
             >
               DevResources
             </Typography>

@@ -124,8 +124,17 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "6px",
     backgroundColor: "#FFFFFF",
     "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
+      backgroundColor: fade(theme.palette.common.white, 0.5),
+      border: "2px solid #EC5252",
+      borderRadius: "6px"
     },
+    // "&:nth-child(1)": {
+    //   color: "#EC5252"
+    // },
+    // "&:focus": {
+    //   border: "2px solid #EC5252",
+    //   borderRadius: "6px"
+    // },
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: "100%",
@@ -158,7 +167,17 @@ const useStyles = makeStyles(theme => ({
   },
   option: {
     color: "black"
+    // "&:hover": {
+    //   border: "2px solid #EC5252",
+    //   borderRadius: "6px"
+    // }
   },
+  // select: {
+  //   "&:focused": {
+  //     border: "2px solid #EC5252",
+  //     borderRadius: "6px"
+  //   }
+  // },
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
@@ -279,6 +298,7 @@ export default function StickyNav(props) {
             </div>
             <div className={classes.grow} />
             <div
+              className={classes.select}
               style={{
                 margin: "0 10px 0 0",
                 minWidth: "200px",
@@ -299,6 +319,15 @@ export default function StickyNav(props) {
                   minWidth: "200px",
                   color: "#C7C7C7"
                 }}
+                theme={theme => ({
+                  ...theme,
+                  borderRadius: "6px",
+                  borderWidth: "2px",
+                  colors: {
+                    ...theme.colors,
+                    primary: "#EC5252"
+                  }
+                })}
               />
             </div>
             <div
@@ -323,6 +352,14 @@ export default function StickyNav(props) {
                 }}
                 placeholder="Resource Type"
                 className={classes.option}
+                theme={theme => ({
+                  ...theme,
+                  borderRadius: "6px",
+                  colors: {
+                    ...theme.colors,
+                    primary: "#EC5252"
+                  }
+                })}
               />
             </div>
             {/* <div className={classes.grow} /> */}
