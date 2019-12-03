@@ -26,8 +26,11 @@ import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    margin: "20px",
-    width: "800px"
+    margin: "10px",
+    width: "1000px",
+    "&:hover": {
+      boxShadow: "-1px 5px 29px 0px rgba(0,0,0,0.5)"
+    }
   },
   grow: {
     flexGrow: 1
@@ -60,92 +63,126 @@ export default function ResourceCard(props) {
   };
 
   return (
-    <Card className={classes.card}>
-      <CardHeader
-        // avatar={
-        //   <Avatar aria-label="recipe" className={classes.avatar}>
-        //     R
-        //   </Avatar>
-        // }
-        action={
-          // <IconButton aria-label="settings">
-          //   <MoreVertIcon />
-          // </IconButton>
-          <>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
-          </>
-        }
-        title="Resource Title"
-        subheader={
-          <a href="http://www.google.com" target="_blank">
-            Resource Link
-          </a>
-        }
-      />
-      {/* <CardMedia
+    <>
+      <Card
+        className={classes.card}
+        style={{ display: "flex", flexWrap: "nowrap" }}
+      >
+        <img
+          src={require("../../../assets/images/mrwr.jpg")}
+          style={{
+            height: "210px",
+            width: "240px"
+          }}
+        />
+        <Grid style={{ width: "800px" }}>
+          <CardHeader
+            // avatar={
+            //   <Avatar aria-label="recipe" className={classes.avatar}>
+            //     R
+            //   </Avatar>
+            // }
+            action={
+              // <IconButton aria-label="settings">
+              //   <MoreVertIcon />
+              // </IconButton>
+              <>
+                <IconButton aria-label="add to favorites">
+                  <FavoriteIcon />
+                </IconButton>
+                <IconButton aria-label="share">
+                  <ShareIcon />
+                </IconButton>
+              </>
+            }
+            title="Resource Title"
+            subheader={
+              <a href="http://www.google.com" target="_blank">
+                Resource Link
+              </a>
+            }
+          />
+          {/* <CardMedia
         className={classes.media}
         image="/static/images/cards/paella.jpg"
         title="Paella dish"
       /> */}
-      <CardContent style={{ paddingTop: "0px", paddingBottom: "0px" }}>
-        <Typography variant="body2" color="textSecondary" component="p">
-          Description: Donec aliquam ornare nunc, eget gravida diam sodales nec.
-          Morbi nec commodo felis, suscipit viverra orci. Pellentesque quis est
-          tincidunt, feugiat nisl vitae, ultrices mi. Sed tempor a tellus a
-          rhoncus. Nam pretium, velit nec imperdiet porttitor, tellus ipsum
-          pretium mauris, vitae sollicitudin nisi velit sed nunc. Cras ut magna
-          eu magna vestibulum finibus. Cras ut magna eu magna vestibulum
-          finibus.
-        </Typography>
-      </CardContent>
-      <CardActions
-        disableSpacing
-        style={{ margin: "0px 5px", paddingTop: "0px", paddingBottom: "0px" }}
-      >
-        <Grid style={{ display: "flex", alignItems: "center" }}>
-          <div>
-            {/* <StarIcon />
+          <CardContent style={{ paddingTop: "0px", paddingBottom: "0px" }}>
+            <Typography variant="body2" color="textSecondary" component="p">
+              Description: Donec aliquam ornare nunc, eget gravida diam sodales
+              nec. Morbi nec commodo felis, suscipit viverra orci. Pellentesque
+              quis est tincidunt, feugiat nisl vitae, ultrices mi. Sed tempor a
+              tellus a rhoncus. Nam pretium, velit nec imperdiet porttitor,
+              tellus ipsum pretium mauris, vitae sollicitudin nisi velit sed
+              nunc. Cras ut magna eu magna vestibulum finibus. Cras ut magna eu
+              magna vestibulum finibus.
+            </Typography>
+          </CardContent>
+          <CardActions
+            disableSpacing
+            style={{
+              margin: "0px 5px",
+              paddingTop: "0px",
+              paddingBottom: "0px"
+            }}
+          >
+            <Grid
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginTop: "10px"
+              }}
+            >
+              <div>
+                {/* <StarIcon />
             <StarIcon />
             <StarIcon />
             <StarHalfIcon />
             <StarBorderIcon /> */}
-            <Rating
-              name="half-rating"
-              readOnly={true}
-              value={3.6}
-              precision={0.1}
-            />
-          </div>
-          <Button
-            color="primary"
-            style={{ marginLeft: "0px", paddingLeft: "0px" }}
-            onClick={props.toggleDrawer("right", true)}
-          >
-            <div style={{ fontSize: "14px", marginLeft: "10px" }}>
-              236 Reviews
+                <Rating
+                  name="half-rating"
+                  readOnly={true}
+                  value={3.6}
+                  precision={0.1}
+                />
+              </div>
+              <Button
+                color="primary"
+                style={{ marginLeft: "0px", paddingLeft: "0px" }}
+                onClick={props.toggleDrawer("right", true)}
+              >
+                <div style={{ fontSize: "14px", marginLeft: "10px" }}>
+                  236 Reviews
+                </div>
+              </Button>
+            </Grid>
+            <div className={classes.grow}></div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginTop: "10px"
+              }}
+            >
+              <IconButton>
+                <ThumbUpIcon />
+              </IconButton>
+              <div style={{ marginLeft: "-5px" }}>36</div>
             </div>
-          </Button>
-        </Grid>
-        <div className={classes.grow}></div>
-        <div style={{ display: "flex", alignItems: "center", margin: "10px" }}>
-          <IconButton>
-            <ThumbUpIcon />
-          </IconButton>
-          <div style={{ marginLeft: "-5px" }}>36</div>
-        </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <IconButton>
-            <ThumbDownIcon />
-          </IconButton>
-          <div style={{ marginLeft: "-5px" }}>3</div>
-        </div>
-        {/* <div className={classes.grow}></div> */}
-        {/* <IconButton
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginTop: "10px"
+              }}
+            >
+              <IconButton>
+                <ThumbDownIcon />
+              </IconButton>
+              <div style={{ marginLeft: "-5px" }}>3</div>
+            </div>
+            {/* <div className={classes.grow}></div> */}
+            {/* <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded
           })}
@@ -155,8 +192,8 @@ export default function ResourceCard(props) {
         >
           <ExpandMoreIcon />
         </IconButton> */}
-      </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
+          </CardActions>
+          {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Method:</Typography>
           <Typography paragraph>
@@ -187,6 +224,8 @@ export default function ResourceCard(props) {
           </Typography>
         </CardContent>
       </Collapse> */}
-    </Card>
+        </Grid>
+      </Card>
+    </>
   );
 }
