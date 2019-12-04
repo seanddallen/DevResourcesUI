@@ -72,11 +72,13 @@ export default function Registration() {
                 style={{ width: "250px", marginTop: "20px" }}
                 id="first-name"
                 label="First Name"
+                color="secondary"
               />
               <TextField
                 style={{ width: "250px", marginTop: "20px" }}
                 id="last-name"
                 label="Last Name"
+                color="secondary"
               />
               {/* <TextField
                 style={{ width: "250px" }}
@@ -87,6 +89,7 @@ export default function Registration() {
                 style={{ width: "250px", marginTop: "20px" }}
                 id="email"
                 label="Email"
+                color="secondary"
               />
             </form>
           </div>
@@ -116,6 +119,7 @@ export default function Registration() {
               <FormControl
                 className={classes.formControl}
                 style={{ marginTop: "20px" }}
+                color="secondary"
               >
                 <InputLabel id="demo-simple-select-label">Education</InputLabel>
                 <Select
@@ -133,6 +137,7 @@ export default function Registration() {
               <FormControl
                 className={classes.formControl}
                 style={{ marginTop: "20px" }}
+                color="secondary"
               >
                 <InputLabel id="demo-simple-select-label">
                   Employment
@@ -156,6 +161,7 @@ export default function Registration() {
               <FormControl
                 className={classes.formControl}
                 style={{ marginTop: "20px" }}
+                color="secondary"
               >
                 <InputLabel id="demo-simple-select-label">
                   Experience
@@ -177,6 +183,7 @@ export default function Registration() {
               <FormControl
                 className={classes.formControl}
                 style={{ marginTop: "20px" }}
+                color="secondary"
               >
                 <InputLabel id="demo-simple-select-label">
                   Speciality

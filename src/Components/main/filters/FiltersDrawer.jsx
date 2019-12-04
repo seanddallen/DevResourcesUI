@@ -30,6 +30,8 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const useStyles = makeStyles({
   root: {
@@ -159,14 +161,28 @@ export default function Filters() {
             aria-label="full width tabs example"
           >
             <Tab
-              label={<span style={{ fontSize: "14px" }}>All</span>}
+              label={
+                <>
+                  <div>
+                    <AllInclusiveIcon />
+                  </div>
+                  <span style={{ fontSize: "14px" }}>All</span>
+                </>
+              }
               style={{
                 minWidth: "10px",
                 width: "50%"
               }}
             />
             <Tab
-              label={<span style={{ fontSize: "14px" }}>Saved</span>}
+              label={
+                <>
+                  <div>
+                    <FavoriteIcon />
+                  </div>
+                  <span style={{ fontSize: "14px" }}>Saved</span>
+                </>
+              }
               style={{
                 minWidth: "10px",
                 width: "50%"

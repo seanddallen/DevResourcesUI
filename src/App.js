@@ -54,11 +54,23 @@ const theme = createMuiTheme({
     fontFamily:
       '"Poppins", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
-  // overrides: {
-  //     MuiInput: {
-  //         underline: 'green'
-  //     }
-  // }
+  overrides: {
+      // MuiInput: {
+      //     underline: 'green'
+      // },
+      MuiStepIcon: {
+        root: {
+          '&$completed': {
+            color: '#EC5252',
+          },
+          '&$active': {
+            color: '#EC5252',
+          },
+        },
+        active: {},
+        completed: {},
+      }
+  }
 })
 
 const useStyles = makeStyles({
