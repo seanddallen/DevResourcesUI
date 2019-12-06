@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Filters from "./filters/Filters";
 import Cards from "./resources/ResourceCards";
 import ResourceForm from "./resources/ResourceForm";
+import Leaderboard from "./leaderboard/Leaderboard";
 
 export default function Main(props) {
   const [openForm, setOpenForm] = React.useState(false);
@@ -18,12 +19,30 @@ export default function Main(props) {
         marginTop: "20px"
       }}
     >
-      <ResourceForm openForm={openForm} setOpenForm={setOpenForm} />
-      {!openForm ? (
-        <Grid container style={{ width: "100vw", marginTop: "-20px" }}>
-          <Cards toggleDrawer={props.toggleDrawer} />
-        </Grid>
-      ) : null}
+      <div>
+        {!openForm ? (
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <div
+              style={{
+                display: "flex"
+              }}
+            >
+              <Leaderboard />
+            </div>
+            <div container style={{ marginTop: "0px" }}>
+              <ResourceForm openForm={openForm} setOpenForm={setOpenForm} />
+              <Cards
+                toggleDrawer={props.toggleDrawer}
+                style={{ marginTop: "20px" }}
+              />
+            </div>
+          </div>
+        ) : (
+          <div container style={{ marginTop: "10px" }}>
+            <ResourceForm openForm={openForm} setOpenForm={setOpenForm} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

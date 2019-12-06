@@ -72,7 +72,7 @@ export default function ResourceForm(props) {
       <Button
         color="primary"
         className={classes.button}
-        style={{ width: "120px" }}
+        style={{ width: "120px", marginBottom: "-20px" }}
         onClick={() => props.setOpenForm(!props.openForm)}
       >
         <div style={{ fontSize: "14px" }}>

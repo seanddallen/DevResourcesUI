@@ -1,6 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+
+import './index.css';
 import TopNav from './Components/layout/TopNav';
 import StickyNav from './Components/layout/StickyNav';
 import Footer from './Components/layout/Footer';
@@ -8,14 +13,9 @@ import Main from './Components/main/Main';
 import Login from './Components/login/Login';
 import Registration from './Components/login/Registration';
 import Profile from './Components/profile/Profile';
-import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-
-import './index.css';
 import FiltersDrawer from './Components/main/filters/FiltersDrawer';
 import ReviewDrawer from './Components/main/reviews/ReviewDrawer';
-
+import Rankings from './Components/rankings/Rankings';
 
 const theme = createMuiTheme({
   //PRIMARY (blue) - #007791
@@ -136,7 +136,7 @@ function App() {
           { !window.location.pathname.includes('login') && !window.location.pathname.includes('registration') &&
             <>
               <TopNav className={classes.topNav} toggleDrawer={toggleDrawer} />
-              { !window.location.pathname.includes('profile') &&
+              { !window.location.pathname.includes('profile') && !window.location.pathname.includes('rankings') && 
               <StickyNav toggleDrawer={toggleDrawer} />
               }
             </>
@@ -146,6 +146,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/registration" component={Registration} />
             <Route path="/profile" component={Profile} />
+            <Route path="/rankings" component={Rankings} />
           </Switch>
           <Drawer open={drawer.left} onClose={toggleDrawer("left", false)}>
             {sideList("left")}

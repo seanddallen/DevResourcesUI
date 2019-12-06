@@ -287,7 +287,7 @@ export default function StickyNav(props) {
               </div>
               <div>
                 <InputBase
-                  placeholder="Search…"
+                  placeholder="Filter by Keyword"
                   classes={{
                     root: classes.inputRoot,
                     input: classes.inputInput

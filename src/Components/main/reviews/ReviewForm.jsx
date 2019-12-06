@@ -71,6 +71,7 @@ export default function ResourceForm(props) {
                 id="description"
                 label="REVIEW"
                 multiline
+                rows="6"
                 rowsMax="4"
                 value={description}
                 onChange={e => setDescription(e.target.value)}

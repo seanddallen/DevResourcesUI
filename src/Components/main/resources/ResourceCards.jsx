@@ -29,8 +29,8 @@ export default function ResourceCards(props) {
   };
   const resources = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-  const listOfCards = resources.map(resource => {
-    return <ResourceCard toggleDrawer={props.toggleDrawer} />;
+  const listOfCards = resources.map(card => {
+    return <ResourceCard toggleDrawer={props.toggleDrawer} card={card} />;
   });
 
   return (

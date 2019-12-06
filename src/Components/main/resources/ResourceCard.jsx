@@ -27,7 +27,8 @@ import Rating from "@material-ui/lab/Rating";
 const useStyles = makeStyles(theme => ({
   card: {
     margin: "10px",
-    width: "1000px",
+    width: "800px",
+    minHeight: "200px",
     "&:hover": {
       boxShadow: "-1px 5px 29px 0px rgba(0,0,0,0.5)"
     }
@@ -71,8 +72,8 @@ export default function ResourceCard(props) {
         <img
           src={require("../../../assets/images/mrwr.jpg")}
           style={{
-            height: "210px",
-            width: "240px"
+            height: "100%",
+            width: "280px"
           }}
         />
         <Grid style={{ width: "800px" }}>
@@ -95,10 +96,13 @@ export default function ResourceCard(props) {
                 </IconButton>
               </>
             }
-            title="Resource Title"
+            title={`#${props.card}: Modern React with Redux`}
             subheader={
-              <a href="http://www.google.com" target="_blank">
-                Resource Link
+              <a
+                href="https://www.udemy.com/course/react-redux/"
+                target="_blank"
+              >
+                www.udemy.com/course/react-redux/
               </a>
             }
           />
@@ -107,7 +111,13 @@ export default function ResourceCard(props) {
         image="/static/images/cards/paella.jpg"
         title="Paella dish"
       /> */}
-          <CardContent style={{ paddingTop: "0px", paddingBottom: "0px" }}>
+          <CardContent
+            style={{
+              paddingTop: "0px",
+              paddingBottom: "0px",
+              margin: "-10px 0px"
+            }}
+          >
             <Typography variant="body2" color="textSecondary" component="p">
               Description: Donec aliquam ornare nunc, eget gravida diam sodales
               nec. Morbi nec commodo felis, suscipit viverra orci. Pellentesque
