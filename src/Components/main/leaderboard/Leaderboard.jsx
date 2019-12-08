@@ -111,7 +111,33 @@ export default function ResourceCard(props) {
     setExpanded(!expanded);
   };
 
-  const leaders = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const leaders = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25
+  ];
 
   const listOfLeaders = leaders.map(leader => {
     return (
@@ -176,10 +202,22 @@ export default function ResourceCard(props) {
         flexDirection: "column",
         flexWrap: "nowrap",
         alignItems: "center",
-        margin: "17px -20px 0px 50px"
+        margin: "20px -20px 0px 50px"
       }}
     >
-      <div style={{ fontSize: "14px" }}>LEADERBOARD</div>
+      <div style={{ fontSize: "14px", fontWeight: "bold" }}>LEADERBOARD</div>
+      <Grid
+        container
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "20px",
+          marginBottom: "0px"
+        }}
+      >
+        <div>** Top 25 Contributors **</div>
+      </Grid>
       <Card
         className={classes.card}
         style={{

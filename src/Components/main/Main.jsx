@@ -33,7 +33,7 @@ export default function Main(props) {
               <ResourceForm openForm={openForm} setOpenForm={setOpenForm} />
               <Cards
                 toggleDrawer={props.toggleDrawer}
-                style={{ marginTop: "20px" }}
+                style={{ marginTop: "0px" }}
               />
             </div>
           </div>

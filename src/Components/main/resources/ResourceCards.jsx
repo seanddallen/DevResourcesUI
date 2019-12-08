@@ -39,7 +39,8 @@ export default function ResourceCards(props) {
       style={{
         display: "flex",
         justifyContent: "center",
-        marginTop: "20px"
+        marginTop: "20px",
+        marginBottom: "-10px"
       }}
     >
       <Grid

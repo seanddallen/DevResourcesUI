@@ -15,6 +15,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import LogoutIcon from "@material-ui/icons/PowerSettingsNew";
 import Avatar from "@material-ui/core/Avatar";
 import Trophy from "@material-ui/icons/EmojiEvents";
 import Divider from "@material-ui/core/Divider";
@@ -135,8 +136,22 @@ export default function TopNav(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <Link to="/profile" style={{ color: "black" }}>
+        <MenuItem onClick={handleMenuClose} style={{ padding: "5px 20px" }}>
+          <AccountCircle style={{ marginRight: "5px" }} />
+          Profile
+        </MenuItem>
+      </Link>
+      <Link to="/rankings" style={{ color: "black" }}>
+        <MenuItem onClick={handleMenuClose} style={{ padding: "5px 20px" }}>
+          <Trophy style={{ marginRight: "5px" }} />
+          Rankings
+        </MenuItem>
+      </Link>
+      <MenuItem onClick={handleMenuClose} style={{ padding: "5px 20px" }}>
+        <LogoutIcon style={{ marginRight: "5px" }} />
+        Logout
+      </MenuItem>
     </Menu>
   );
 
@@ -177,6 +192,8 @@ export default function TopNav(props) {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
+        <p>Rankings</p>
+        <p>Logout</p>
       </MenuItem>
     </Menu>
   );
@@ -237,7 +254,12 @@ export default function TopNav(props) {
                 <div style={{ fontSize: "12px" }}>Score: 120</div>
               </div> */}
               <Trophy
-                style={{ height: "25px", width: "25px", color: "gold" }}
+                style={{
+                  height: "25px",
+                  width: "25px",
+                  color: "gold",
+                  textShadow: "0 0 15px gold"
+                }}
               />
             </IconButton>
             <IconButton
