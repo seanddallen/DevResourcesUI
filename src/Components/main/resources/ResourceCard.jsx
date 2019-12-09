@@ -23,6 +23,8 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbDownIcon from "@material-ui/icons/ThumbDownAlt";
 import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
+import Fab from "@material-ui/core/Fab";
+import EditIcon from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -52,23 +54,46 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     backgroundColor: red[500]
+  },
+  fabColor: {
+    backgroundColor: "#F4C150"
   }
 }));
 
 export default function ResourceCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [hover, setHover] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const toggleHoverState = () => {
+    setHover(!hover);
   };
 
   return (
     <>
       <Card
         className={classes.card}
-        style={{ display: "flex", flexWrap: "nowrap" }}
+        style={{ display: "flex", flexWrap: "nowrap", marginTop: "15px" }}
+        onMouseEnter={toggleHoverState}
+        onMouseLeave={toggleHoverState}
       >
+        {hover && (
+          <Fab
+            className={classes.fabColor}
+            aria-label="edit"
+            style={{
+              position: "absolute",
+              marginLeft: "-20px",
+              marginTop: "-20px"
+            }}
+          >
+            <EditIcon />
+          </Fab>
+        )}
         <img
           src={require("../../../assets/images/mrwr.jpg")}
           style={{
