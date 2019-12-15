@@ -41,13 +41,52 @@ export default function Registration() {
   // }, []);
 
   function getSteps() {
-    return ["Basic Details", "Developer Details", "Register"];
+    return [
+      "Information",
+      "Basic Details",
+      "Developer Details",
+      "Optional Details"
+    ];
   }
   const steps = getSteps();
 
   function getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
+        return (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <h3>REGISTRATION</h3>
+            <div
+              style={{
+                border: "1px solid #C7C7C7",
+                borderRadius: "3px",
+                padding: "20px"
+              }}
+            >
+              <div>Once Registered you will be able to:</div>
+              <ol>
+                <li>Add resources</li>
+                <li>Edit resources</li>
+                <li>Review Resources</li>
+                <li>Vote on Resources</li>
+                <li>Save favorite resources</li>
+                <hr style={{ width: "50%", margin: "10px 0px" }} />
+                <li>Help contribute to score points and rank up</li>
+                <li>
+                  Advertise any personal link (on profile or leaderboard!)
+                </li>
+              </ol>
+            </div>
+          </div>
+        );
+      case 1:
         return (
           <div
             style={{
@@ -80,11 +119,11 @@ export default function Registration() {
                 label="Last Name"
                 color="secondary"
               />
-              {/* <TextField
-                style={{ width: "250px" }}
+              <TextField
+                style={{ width: "250px", marginTop: "20px" }}
                 id="user-name"
                 label="User Name"
-              /> */}
+              />
               <TextField
                 style={{ width: "250px", marginTop: "20px" }}
                 id="email"
@@ -94,7 +133,7 @@ export default function Registration() {
             </form>
           </div>
         );
-      case 1:
+      case 2:
         return (
           <div
             style={{
@@ -206,7 +245,7 @@ export default function Registration() {
             </form>
           </div>
         );
-      case 2:
+      case 3:
         return (
           <div
             style={{
@@ -216,22 +255,45 @@ export default function Registration() {
               alignItems: "center"
             }}
           >
-            <h3>COMPLETE REGISTRATION</h3>
-            <div
+            <h3>OPTIONAL DETAILS</h3>
+            <form
               style={{
-                border: "1px solid #C7C7C7",
-                borderRadius: "3px",
-                padding: "20px"
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center"
               }}
+              noValidate
+              autoComplete="off"
             >
-              <div>Once Registered you will be able to:</div>
-              <ol>
-                <li>Add resources</li>
-                <li>Review Resources</li>
-                <li>Vote on Resources</li>
-                <li>View Saved resources</li>
-              </ol>
-            </div>
+              <TextField
+                style={{ width: "250px", marginTop: "20px" }}
+                id="personalURL"
+                label="Personal URL (Optional)"
+                color="secondary"
+              />
+              <TextField
+                style={{ width: "250px", marginTop: "20px" }}
+                id="githubURL"
+                label="Github URL (Optional)"
+                color="secondary"
+              />
+              <TextField
+                style={{ width: "250px", marginTop: "20px" }}
+                id="linkedinURL"
+                label="LinkedIn URL (Optional)"
+                color="secondary"
+              />
+              <TextField
+                style={{ width: "250px", marginTop: "20px" }}
+                id="bio"
+                label="Personal Bio (Optional)"
+                color="secondary"
+                multiline
+                rows="6"
+                rowsMax="4"
+              />
+            </form>
           </div>
         );
       default:
@@ -299,7 +361,7 @@ export default function Registration() {
               Registration Successful!
             </Typography>
             <Link to="/">
-              <Button>Back to Home</Button>
+              <Button color="secondary">Back to Home</Button>
             </Link>
           </div>
         ) : (

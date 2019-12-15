@@ -6,6 +6,8 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 import Select from "react-select";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
 
 const levelOptions = [
   { label: "Beginner", value: "Beginner", resource: "Beginner" },
@@ -69,18 +71,22 @@ export default function ResourceForm(props) {
         alignItems: "center"
       }}
     >
-      <Button
-        color="primary"
-        className={classes.button}
-        style={{ width: "120px", marginBottom: "-20px" }}
-        onClick={() => props.setOpenForm(!props.openForm)}
-      >
-        <div style={{ fontSize: "14px" }}>
-          {props.openForm ? "Close" : "Add Resource"}
-        </div>
-      </Button>
+      {!props.openForm && (
+        <Fab
+          color="primary"
+          aria-label="add"
+          style={{ position: "fixed", bottom: 30, right: 30 }}
+          onClick={() => props.setOpenForm(!props.openForm)}
+        >
+          <AddIcon />
+        </Fab>
+      )}
+
       {props.openForm && (
         <>
+          <div style={{ fontSize: "16px", marginBottom: "20px" }}>
+            Add a Resource
+          </div>
           <div
             style={{
               display: "flex",
@@ -272,6 +278,16 @@ export default function ResourceForm(props) {
             style={{ width: "120px", marginTop: "40px" }}
           >
             SUBMIT
+          </Button>
+          <Button
+            color="primary"
+            className={classes.button}
+            style={{ width: "120px", marginTop: "10px" }}
+            onClick={() => props.setOpenForm(!props.openForm)}
+          >
+            <div style={{ fontSize: "14px" }}>
+              {props.openForm ? "Close" : "Add Resource"}
+            </div>
           </Button>
         </>
       )}

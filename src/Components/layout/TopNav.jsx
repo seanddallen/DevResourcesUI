@@ -20,6 +20,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Trophy from "@material-ui/icons/EmojiEvents";
 import Divider from "@material-ui/core/Divider";
 import Chip from "@material-ui/core/Chip";
+import faker from "faker";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -85,7 +86,8 @@ const useStyles = makeStyles(theme => ({
     }
   },
   avatar: {
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
+    borderRadius: "5px"
   },
   largeIcon: {
     width: 60,
@@ -174,14 +176,14 @@ export default function TopNav(props) {
         </IconButton>
         <p>Messages</p>
       </MenuItem> */}
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={11} color="tertiary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
         <p>Notifications</p>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -237,7 +239,11 @@ export default function TopNav(props) {
               aria-label="show 4 new mails"
               color="inherit"
               iconStyle={classes.largeIcon}
-              style={{ display: "flex", alignItems: "center" }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginRight: "-10px"
+              }}
             >
               {/* <div
                 style={{
@@ -262,7 +268,7 @@ export default function TopNav(props) {
                 }}
               />
             </IconButton>
-            <IconButton
+            {/* <IconButton
               aria-label="show 17 new notifications"
               color="inherit"
               style={{ marginRight: "10px", marginLeft: "-10px" }}
@@ -270,7 +276,7 @@ export default function TopNav(props) {
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon style={{ height: "25px", width: "25px" }} />
               </Badge>
-            </IconButton>
+            </IconButton> */}
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -282,7 +288,12 @@ export default function TopNav(props) {
               {/* <AccountCircle /> */}
               <div>
                 <Avatar aria-label="recipe" className={classes.avatar}>
-                  S
+                  {
+                    <img
+                      style={{ height: "40px", width: "40px" }}
+                      src={faker.image.avatar()}
+                    />
+                  }
                 </Avatar>
               </div>
             </IconButton>

@@ -37,7 +37,7 @@ export default function Review(props) {
       <Divider />
       <Grid style={{ margin: "20px" }}>
         <Grid style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
+          <div style={{ display: "flex", alignItems: "center" }}>
             {/* <StarIcon />
             <StarIcon />
             <StarIcon />
@@ -49,6 +49,14 @@ export default function Review(props) {
               value={1.7}
               precision={0.1}
             />
+            <Button
+              color="primary"
+              style={{ marginLeft: "0px", paddingLeft: "0px" }}
+            >
+              <div style={{ fontSize: "14px", marginLeft: "10px" }}>
+                Sean Tayler
+              </div>
+            </Button>
           </div>
           <div>11/08/19</div>
         </Grid>

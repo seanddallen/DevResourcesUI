@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
+import faker from "faker";
 
 import ResourceCard from "./ResourceCard";
 
@@ -27,10 +28,16 @@ export default function ResourceCards(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const resources = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const resources = [1, 2, 3, 4, 5, 6, 7, 8];
 
   const listOfCards = resources.map(card => {
-    return <ResourceCard toggleDrawer={props.toggleDrawer} card={card} />;
+    return (
+      <ResourceCard
+        toggleDrawer={props.toggleDrawer}
+        card={card}
+        image={faker.image.abstract()}
+      />
+    );
   });
 
   return (
@@ -39,8 +46,8 @@ export default function ResourceCards(props) {
       style={{
         display: "flex",
         justifyContent: "center",
-        marginTop: "20px",
-        marginBottom: "-10px"
+        marginTop: "10px",
+        marginBottom: "0px"
       }}
     >
       <Grid
@@ -48,7 +55,8 @@ export default function ResourceCards(props) {
         style={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
+          marginBottom: "-10px"
         }}
       >
         <div>1-9 of 9 RESULTS</div>

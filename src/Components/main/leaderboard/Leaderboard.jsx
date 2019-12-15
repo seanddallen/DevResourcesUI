@@ -72,6 +72,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import Divider from "@material-ui/core/Divider";
+import faker from "faker";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -99,7 +100,8 @@ const useStyles = makeStyles(theme => ({
     transform: "rotate(180deg)"
   },
   avatar: {
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
+    borderRadius: "5px"
   }
 }));
 
@@ -169,7 +171,12 @@ export default function ResourceCard(props) {
                   </div>
                   <div>
                     <Avatar aria-label="recipe" className={classes.avatar}>
-                      S
+                      {
+                        <img
+                          style={{ height: "40px", width: "40px" }}
+                          src={faker.image.avatar()}
+                        />
+                      }
                     </Avatar>
                   </div>
                 </div>
@@ -202,21 +209,21 @@ export default function ResourceCard(props) {
         flexDirection: "column",
         flexWrap: "nowrap",
         alignItems: "center",
-        margin: "20px -20px 0px 50px"
+        margin: "10px -20px 0px 50px"
       }}
     >
-      <div style={{ fontSize: "14px", fontWeight: "bold" }}>LEADERBOARD</div>
+      {/* <div style={{ fontSize: "14px", fontWeight: "bold" }}>LEADERBOARD</div> */}
       <Grid
         container
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          marginTop: "20px",
+          marginTop: "10px",
           marginBottom: "0px"
         }}
       >
-        <div>** Top 25 Contributors **</div>
+        <div>Top 25 Leaderboard</div>
       </Grid>
       <Card
         className={classes.card}

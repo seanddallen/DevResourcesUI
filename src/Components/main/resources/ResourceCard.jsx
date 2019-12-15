@@ -56,7 +56,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: red[500]
   },
   fabColor: {
-    backgroundColor: "#F4C150"
+    backgroundColor: theme.palette.tertiary.main,
+    "&:hover": {
+      backgroundColor: theme.palette.tertiary.main
+    }
   }
 }));
 
@@ -95,13 +98,14 @@ export default function ResourceCard(props) {
           </Fab>
         )}
         <img
-          src={require("../../../assets/images/mrwr.jpg")}
+          // src={require("../../../assets/images/mrwr.jpg")}
+          src={props.image}
           style={{
             height: "100%",
-            width: "280px"
+            width: "200px"
           }}
         />
-        <Grid style={{ width: "800px" }}>
+        <Grid style={{ width: "600px" }}>
           <CardHeader
             // avatar={
             //   <Avatar aria-label="recipe" className={classes.avatar}>
