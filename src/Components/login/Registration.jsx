@@ -289,9 +289,6 @@ export default function Registration() {
                 id="bio"
                 label="Personal Bio (Optional)"
                 color="secondary"
-                multiline
-                rows="6"
-                rowsMax="4"
               />
             </form>
           </div>

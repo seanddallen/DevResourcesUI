@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
   card: {
     margin: "10px",
-    width: "800px"
+    width: "660px"
   }
 }));
 
