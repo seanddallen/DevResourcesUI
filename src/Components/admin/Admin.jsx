@@ -1,17 +1,3 @@
-// import React from "react";
-// import Divider from "@material-ui/core/Divider";
-// import List from "@material-ui/core/List";
-
-// export default function FiltersDrawer() {
-//   return (
-//     <div>
-//       <List>FILTERS</List>
-//       <Divider />
-//       <List>SEARCH</List>
-//     </div>
-//   );
-// }
-
 import React from "react";
 import Select from "react-select";
 import Card from "@material-ui/core/Card";
@@ -32,6 +18,10 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+
+import UsersTable from "./UsersTable";
+import ResourcesTable from "./ResourcesTable";
+import ReviewsTable from "./ReviewsTable";
 
 const useStyles = makeStyles({
   root: {
@@ -71,9 +61,9 @@ function TabPanel(props) {
 export default function Filters() {
   const classes = useStyles();
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState("");
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (e, newValue) => {
     setValue(newValue);
   };
 
@@ -102,6 +92,7 @@ export default function Filters() {
                 minWidth: "10px",
                 width: "200px"
               }}
+              value="users"
             />
             <Tab
               label={<span style={{ fontSize: "14px" }}>Resources</span>}
@@ -109,6 +100,7 @@ export default function Filters() {
                 minWidth: "10px",
                 width: "200px"
               }}
+              value="resources"
             />
             <Tab
               label={<span style={{ fontSize: "14px" }}>Reviews</span>}
@@ -116,9 +108,17 @@ export default function Filters() {
                 minWidth: "10px",
                 width: "200px"
               }}
+              value="reviews"
             />
           </Tabs>
         </AppBar>
+      </div>
+      <div
+        style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
+      >
+        {value === "users" && <UsersTable />}
+        {value === "resources" && <ResourcesTable />}
+        {value === "reviews" && <ReviewsTable />}
       </div>
     </Grid>
   );
