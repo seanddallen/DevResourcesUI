@@ -16,6 +16,7 @@ import Profile from './Components/profile/Profile';
 import FiltersDrawer from './Components/main/filters/FiltersDrawer';
 import ReviewDrawer from './Components/main/reviews/ReviewDrawer';
 import Rankings from './Components/rankings/Rankings';
+import Admin from './Components/admin/Admin';
 
 const theme = createMuiTheme({
   //PRIMARY (blue) - #007791
@@ -133,10 +134,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <MuiThemeProvider theme={theme}>
-          { !window.location.pathname.includes('login') && !window.location.pathname.includes('registration') &&
+          { !window.location.pathname.includes('login') && !window.location.pathname.includes('registration') && 
             <>
               <TopNav className={classes.topNav} toggleDrawer={toggleDrawer} />
-              { !window.location.pathname.includes('profile') && !window.location.pathname.includes('rankings') && 
+              { !window.location.pathname.includes('profile') && !window.location.pathname.includes('rankings') && !window.location.pathname.includes('admin') && 
               <StickyNav toggleDrawer={toggleDrawer} />
               }
             </>
@@ -147,6 +148,7 @@ function App() {
             <Route path="/registration" component={Registration} />
             <Route path="/profile" component={Profile} />
             <Route path="/rankings" component={Rankings} />
+            <Route path="/admin" component={Admin} />
           </Switch>
           <Drawer open={drawer.left} onClose={toggleDrawer("left", false)}>
             {sideList("left")}
