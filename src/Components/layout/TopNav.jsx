@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -14,10 +15,19 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import LogoutIcon from "@material-ui/icons/PowerSettingsNew";
+import Avatar from "@material-ui/core/Avatar";
+import Trophy from "@material-ui/icons/EmojiEvents";
+import Divider from "@material-ui/core/Divider";
+import Chip from "@material-ui/core/Chip";
+import faker from "faker";
 
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1
+  },
+  appBar: {
+    backgroundColor: theme.palette.primary.dark
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -74,10 +84,21 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("md")]: {
       display: "none"
     }
+  },
+  avatar: {
+    backgroundColor: theme.palette.secondary.main,
+    borderRadius: "5px"
+  },
+  largeIcon: {
+    width: 60,
+    height: 60
   }
+  // badge: {
+  //   backgroundColor: theme.palette.tertiary.main
+  // }
 }));
 
-export default function TopNav() {
+export default function TopNav(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -102,6 +123,10 @@ export default function TopNav() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleClick = () => {
+    console.info("You clicked the Chip.");
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -113,8 +138,22 @@ export default function TopNav() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <Link to="/profile" style={{ color: "black" }}>
+        <MenuItem onClick={handleMenuClose} style={{ padding: "5px 20px" }}>
+          <AccountCircle style={{ marginRight: "5px" }} />
+          Profile
+        </MenuItem>
+      </Link>
+      <Link to="/rankings" style={{ color: "black" }}>
+        <MenuItem onClick={handleMenuClose} style={{ padding: "5px 20px" }}>
+          <Trophy style={{ marginRight: "5px" }} />
+          Rankings
+        </MenuItem>
+      </Link>
+      <MenuItem onClick={handleMenuClose} style={{ padding: "5px 20px" }}>
+        <LogoutIcon style={{ marginRight: "5px" }} />
+        Logout
+      </MenuItem>
     </Menu>
   );
 
@@ -129,22 +168,22 @@ export default function TopNav() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="secondary">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
+      </MenuItem> */}
+      {/* <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
+          <Badge badgeContent={11} color="tertiary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
         <p>Notifications</p>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -155,37 +194,89 @@ export default function TopNav() {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
+        <p>Rankings</p>
+        <p>Logout</p>
       </MenuItem>
     </Menu>
   );
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" className={classes.appBar}>
+        <Toolbar style={{ display: "flex", alignItems: "center" }}>
           <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
+            onClick={props.toggleDrawer("left", true)}
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            DevResources
-          </Typography>
+          <Link to="/">
+            <Typography
+              className={classes.title}
+              variant="h6"
+              noWrap
+              style={{
+                color: "#ffffff",
+                fontSize: "24px"
+              }}
+            >
+              DevResources
+            </Typography>
+          </Link>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
+            <Chip
+              label={<Chip label="#3666" style={{ color: "black" }} />}
+              label="Rank #366 <> 1200 points"
+              // onClick={handleClick}
+              variant="outlined"
+              style={{ marginTop: "17px", color: "#fff", borderColor: "gold" }}
+            />
+            <IconButton
+              aria-label="show 4 new mails"
+              color="inherit"
+              iconStyle={classes.largeIcon}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginRight: "-10px"
+              }}
+            >
+              {/* <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  marginRight: "10px"
+                }}
+              >
+                <div style={{ fontSize: "12px", fontFamily: "Poppins" }}>
+                  Rank: 6
+                </div>
+                <Divider variant="middle" />
+                <div style={{ fontSize: "12px" }}>Score: 120</div>
+              </div> */}
+              <Trophy
+                style={{
+                  height: "25px",
+                  width: "25px",
+                  color: "gold",
+                  textShadow: "0 0 15px gold"
+                }}
+              />
             </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
+            {/* <IconButton
+              aria-label="show 17 new notifications"
+              color="inherit"
+              style={{ marginRight: "10px", marginLeft: "-10px" }}
+            >
               <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
+                <NotificationsIcon style={{ height: "25px", width: "25px" }} />
               </Badge>
-            </IconButton>
+            </IconButton> */}
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -194,7 +285,17 @@ export default function TopNav() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              {/* <AccountCircle /> */}
+              <div>
+                <Avatar aria-label="recipe" className={classes.avatar}>
+                  {
+                    <img
+                      style={{ height: "40px", width: "40px" }}
+                      src={faker.image.avatar()}
+                    />
+                  }
+                </Avatar>
+              </div>
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>

@@ -120,12 +120,21 @@ const useStyles = makeStyles(theme => ({
   },
   search: {
     position: "relative",
-    border: "1px solid #C7C7C7",
-    borderRadius: "3px",
+    border: "2px solid #C7C7C7",
+    borderRadius: "6px",
     backgroundColor: "#FFFFFF",
     "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
+      backgroundColor: fade(theme.palette.common.white, 0.5),
+      border: "2px solid #EC5252",
+      borderRadius: "6px"
     },
+    // "&:nth-child(1)": {
+    //   color: "#EC5252"
+    // },
+    // "&:focus": {
+    //   border: "2px solid #EC5252",
+    //   borderRadius: "6px"
+    // },
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: "100%",
@@ -158,7 +167,17 @@ const useStyles = makeStyles(theme => ({
   },
   option: {
     color: "black"
+    // "&:hover": {
+    //   border: "2px solid #EC5252",
+    //   borderRadius: "6px"
+    // }
   },
+  // select: {
+  //   "&:focused": {
+  //     border: "2px solid #EC5252",
+  //     borderRadius: "6px"
+  //   }
+  // },
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
@@ -204,7 +223,7 @@ const customStyles = {
   }
 };
 
-export default function StickyNav() {
+export default function StickyNav(props) {
   const classes = useStyles();
 
   const [isClearable, setIsClearable] = useState(true);
@@ -266,17 +285,27 @@ export default function StickyNav() {
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-                inputProps={{ "aria-label": "search" }}
-              />
+              <div>
+                <InputBase
+                  placeholder="Filter by Keyword"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput
+                  }}
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </div>
             </div>
             <div className={classes.grow} />
-            <div style={{ margin: "0 10px 0 0", minWidth: "200px" }}>
+            <div
+              className={classes.select}
+              style={{
+                margin: "0 10px 0 0",
+                minWidth: "200px",
+                border: "1px solid #C7C7C7",
+                borderRadius: "6px"
+              }}
+            >
               <Select
                 className="basic-single"
                 classNamePrefix="select"
@@ -286,10 +315,29 @@ export default function StickyNav() {
                 options={languageOptions}
                 className={classes.option}
                 placeholder="Language"
-                style={{ minWidth: "200px", color: "#C7C7C7" }}
+                style={{
+                  minWidth: "200px",
+                  color: "#C7C7C7"
+                }}
+                theme={theme => ({
+                  ...theme,
+                  borderRadius: "6px",
+                  borderWidth: "2px",
+                  colors: {
+                    ...theme.colors,
+                    primary: "#EC5252"
+                  }
+                })}
               />
             </div>
-            <div style={{ margin: "0 10px 0 0", minWidth: "200px" }}>
+            <div
+              style={{
+                margin: "0 10px 0 0",
+                minWidth: "200px",
+                border: "1px solid #C7C7C7",
+                borderRadius: "6px"
+              }}
+            >
               <Select
                 className="basic-single"
                 classNamePrefix="select"
@@ -304,6 +352,14 @@ export default function StickyNav() {
                 }}
                 placeholder="Resource Type"
                 className={classes.option}
+                theme={theme => ({
+                  ...theme,
+                  borderRadius: "6px",
+                  colors: {
+                    ...theme.colors,
+                    primary: "#EC5252"
+                  }
+                })}
               />
             </div>
             {/* <div className={classes.grow} /> */}
@@ -313,6 +369,7 @@ export default function StickyNav() {
                 size="medium"
                 className={classes.button}
                 style={{ margin: "0 10px" }}
+                onClick={props.toggleDrawer("left", true)}
               >
                 FILTERS
               </Button>
