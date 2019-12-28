@@ -6,6 +6,7 @@ import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import InputBase from "@material-ui/core/InputBase";
 import faker from "faker";
 import Button from "@material-ui/core/Button";
@@ -131,12 +132,21 @@ export default function ResourceCards(props) {
         >
           <form className={classes.root} noValidate autoComplete="off">
             <TextField
-              color="secondary"
+              className={classes.margin}
+              variant="outlined"
+              color="primary"
               label="Search by Keyword"
               style={{ width: "200px" }}
               name="search"
               value={search}
               onChange={e => setSearch(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                )
+              }}
             />
           </form>
         </div>
