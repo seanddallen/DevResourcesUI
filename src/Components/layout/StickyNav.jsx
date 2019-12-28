@@ -281,7 +281,7 @@ export default function StickyNav(props) {
           }}
         >
           <Toolbar style={{ width: "90vw" }}>
-            <div className={classes.search}>
+            {/* <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
@@ -295,7 +295,7 @@ export default function StickyNav(props) {
                   inputProps={{ "aria-label": "search" }}
                 />
               </div>
-            </div>
+            </div> */}
             <div className={classes.grow} />
             <div
               className={classes.select}
