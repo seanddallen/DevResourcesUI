@@ -125,13 +125,13 @@ export default function ResourceCard(props) {
                 </IconButton>
               </>
             }
-            title={`#${props.card}: Modern React with Redux`}
+            title={props.card.title}
             subheader={
               <a
-                href="https://www.udemy.com/course/react-redux/"
+                href="#"
                 target="_blank"
               >
-                www.udemy.com/course/react-redux/
+                {props.card.url}
               </a>
             }
           />
@@ -148,13 +148,7 @@ export default function ResourceCard(props) {
             }}
           >
             <Typography variant="body2" color="textSecondary" component="p">
-              Description: Donec aliquam ornare nunc, eget gravida diam sodales
-              nec. Morbi nec commodo felis, suscipit viverra orci. Pellentesque
-              quis est tincidunt, feugiat nisl vitae, ultrices mi. Sed tempor a
-              tellus a rhoncus. Nam pretium, velit nec imperdiet porttitor,
-              tellus ipsum pretium mauris, vitae sollicitudin nisi velit sed
-              nunc. Cras ut magna eu magna vestibulum finibus. Cras ut magna eu
-              magna vestibulum finibus.
+              {props.card.description}
             </Typography>
           </CardContent>
           <CardActions
