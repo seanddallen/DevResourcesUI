@@ -72,7 +72,7 @@ export default function ResourceCards(props) {
       return a - b;
     });
   };
-
+  //search cards
   const listOfCards = search
     ? resources
         .filter(resource => resource == search)
@@ -96,7 +96,7 @@ export default function ResourceCards(props) {
           />
         );
       });
-  console.log(resources);
+  //end search
 
   return (
     <Grid
