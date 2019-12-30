@@ -47,18 +47,55 @@ export default function ResourceCards(props) {
   };
   const resources = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  const listOfCards = resources
-    .filter(resource => resource == search)
-    .map((card, i) => {
-      return (
-        <ResourceCard
-          toggleDrawer={props.toggleDrawer}
-          key={i}
-          card={card}
-          image={faker.image.abstract()}
-        />
-      );
+  const handleSortRating = () => {
+    resources.sort(function(a, b) {
+      return a - b;
     });
+  };
+  const handleSortReviews = () => {
+    resources.sort(function(a, b) {
+      return a - b;
+    });
+  };
+  const handleSortVotes = () => {
+    resources.sort(function(a, b) {
+      return a - b;
+    });
+  };
+  const handleSortNewest = () => {
+    resources.sort(function(a, b) {
+      return a - b;
+    });
+  };
+  const handleSortCosts = () => {
+    resources.sort(function(a, b) {
+      return a - b;
+    });
+  };
+
+  const listOfCards = search
+    ? resources
+        .filter(resource => resource == search)
+        .map((card, i) => {
+          return (
+            <ResourceCard
+              toggleDrawer={props.toggleDrawer}
+              key={i}
+              card={card}
+              image={faker.image.abstract()}
+            />
+          );
+        })
+    : resources.map((card, i) => {
+        return (
+          <ResourceCard
+            toggleDrawer={props.toggleDrawer}
+            key={i}
+            card={card}
+            image={faker.image.abstract()}
+          />
+        );
+      });
   console.log(resources);
 
   return (
