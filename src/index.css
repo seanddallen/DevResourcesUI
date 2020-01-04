@@ -3,8 +3,7 @@ body {
   background-color: #efefef;
   /* font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif; */
-  font-family: "Proxima Nova", "Roboto", "Montserrat", "Helvetica Neue",
-    Helvetica, Arial, sans-serif !important;
+  font-family: "Poppins", "Josefin Sans", "Roboto", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
