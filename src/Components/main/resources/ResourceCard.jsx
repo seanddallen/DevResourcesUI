@@ -127,10 +127,7 @@ export default function ResourceCard(props) {
             }
             title={props.card.title}
             subheader={
-              <a
-                href="#"
-                target="_blank"
-              >
+              <a href="#" target="_blank">
                 {props.card.url}
               </a>
             }

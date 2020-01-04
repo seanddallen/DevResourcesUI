@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -39,7 +39,7 @@ export default function ResourceCards(props) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = event => {
     setAnchorEl(null);
   };
 
@@ -48,45 +48,36 @@ export default function ResourceCards(props) {
   };
   const resources = useSelector(state => state.resources);
 
-<<<<<<< HEAD
-  // const items = [
-  //   { name: "a", votes: 200 },
-  //   { name: "b", votes: 450 }
-  // ];
+  //Sort
+  const handleSortNewest = () => {
+    resources.sort((a, b) => {
+      return ("" + b.creation_year).localeCompare(a.creation_year);
+    });
+    setAnchorEl(null);
+  };
 
-  // const sorter = (items, property) => {
-  //   items.sort((a, b) => a[property] - b[property]);
-  // };
-  // sorter(items, "votes");
-  // const handleSortRating = () => {
-  //   resources.sort(function(a, b) {
-  //     return a - b;
-  //   });
-  // };
-  // const handleSortReviews = () => {
-  //   resources.sort(function(a, b) {
-  //     return a - b;
-  //   });
-  // };
-  // const handleSortVotes = () => {
-  //   resources.sort(function(a, b) {
-  //     return a - b;
-  //   });
-  // };
-  // const handleSortNewest = () => {
-  //   resources.sort(function(a, b) {
-  //     return a - b;
-  //   });
-  // };
-  // const handleSortCosts = () => {
-  //   resources.sort(function(a, b) {
-  //     return a - b;
-  //   });
-  // };
+  const handleSortShares = () => {
+    resources.sort((a, b) => {
+      return b.shares - a.shares;
+    });
+    setAnchorEl(null);
+  };
+
+  //tentative logic pending seed data
+  const handleSortPrice = property => {
+    resources.sort((a, b) => {
+      return ("" + a[property]).localeCompare(b[property]);
+    });
+    setAnchorEl(null);
+  };
+  //end Sort
+
   //search cards
   const listOfCards = search
     ? resources
-        .filter(resource => resource == search)
+        .filter(resource =>
+          resource.title.toLowerCase().includes(search.toLowerCase())
+        )
         .map((card, i) => {
           return (
             <ResourceCard
@@ -108,18 +99,6 @@ export default function ResourceCards(props) {
         );
       });
   //end search
-=======
-  const listOfCards = resources && resources.map((card, i) => {
-    return (
-      <ResourceCard
-        key={i}
-        toggleDrawer={props.toggleDrawer}
-        card={card}
-        image={faker.image.abstract()}
-      />
-    );
-  });
->>>>>>> adcba19e51a49478faae5ac76d4e27366c1fa70c
 
   return (
     <Grid
@@ -148,7 +127,9 @@ export default function ResourceCards(props) {
             // marginBottom: "-10px"
           }}
         >
-          <div>1-9 of 9 RESULTS</div>
+          <div>
+            {`1 -${listOfCards.length} of ${listOfCards.length} RESULTS`}
+          </div>
           <div
             style={{
               display: "flex",
@@ -175,9 +156,13 @@ export default function ResourceCards(props) {
             >
               <MenuItem onClick={handleClose}>Highest Rating</MenuItem>
               <MenuItem onClick={handleClose}>Most Reviews</MenuItem>
-              <MenuItem onClick={handleClose}>Most Votes</MenuItem>
-              <MenuItem onClick={handleClose}>Newest</MenuItem>
-              <MenuItem onClick={handleClose}>Cost</MenuItem>
+              <MenuItem onClick={() => handleSortShares()}>
+                Most Shares
+              </MenuItem>
+              <MenuItem onClick={() => handleSortPrice("price")}>
+                Lowest Cost
+              </MenuItem>
+              <MenuItem onClick={() => handleSortNewest()}>Newest</MenuItem>
             </Menu>
           </div>
         </div>
@@ -193,9 +178,8 @@ export default function ResourceCards(props) {
           <form className={classes.root} noValidate autoComplete="off">
             <TextField
               className={classes.margin}
-              variant="outlined"
               color="primary"
-              label="Search by Keyword"
+              label="Search by Title"
               style={{ width: "200px" }}
               name="search"
               value={search}
