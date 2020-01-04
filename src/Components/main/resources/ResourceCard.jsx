@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect }from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
@@ -25,6 +25,8 @@ import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
 import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
+import { addResourceVote, getAllResourceVotes, updateResourceVote, removeResourceVote, getOneResourceVote } from "../../../Store/resourceVotes/resourceVotesActions"
+import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -75,6 +77,24 @@ export default function ResourceCard(props) {
   const toggleHoverState = () => {
     setHover(!hover);
   };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllResourceVotes());
+    dispatch(updateResourceVote());
+    dispatch(removeResourceVote());
+  }, [])
+  const handleVoteUp = () => {
+    //i want to add vote up if thumbs up is clicked and vote down if thumbs down is clicked
+    //if the user has already clicked on thumbs up and they want to click on thumbs down we want to also 
+    //do a subtraction from thumbs up so a delete api call
+    //once they have hit up and down we disable the voting on the resource for that user
+    addResourceVote()
+    //if()
+
+  }
+  const handleVoteDown = () => {
+
+  }
 
   return (
     <>
@@ -197,7 +217,8 @@ export default function ResourceCard(props) {
                 marginTop: "10px"
               }}
             >
-              <IconButton>
+              <IconButton
+              onClick={handleVoteUp}>
                 <ThumbUpIcon />
               </IconButton>
               <div style={{ marginLeft: "-5px" }}>36</div>
@@ -209,7 +230,8 @@ export default function ResourceCard(props) {
                 marginTop: "10px"
               }}
             >
-              <IconButton>
+              <IconButton
+              onClick={handleVoteDown}>
                 <ThumbDownIcon />
               </IconButton>
               <div style={{ marginLeft: "-5px" }}>3</div>
