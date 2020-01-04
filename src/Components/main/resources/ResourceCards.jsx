@@ -47,31 +47,40 @@ export default function ResourceCards(props) {
   };
   const resources = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  const handleSortRating = () => {
-    resources.sort(function(a, b) {
-      return a - b;
-    });
-  };
-  const handleSortReviews = () => {
-    resources.sort(function(a, b) {
-      return a - b;
-    });
-  };
-  const handleSortVotes = () => {
-    resources.sort(function(a, b) {
-      return a - b;
-    });
-  };
-  const handleSortNewest = () => {
-    resources.sort(function(a, b) {
-      return a - b;
-    });
-  };
-  const handleSortCosts = () => {
-    resources.sort(function(a, b) {
-      return a - b;
-    });
-  };
+  // const items = [
+  //   { name: "a", votes: 200 },
+  //   { name: "b", votes: 450 }
+  // ];
+
+  // const sorter = (items, property) => {
+  //   items.sort((a, b) => a[property] - b[property]);
+  // };
+  // sorter(items, "votes");
+  // const handleSortRating = () => {
+  //   resources.sort(function(a, b) {
+  //     return a - b;
+  //   });
+  // };
+  // const handleSortReviews = () => {
+  //   resources.sort(function(a, b) {
+  //     return a - b;
+  //   });
+  // };
+  // const handleSortVotes = () => {
+  //   resources.sort(function(a, b) {
+  //     return a - b;
+  //   });
+  // };
+  // const handleSortNewest = () => {
+  //   resources.sort(function(a, b) {
+  //     return a - b;
+  //   });
+  // };
+  // const handleSortCosts = () => {
+  //   resources.sort(function(a, b) {
+  //     return a - b;
+  //   });
+  // };
   //search cards
   const listOfCards = search
     ? resources
