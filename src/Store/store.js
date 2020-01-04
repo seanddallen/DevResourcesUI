@@ -1,5 +1,6 @@
 import { applyMiddleware, createStore, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
 import usersReducer from './users/usersReducer'
 import resourcesReducer from './resources/resourcesReducer'
@@ -22,7 +23,9 @@ const rootReducer = combineReducers({
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const middleware = [thunk, logger];
+
 export const store = createStore(
     rootReducer, 
-    composeEnhancers(applyMiddleware(thunk))
+    composeEnhancers(applyMiddleware(...middleware))
 );

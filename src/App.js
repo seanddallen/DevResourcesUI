@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
+
+import { useDispatch } from 'react-redux';
+import { getAllResources } from './Store/resources/resourcesActions';
 
 import './index.css';
 import TopNav from './Components/layout/TopNav';
@@ -97,6 +100,13 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   const [drawer, setDrawer] = React.useState({ left: false, right: false });
+
+  // useEffect for initial API calls
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllResources());
+  }, [dispatch])
 
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

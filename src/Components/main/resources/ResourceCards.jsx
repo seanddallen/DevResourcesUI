@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from 'react-redux';
 import { fade, makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -45,8 +46,9 @@ export default function ResourceCards(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const resources = [1, 2, 3, 4, 5, 6, 7, 8];
+  const resources = useSelector(state => state.resources);
 
+<<<<<<< HEAD
   // const items = [
   //   { name: "a", votes: 200 },
   //   { name: "b", votes: 450 }
@@ -106,6 +108,18 @@ export default function ResourceCards(props) {
         );
       });
   //end search
+=======
+  const listOfCards = resources && resources.map((card, i) => {
+    return (
+      <ResourceCard
+        key={i}
+        toggleDrawer={props.toggleDrawer}
+        card={card}
+        image={faker.image.abstract()}
+      />
+    );
+  });
+>>>>>>> adcba19e51a49478faae5ac76d4e27366c1fa70c
 
   return (
     <Grid
