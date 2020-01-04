@@ -13,7 +13,9 @@ import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Rating from "@material-ui/lab/Rating";
-
+import { fetchAllReviews } from "../../../Store/reviews/reviewsActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import Review from "./Review";
 import ReviewForm from "./ReviewForm";
 
@@ -48,21 +50,63 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ReviewDrawer() {
+export default function ReviewDrawer(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(false);
   const [openComments, setOpenComments] = React.useState(false);
   const [openForm, setOpenForm] = React.useState(false);
+  // const [reviews, setReviews] = React.useState([]);
+
+  let [oneStar, setOneStar] = React.useState(0);
+  let [twoStar, setTwoStar] = React.useState(0);
+  let [threeStar, setThreeStar] = React.useState(0);
+  let [fourStar, setFourStar] = React.useState(0);
+  // let [fiveStar, setFiveStar] = React.useState(0);
+  let [ren, setRen] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const reviews = [1, 2, 3, 4, 5];
+  useEffect(() => {
+    dispatch(fetchAllReviews());
+  }, []);
 
-  const listOfReviews = reviews.map(review => {
+  const reviews = useSelector(state => state.reviews.all);
+
+  const reviewsByResource = reviews.filter(
+    review => props.resourceId === review.resource_id
+  );
+  let fiveStar = 0;
+
+  useEffect(() => {
+    setRen(!ren);
+  }, [fiveStar]);
+
+  useEffect(() => {
+    console.log("here");
+    for (let i = 0; i < reviewsByResource.length; i++) {
+      if (reviewsByResource[i].rating === 5) {
+        fiveStar += 1;
+      } else if (reviewsByResource[i].rating === 4) {
+        setFourStar += 1;
+      } else if (reviewsByResource[i].rating === 3) {
+        threeStar += 1;
+      } else if (reviewsByResource[i].rating === 2) {
+        twoStar += 1;
+      } else if (reviewsByResource[i].rating === 1) {
+        oneStar += 1;
+      }
+    }
+  }, [reviewsByResource]);
+  console.log("fivestar", fiveStar);
+  const listOfReviews = reviewsByResource.map(review => {
     return <Review review={review} />;
   });
+
+  console.log("RES ID: ", props.resourceId);
+  console.log("reviews", reviewsByResource);
 
   return (
     <div>
@@ -112,7 +156,7 @@ export default function ReviewDrawer() {
                   value={75}
                   style={{ width: "75%" }}
                 />
-                <div style={{ marginLeft: "5px" }}>200</div>
+                <div style={{ marginLeft: "5px" }}>{fiveStar}</div>
               </Grid>
               <Grid style={{ display: "flex", alignItems: "center" }}>
                 <div style={{ marginRight: "5px" }}>4</div>

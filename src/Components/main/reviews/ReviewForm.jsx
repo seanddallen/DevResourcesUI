@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 import Rating from "@material-ui/lab/Rating";
+import { addOneReview } from "../../../Store/reviews/reviewsActions";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -20,6 +21,11 @@ export default function ResourceForm(props) {
   const [description, setDescription] = React.useState("");
   const [image, setImage] = React.useState("");
 
+  // handleSubmit = e => {
+  //   e.preventDefault();
+  //   addOneReview;
+  // };
+  console.log("RES ID: ", props.resourceId);
   return (
     <div
       style={{
@@ -59,13 +65,14 @@ export default function ResourceForm(props) {
               }}
               noValidate
               autoComplete="off"
+              // onSubmit={handleSubmit}
             >
               <span>RATE: </span>
               <Rating
                 name="half-rating"
                 readOnly={false}
                 value={3.6}
-                precision={0.1}
+                precision={1}
               />
               <TextField
                 id="description"

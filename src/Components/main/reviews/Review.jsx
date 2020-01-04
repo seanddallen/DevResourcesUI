@@ -7,6 +7,9 @@ import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import StarHalfIcon from "@material-ui/icons/StarHalf";
 import Rating from "@material-ui/lab/Rating";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchAllUsers } from "../../../Store/users/usersActions";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -29,8 +32,21 @@ const useStyles = makeStyles(theme => ({
 
 export default function Review(props) {
   const classes = useStyles();
-
   const [openComments, setOpenComments] = React.useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllUsers());
+  }, []);
+
+  const users = useSelector(state => state.users.all);
+  const userByReview = users.filter(
+    user => user.id === props.review.user_id
+  )[0];
+  const reviewDate = props.review.created_at.slice(0, 10);
+
+  console.log("userByReview", userByReview);
+  // console.log("props", props);
 
   return (
     <>
@@ -46,7 +62,7 @@ export default function Review(props) {
             <Rating
               name="half-rating"
               readOnly={true}
-              value={1.7}
+              value={props.review.rating}
               precision={0.1}
             />
             <Button
@@ -54,20 +70,14 @@ export default function Review(props) {
               style={{ marginLeft: "0px", paddingLeft: "0px" }}
             >
               <div style={{ fontSize: "14px", marginLeft: "10px" }}>
-                Sean Tayler
+                {userByReview ? userByReview.first_name + " " : ""}
+                {userByReview ? userByReview.last_name : ""}
               </div>
             </Button>
           </div>
-          <div>11/08/19</div>
+          <div>{reviewDate}</div>
         </Grid>
-        <Grid style={{ marginTop: "10px" }}>
-          Donec aliquam ornare nunc, eget gravida diam sodales nec. Morbi nec
-          commodo felis, suscipit viverra orci. Pellentesque quis est tincidunt,
-          feugiat nisl vitae, ultrices mi. Sed tempor a tellus a rhoncus. Nam
-          pretium, velit nec imperdiet porttitor, tellus ipsum pretium mauris,
-          vitae sollicitudin nisi velit sed nunc. Cras ut magna eu magna
-          vestibulum finibus. Cras ut magna eu magna vestibulum finibus.
-        </Grid>
+        <Grid style={{ marginTop: "10px" }}>{props.review.content}</Grid>
         <Grid>
           <Button
             color="primary"
