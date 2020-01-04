@@ -31,7 +31,7 @@ export default function ResourceCards(props) {
   };
   const resources = useSelector(state => state.resources);
 
-  const listOfCards = resources && resources.map((card, i) => {
+  const listOfCards = resources.map((card, i) => {
     return (
       <ResourceCard
         key={i}

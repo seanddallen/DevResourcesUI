@@ -200,7 +200,7 @@ export default function ResourceCard(props) {
               <IconButton>
                 <ThumbUpIcon />
               </IconButton>
-              <div style={{ marginLeft: "-5px" }}>36</div>
+              <div style={{ marginLeft: "-5px" }}>{props.card.upvotes}</div>
             </div>
             <div
               style={{
@@ -212,7 +212,7 @@ export default function ResourceCard(props) {
               <IconButton>
                 <ThumbDownIcon />
               </IconButton>
-              <div style={{ marginLeft: "-5px" }}>3</div>
+              <div style={{ marginLeft: "-5px" }}>{props.card.downvotes}</div>
             </div>
             {/* <div className={classes.grow}></div> */}
             {/* <IconButton
