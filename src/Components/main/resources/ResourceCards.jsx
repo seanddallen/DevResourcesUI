@@ -32,14 +32,16 @@ export default function ResourceCards(props) {
   const resources = useSelector(state => state.resources);
 
   const listOfCards = resources.map((card, i) => {
-    return (
-      <ResourceCard
-        key={i}
-        toggleDrawer={props.toggleDrawer}
-        card={card}
-        image={faker.image.abstract()}
-      />
-    );
+    if (i < 10) {
+      return (
+        <ResourceCard
+          key={i}
+          toggleDrawer={props.toggleDrawer}
+          card={card}
+          image={faker.image.abstract()}
+        />
+      )
+    }
   });
 
   return (
@@ -78,6 +80,8 @@ export default function ResourceCards(props) {
           </IconButton>
         </div>
       </Grid>
+      {/* react-window? */}
+      {/* Lazy Loading */}
       {listOfCards}
     </Grid>
   );

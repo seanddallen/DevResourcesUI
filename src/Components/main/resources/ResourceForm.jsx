@@ -81,8 +81,8 @@ export default function ResourceForm(props) {
     }).format(date))
 
     dispatch(addResource({
-      type: 'Insert Type',
-      subtype: 'Insert Subtype',
+      type: 'Select Type',
+      subtype: 'Select Subtype',
       title: title,
       creator: 'Sean Taylor',
       creation_year: creationYear,
@@ -313,8 +313,8 @@ export default function ResourceForm(props) {
                         primary: "#EC5252"
                       }
                     })}
-                  // value={tags.value}
-                  // onChange={e => setTags([...tags, e.value])}
+                    // value={tags}
+                    onChange={e => setTags([...tags, e.value])}
                   />
                 </div>
               </div>
