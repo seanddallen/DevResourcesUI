@@ -45,7 +45,7 @@ export default function Review(props) {
   )[0];
   const reviewDate = props.review.created_at.slice(0, 10);
 
-  console.log("userByReview", userByReview);
+  // console.log("userByReview", userByReview);
   // console.log("props", props);
 
   return (
