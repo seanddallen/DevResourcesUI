@@ -127,7 +127,7 @@ export default function ReviewDrawer(props) {
   let percentOfOneStar = (oneStar / numberOfReviews) * 100;
 
   console.log("fivestar", fiveStar);
-  const listOfReviews = reviewsByResource.map(review => {
+  const listOfReviews = reviewsByResource.sort((a , b) => moment.(a.)).map(review => {
     return <Review review={review} />;
   });
 
