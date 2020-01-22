@@ -45,13 +45,13 @@ export const getOneResource = id => {
     }
 }
 
-export const addResource = () => {
+export const addResource = newResource => {
     return dispatch => {
         dispatch({
             type: ADD_RESOURCES_PENDING
         })
         axios
-            .post('http://localhost:8000/resources')
+            .post('http://localhost:8000/resources', newResource)
             .then(res => {
                 dispatch({
                     type: ADD_RESOURCES_SUCCESS,
