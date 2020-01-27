@@ -1,10 +1,16 @@
 import React from "react";
 import { useSelector } from 'react-redux';
-import { fade, makeStyles } from "@material-ui/core/styles";
+import LazyLoad from 'react-lazyload';
+import { VariableSizeList as List } from 'react-window';
 import Grid from "@material-ui/core/Grid";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
-import IconButton from "@material-ui/core/IconButton";
+import {
+  IconButton,
+  Card,
+  fade,
+  makeStyles
+} from "@material-ui/core";
 import faker from "faker";
 
 import ResourceCard from "./ResourceCard";
@@ -22,6 +28,24 @@ const useStyles = makeStyles(theme => ({
   // }
 }));
 
+// LazyLoading
+const Loading = () => (
+  <div className="post loading">
+    <Card style={{
+      minHeight: "200px",
+      width: "800px",
+      marginTop: "15px"
+    }}>Loading...</Card>
+  </div>
+)
+
+// React-Window
+const rowHeights = new Array(200)
+  .fill(true)
+  .map(() => 500);
+
+const getItemSize = index => rowHeights[index];
+
 export default function ResourceCards(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -33,13 +57,15 @@ export default function ResourceCards(props) {
 
   const listOfCards = resources.map((card, i) => {
     return (
-      <ResourceCard
-        key={i}
-        toggleDrawer={props.toggleDrawer}
-        card={card}
-        image={faker.image.abstract()}
-      />
-    );
+      <LazyLoad key={i} once={true} placeholder={<Loading />}>
+        <ResourceCard
+          key={i}
+          toggleDrawer={props.toggleDrawer}
+          card={card}
+          image={faker.image.abstract()}
+        />
+      </LazyLoad>
+    )
   });
 
   return (
@@ -78,7 +104,19 @@ export default function ResourceCards(props) {
           </IconButton>
         </div>
       </Grid>
-      {listOfCards}
+      {/* react-window? */}
+      {/* Lazy Loading */}
+      {/* react.lazy */}
+      <div className="list">
+        {/* <List
+          height={1000}
+          itemCount={200}
+          itemSize={getItemSize}
+          width={500}
+        > */}
+        {listOfCards}
+        {/* </List> */}
+      </div>
     </Grid>
   );
 }
