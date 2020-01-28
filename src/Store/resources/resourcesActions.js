@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_RESOURCES_PENDING, GET_RESOURCES_SUCCESS, GET_RESOURCES_FAILED, GET_ONE_RESOURCES_PENDING, GET_ONE_RESOURCES_SUCCESS, GET_ONE_RESOURCES_FAILED, ADD_RESOURCES_PENDING, ADD_RESOURCES_SUCCESS, ADD_RESOURCES_FAILED, UPDATE_RESOURCES_PENDING, UPDATE_RESOURCES_SUCCESS, UPDATE_RESOURCES_FAILED, DELETE_RESOURCES_PENDING, DELETE_RESOURCES_SUCCESS, DELETE_RESOURCES_FAILED } from "./resourcesConstants";
+import { GET_RESOURCES_PENDING, GET_RESOURCES_SUCCESS, GET_RESOURCES_FAILED, GET_ONE_RESOURCES_PENDING, GET_ONE_RESOURCES_SUCCESS, GET_ONE_RESOURCES_FAILED, ADD_RESOURCES_PENDING, ADD_RESOURCES_SUCCESS, ADD_RESOURCES_FAILED, UPDATE_RESOURCES_PENDING, UPDATE_RESOURCES_SUCCESS, UPDATE_RESOURCES_FAILED, DELETE_RESOURCES_PENDING, DELETE_RESOURCES_SUCCESS, DELETE_RESOURCES_FAILED, UPDATE_RESOURCEVOTE_SUCCESS} from "./resourcesConstants";
 
 export const getAllResources = () => {
     return dispatch => {
@@ -87,6 +87,46 @@ export const updateResource = (updatedInfo, id) => {
         })
     }
 }
+
+export const updateResourceVote = (upvote, downvote, id) => {
+    return dispatch => {
+        
+        axios.patch(`http://localhost:8000/resources/${id}`, {
+            upvote: upvote,
+            downvote: downvote
+        })
+        .then(res => {
+            dispatch({
+                type: UPDATE_RESOURCEVOTE_SUCCESS,
+                payload: res.data[0]
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: UPDATE_RESOURCES_FAILED,
+                payload: err
+            })
+        })
+    }
+}
+// export const updateResourceVote = (type) => {
+//     return dispatch => {
+        
+//         axios.patch(`http://localhost:8000/resources/${id}`, updatedInfo)
+//         .then(res => {
+//             dispatch({
+//                 type: UPDATE_RESOURCE_VOTE,
+//                 payload: res.data[0]
+//             })
+//         })
+//         .catch(err => {
+//             dispatch({
+//                 type: UPDATE_RESOURCES_FAILED,
+//                 payload: err
+//             })
+//         })
+//     }
+// }
 
 export const removeResource = id => {
     return dispatch => {

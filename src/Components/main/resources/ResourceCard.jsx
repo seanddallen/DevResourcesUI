@@ -1,4 +1,5 @@
-import React, { useEffect }from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
@@ -25,8 +26,16 @@ import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
 import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
-import { addResourceVote, getAllResourceVotes, updateResourceVote, removeResourceVote, getOneResourceVote } from "../../../Store/resourceVotes/resourceVotesActions"
-import { useSelector, useDispatch } from "react-redux";
+
+import {
+  addResourceVote,
+  getAllResourceVotes,
+  updateResourceVote,
+  removeResourceVote,
+  getOneResourceVote
+} from "../../../Store/votes/resourceVotesActions";
+import {updateResource} from "../../../Store/resources/resourcesActions"
+import resourceVotesReducer from "../../../Store/votes/resourceVotesReducer";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -67,8 +76,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function ResourceCard(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(false);
   const [hover, setHover] = React.useState(false);
+
+  const user = useSelector(state => state.users.current)
+  // console.log("USER", user)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -77,24 +90,17 @@ export default function ResourceCard(props) {
   const toggleHoverState = () => {
     setHover(!hover);
   };
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllResourceVotes());
-    dispatch(updateResourceVote());
-    dispatch(removeResourceVote());
-  }, [])
-  const handleVoteUp = () => {
+// console.log("PROPS>RESOURCE", props.card.id)
+  const handleVote = (type) => {
+    dispatch(addResourceVote(props.card.id, user.id, type));
+    dispatch(updateResource(props.card.upvotes, props.card.downvotes));
     //i want to add vote up if thumbs up is clicked and vote down if thumbs down is clicked
-    //if the user has already clicked on thumbs up and they want to click on thumbs down we want to also 
+    //if the user has already clicked on thumbs up and they want to click on thumbs down we want to also
     //do a subtraction from thumbs up so a delete api call
     //once they have hit up and down we disable the voting on the resource for that user
-    addResourceVote()
     //if()
-
-  }
-  const handleVoteDown = () => {
-
-  }
+  };
+  // const handleVoteDown = () => {};
 
   return (
     <>
@@ -147,10 +153,7 @@ export default function ResourceCard(props) {
             }
             title={props.card.title}
             subheader={
-              <a
-                href="#"
-                target="_blank"
-              >
+              <a href="#" target="_blank">
                 {props.card.url}
               </a>
             }
@@ -217,8 +220,7 @@ export default function ResourceCard(props) {
                 marginTop: "10px"
               }}
             >
-              <IconButton
-              onClick={handleVoteUp}>
+              <IconButton onClick={() => handleVote("up")}>
                 <ThumbUpIcon />
               </IconButton>
               <div style={{ marginLeft: "-5px" }}>{props.card.upvotes}</div>
@@ -230,8 +232,7 @@ export default function ResourceCard(props) {
                 marginTop: "10px"
               }}
             >
-              <IconButton
-              onClick={handleVoteDown}>
+              <IconButton onClick={() => handleVote("down")}>
                 <ThumbDownIcon />
               </IconButton>
               <div style={{ marginLeft: "-5px" }}>{props.card.downvotes}</div>
