@@ -240,7 +240,8 @@ export default function ResourceCard(props) {
             >
               {/* Do we still want to put a upvote/downvote counter in the resources table */}
               <IconButton onClick={() => handleVote("up")}>
-                <ThumbUpIcon />
+                
+                <ThumbUpIcon style={{ color: "#007791" }} />
               </IconButton>
               <div style={{ marginLeft: "-5px" }}>{props.card.upvotes}</div>
             </div>
@@ -252,7 +253,7 @@ export default function ResourceCard(props) {
               }}
             >
               <IconButton onClick={() => handleVote("down")}>
-                <ThumbDownIcon />
+                <ThumbDownIcon style={{ color: "#EC5252" }} />
               </IconButton>
               <div style={{ marginLeft: "-5px" }}>{props.card.downvotes}</div>
             </div>
