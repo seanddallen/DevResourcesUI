@@ -24,11 +24,11 @@ export default (state = initialState, action) => {
         one: action.payload
       };
 
-    // case ADD_ONE_REVIEW:
-    //   return {
-    //     ...state,
-    //     all: [action.payload, ...state.all]
-    //   };
+    case ADD_ONE_REVIEW:
+      return {
+        ...state,
+        all: [action.payload, ...state.all]
+      };
 
     // case REMOVE_ONE_REVIEW:
     //   return {

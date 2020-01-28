@@ -25,8 +25,9 @@ export const fetchOneReview = id => async dispatch => {
 
 export const addOneReview = newReview => async dispatch => {
   let response = await axios.post("http://localhost:8000/reviews", newReview);
+  console.log("RESP", response.data);
   dispatch({
     type: ADD_ONE_REVIEW,
-    paylaod: response.data
+    payload: response.data
   });
 };

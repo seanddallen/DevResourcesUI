@@ -127,7 +127,7 @@ export default function ReviewDrawer(props) {
   let percentOfOneStar = (oneStar / numberOfReviews) * 100;
 
   console.log("fivestar", fiveStar);
-  const listOfReviews = reviewsByResource.sort((a , b) => moment.(a.)).map(review => {
+  const listOfReviews = reviewsByResource.map(review => {
     return <Review review={review} />;
   });
 
@@ -143,7 +143,11 @@ export default function ReviewDrawer(props) {
       </Grid>
       <Divider />
       <Grid style={{ marginBottom: "-20px" }}>
-        <ReviewForm openForm={openForm} setOpenForm={setOpenForm} />
+        <ReviewForm
+          openForm={openForm}
+          review={props.resourceId}
+          setOpenForm={setOpenForm}
+        />
       </Grid>
       {!openForm ? (
         <>
