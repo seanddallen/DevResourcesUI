@@ -44,17 +44,13 @@ export const getOneResourceVote = id => {
   };
 };
 
-export const addResourceVote = (resourceId, userId, type) => {
+export const addResourceVote = newVote => {
   return dispatch => {
     dispatch({
       type: types.ADD_RESOURCEVOTES_PENDING
     });
     axios
-      .post(`http://localhost:8000/votes`, {
-        resource_id: resourceId,
-        user_id: userId,
-        type: type
-      })
+      .post(`http://localhost:8000/votes`, newVote)
       .then(res => {
         dispatch({
           type: types.ADD_RESOURCEVOTES_SUCCESS,

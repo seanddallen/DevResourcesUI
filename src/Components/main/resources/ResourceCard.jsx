@@ -1,17 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
@@ -22,10 +11,23 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 import StarHalfIcon from "@material-ui/icons/StarHalf";
 import ThumbUpIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbDownIcon from "@material-ui/icons/ThumbDownAlt";
-import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
-import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
+import {
+  Grid,
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Collapse,
+  Avatar,
+  IconButton,
+  Typography,
+  Button,
+  Fab,
+  makeStyles
+} from "@material-ui/core";
 
 import {
   addResourceVote,
@@ -92,8 +94,10 @@ export default function ResourceCard(props) {
   };
 // console.log("PROPS>RESOURCE", props.card.id)
   const handleVote = (type) => {
-    dispatch(addResourceVote(props.card.id, user.id, type));
-    dispatch(updateResource(props.card.upvotes, props.card.downvotes));
+    // dispatch(addResourceVote(props.card.id, user.id, type));
+
+
+    dispatch(addResourceVote({user_id: 1, resource_id: props.card.id, type: type}));
     //i want to add vote up if thumbs up is clicked and vote down if thumbs down is clicked
     //if the user has already clicked on thumbs up and they want to click on thumbs down we want to also
     //do a subtraction from thumbs up so a delete api call
@@ -101,6 +105,16 @@ export default function ResourceCard(props) {
     //if()
   };
   // const handleVoteDown = () => {};
+
+  const averageRating = () => {
+    let { reviews } = props.card;
+    let sum = 0;
+
+    for (let i = 0; i < reviews.length; i++) {
+      sum += reviews[i].rating
+    }
+    return sum / reviews.length
+  }
 
   return (
     <>
@@ -123,14 +137,18 @@ export default function ResourceCard(props) {
             <EditIcon />
           </Fab>
         )}
-        <img
-          // src={require("../../../assets/images/mrwr.jpg")}
-          src={props.image}
-          style={{
-            height: "100%",
-            width: "200px"
-          }}
-        />
+        {props.image ? (
+          <img
+            // src={require("../../../assets/images/mrwr.jpg")}
+            src={props.image}
+            style={{
+              height: "100%",
+              width: "200px"
+            }}
+          />
+        ) : (
+          ""
+        )}
         <Grid style={{ width: "600px" }}>
           <CardHeader
             // avatar={
@@ -198,7 +216,7 @@ export default function ResourceCard(props) {
                 <Rating
                   name="half-rating"
                   readOnly={true}
-                  value={3.6}
+                  value={averageRating()}
                   precision={0.1}
                 />
               </div>
@@ -208,7 +226,7 @@ export default function ResourceCard(props) {
                 onClick={props.toggleDrawer("right", true)}
               >
                 <div style={{ fontSize: "14px", marginLeft: "10px" }}>
-                  236 Reviews
+                  {props.card.reviews.length} Reviews
                 </div>
               </Button>
             </Grid>
@@ -220,6 +238,7 @@ export default function ResourceCard(props) {
                 marginTop: "10px"
               }}
             >
+              {/* Do we still want to put a upvote/downvote counter in the resources table */}
               <IconButton onClick={() => handleVote("up")}>
                 <ThumbUpIcon />
               </IconButton>

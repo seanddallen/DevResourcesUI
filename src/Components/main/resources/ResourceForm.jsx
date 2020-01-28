@@ -8,6 +8,8 @@ import Input from "@material-ui/core/Input";
 import Select from "react-select";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import { addResource } from '../../../Store/resources/resourcesActions';
+import { useDispatch } from 'react-redux';
 
 const levelOptions = [
   { label: "Beginner", value: "Beginner", resource: "Beginner" },
@@ -57,10 +59,45 @@ const useStyles = makeStyles(theme => ({
 export default function ResourceForm(props) {
   const classes = useStyles();
 
+  // Hooks for Form State
   const [title, setTitle] = React.useState("");
   const [link, setLink] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [image, setImage] = React.useState("");
+  const [level, setLevel] = React.useState("");
+  const [age, setAge] = React.useState("");
+  const [price, setPrice] = React.useState("");
+  const [tags, setTags] = React.useState([]);
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = e => {
+    // TODO: add inputs for type and subtype; hash out where getting logged in user to display as creator; add img functionality
+    e.preventDefault();
+
+    const date = new Date();
+    const creationYear = date && new Number(Intl.DateTimeFormat('en-us', {
+      year: 'numeric'
+    }).format(date))
+
+    dispatch(addResource({
+      type: 'Select Type',
+      subtype: 'Select Subtype',
+      title: title,
+      creator: 'Sean Taylor',
+      creation_year: creationYear,
+      url: link,
+      description: description,
+      image: 'someRandoImg.jpeg',
+      price: price,
+      skill_level: level,
+      shares: 0,
+      upvotes: 0,
+      downvotes: 0,
+      approved: false
+
+    }))
+  }
 
   return (
     <div
@@ -117,12 +154,16 @@ export default function ResourceForm(props) {
                   id="title"
                   label="Title"
                   color="secondary"
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
                 />
                 <TextField
                   style={{ width: "250px", marginTop: "20px" }}
                   id="link"
                   label="Link"
                   color="secondary"
+                  value={link}
+                  onChange={e => setLink(e.target.value)}
                 />
                 <TextField
                   id="description"
@@ -178,6 +219,8 @@ export default function ResourceForm(props) {
                         primary: "#EC5252"
                       }
                     })}
+                    value={level.value}
+                    onChange={e => setLevel(e.value)}
                   />
                 </div>
                 <div
@@ -207,6 +250,8 @@ export default function ResourceForm(props) {
                         primary: "#EC5252"
                       }
                     })}
+                    value={age.value}
+                    onChange={e => setAge(e.value)}
                   />
                 </div>
                 <div
@@ -236,6 +281,8 @@ export default function ResourceForm(props) {
                         primary: "#EC5252"
                       }
                     })}
+                    value={price.value}
+                    onChange={e => setPrice(e.value)}
                   />
                 </div>
                 <div
@@ -266,6 +313,8 @@ export default function ResourceForm(props) {
                         primary: "#EC5252"
                       }
                     })}
+                    // value={tags}
+                    onChange={e => setTags([...tags, e.value])}
                   />
                 </div>
               </div>
@@ -276,6 +325,7 @@ export default function ResourceForm(props) {
             variant="contained"
             className={classes.button}
             style={{ width: "120px", marginTop: "40px" }}
+            onClick={handleSubmit}
           >
             SUBMIT
           </Button>
