@@ -79,7 +79,8 @@ export default function ResourceCard(props) {
   };
 
   const averageRating = () => {
-    let { reviews } = props.card;
+    let { reviews } = props.card
+
     let sum = 0;
 
     for (let i = 0; i < reviews.length; i++) {

@@ -55,7 +55,7 @@ export const addResource = newResource => {
             .then(res => {
                 dispatch({
                     type: ADD_RESOURCES_SUCCESS,
-                    payload: res.data[0]
+                    payload: res.data
                 })
             })
             .catch(err => {
