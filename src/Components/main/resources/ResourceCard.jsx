@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import clsx from "clsx";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -27,6 +28,16 @@ import {
   Fab,
   makeStyles
 } from "@material-ui/core";
+
+import {
+  addResourceVote,
+  getAllResourceVotes,
+  updateResourceVote,
+  removeResourceVote,
+  getOneResourceVote
+} from "../../../Store/votes/resourceVotesActions";
+import {updateResource} from "../../../Store/resources/resourcesActions"
+import resourceVotesReducer from "../../../Store/votes/resourceVotesReducer";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -67,8 +78,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function ResourceCard(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(false);
   const [hover, setHover] = React.useState(false);
+
+  const user = useSelector(state => state.users.current)
+  // console.log("USER", user)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -77,6 +92,19 @@ export default function ResourceCard(props) {
   const toggleHoverState = () => {
     setHover(!hover);
   };
+// console.log("PROPS>RESOURCE", props.card.id)
+  const handleVote = (type) => {
+    // dispatch(addResourceVote(props.card.id, user.id, type));
+
+
+    dispatch(addResourceVote({user_id: 1, resource_id: props.card.id, type: type}));
+    //i want to add vote up if thumbs up is clicked and vote down if thumbs down is clicked
+    //if the user has already clicked on thumbs up and they want to click on thumbs down we want to also
+    //do a subtraction from thumbs up so a delete api call
+    //once they have hit up and down we disable the voting on the resource for that user
+    //if()
+  };
+  // const handleVoteDown = () => {};
 
   const averageRating = () => {
     let { reviews } = props.card
@@ -110,7 +138,7 @@ export default function ResourceCard(props) {
             <EditIcon />
           </Fab>
         )}
-        {props.image ?
+        {props.image ? (
           <img
             // src={require("../../../assets/images/mrwr.jpg")}
             src={props.image}
@@ -119,8 +147,9 @@ export default function ResourceCard(props) {
               width: "200px"
             }}
           />
-          : ""
-        }
+        ) : (
+          ""
+        )}
         <Grid style={{ width: "600px" }}>
           <CardHeader
             // avatar={
@@ -143,10 +172,7 @@ export default function ResourceCard(props) {
             }
             title={props.card.title}
             subheader={
-              <a
-                href="#"
-                target="_blank"
-              >
+              <a href="#" target="_blank">
                 {props.card.url}
               </a>
             }
@@ -214,8 +240,9 @@ export default function ResourceCard(props) {
               }}
             >
               {/* Do we still want to put a upvote/downvote counter in the resources table */}
-              <IconButton>
-                <ThumbUpIcon />
+              <IconButton onClick={() => handleVote("up")}>
+                
+                <ThumbUpIcon style={{ color: "#007791" }} />
               </IconButton>
               <div style={{ marginLeft: "-5px" }}>{props.card.upvotes}</div>
             </div>
@@ -226,8 +253,8 @@ export default function ResourceCard(props) {
                 marginTop: "10px"
               }}
             >
-              <IconButton>
-                <ThumbDownIcon />
+              <IconButton onClick={() => handleVote("down")}>
+                <ThumbDownIcon style={{ color: "#EC5252" }} />
               </IconButton>
               <div style={{ marginLeft: "-5px" }}>{props.card.downvotes}</div>
             </div>
