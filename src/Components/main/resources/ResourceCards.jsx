@@ -67,7 +67,7 @@ export default function ResourceCards(props) {
   };
   const resources = useSelector(state => state.resources);
 
-  //Sort
+  //Sorts
   const handleSortNewest = () => {
     resources.sort((a, b) => {
       return ("" + b.creation_year).localeCompare(a.creation_year);
@@ -82,21 +82,39 @@ export default function ResourceCards(props) {
     setAnchorEl(null);
   };
 
-  const handleSortHighestReviews = reviews => {
+  const handleSortMostReviews = () => {
     resources.sort((a, b) => {
       return b.reviews.length - a.reviews.length;
     });
     setAnchorEl(null);
   };
 
-  //still need to access vote scores, not correct yet
   const handleSortHighestRating = rating => {
     resources.sort((a, b) => {
-      return b.votes.length - a.votes.length;
+      let ratingAccA = [];
+      let avgRatingA = 0;
+      let ratingAccB = [];
+      let avgRatingB = 0;
+      const arrAvg = arr => arr.reduce((a, b) => a + b, 0) / arr.length;
+
+      if (a.reviews) {
+        for (let i = 0; i < a.reviews.length; i++) {
+          ratingAccA.push(a.reviews[i].rating);
+          avgRatingA = arrAvg(ratingAccA);
+        }
+      }
+
+      if (b.reviews) {
+        for (let i = 0; i < b.reviews.length; i++) {
+          ratingAccB.push(b.reviews[i].rating);
+          avgRatingB = arrAvg(ratingAccB);
+        }
+      }
+
+      return avgRatingB - avgRatingA;
     });
     setAnchorEl(null);
   };
-
   //end Sort
 
   //search cards - populate cards
@@ -188,7 +206,7 @@ export default function ResourceCards(props) {
               <MenuItem onClick={() => handleSortHighestRating()}>
                 Highest Rating
               </MenuItem>
-              <MenuItem onClick={() => handleSortHighestReviews()}>
+              <MenuItem onClick={() => handleSortMostReviews()}>
                 Most Reviews
               </MenuItem>
               <MenuItem onClick={() => handleSortShares()}>

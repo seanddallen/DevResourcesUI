@@ -163,9 +163,6 @@ export default function ResourceCard(props) {
             <Typography variant="body2" color="textSecondary" component="p">
               {props.card.description}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {props.card.price}
-            </Typography>
           </CardContent>
           <CardActions
             disableSpacing
