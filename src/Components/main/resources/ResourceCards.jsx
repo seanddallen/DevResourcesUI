@@ -1,206 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { fade, makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import clsx from "clsx";
-import IconButton from "@material-ui/core/IconButton";
-import TextField from "@material-ui/core/TextField";
-import SearchIcon from "@material-ui/icons/Search";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import InputBase from "@material-ui/core/InputBase";
-import faker from "faker";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-
-import ResourceCard from "./ResourceCard";
-
-const useStyles = makeStyles(theme => ({
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
-  }
-  // expandOpen: {
-  //   transform: "rotate(180deg)"
-  // }
-}));
-
-export default function ResourceCards(props) {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [expanded, setExpanded] = React.useState(false);
-  const [search, setSearch] = React.useState("");
-
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = event => {
-    setAnchorEl(null);
-  };
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-  const resources = useSelector(state => state.resources);
-
-  //Sort
-  const handleSortNewest = () => {
-    resources.sort((a, b) => {
-      return ("" + b.creation_year).localeCompare(a.creation_year);
-    });
-    setAnchorEl(null);
-  };
-
-  const handleSortShares = () => {
-    resources.sort((a, b) => {
-      return b.shares - a.shares;
-    });
-    setAnchorEl(null);
-  };
-
-  //tentative logic pending seed data
-  const handleSortPrice = property => {
-    resources.sort((a, b) => {
-      return ("" + a[property]).localeCompare(b[property]);
-    });
-    setAnchorEl(null);
-  };
-  //end Sort
-
-  //search cards
-  const listOfCards = search
-    ? resources
-        .filter(resource =>
-          resource.title.toLowerCase().includes(search.toLowerCase())
-        )
-        .map((card, i) => {
-          return (
-            <ResourceCard
-              toggleDrawer={props.toggleDrawer}
-              key={i}
-              card={card}
-              image={faker.image.abstract()}
-            />
-          );
-        })
-    : resources.map((card, i) => {
-        return (
-          <ResourceCard
-            toggleDrawer={props.toggleDrawer}
-            key={i}
-            card={card}
-            image={faker.image.abstract()}
-          />
-        );
-      });
-  //end search
-
-  return (
-    <Grid
-      container
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        marginTop: "10px",
-        marginBottom: "0px"
-      }}
-    >
-      <Grid
-        container
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          marginBottom: "-10px"
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            // justifyContent: "space-around",
-            alignItems: "center"
-            // marginBottom: "-10px"
-          }}
-        >
-          <div>
-            {`1 -${listOfCards.length} of ${listOfCards.length} RESULTS`}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "40px"
-            }}
-          >
-            SORT RESOURCES
-            <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded
-              })}
-              onClick={handleClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Highest Rating</MenuItem>
-              <MenuItem onClick={handleClose}>Most Reviews</MenuItem>
-              <MenuItem onClick={() => handleSortShares()}>
-                Most Shares
-              </MenuItem>
-              <MenuItem onClick={() => handleSortPrice("price")}>
-                Lowest Cost
-              </MenuItem>
-              <MenuItem onClick={() => handleSortNewest()}>Newest</MenuItem>
-            </Menu>
-          </div>
-        </div>
-        <div
-          className={classes.search}
-          style={{
-            display: "flex",
-            // justifyContent: "space-around",
-            alignItems: "center",
-            marginBottom: "0px"
-          }}
-        >
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              className={classes.margin}
-              color="primary"
-              label="Search by Title"
-              style={{ width: "200px" }}
-              name="search"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                )
-              }}
-            />
-          </form>
-        </div>
-      </Grid>
-      {listOfCards}
-    </Grid>
-  );
-}
-import React from "react";
-import { useSelector } from "react-redux";
 import LazyLoad from "react-lazyload";
 import { VariableSizeList as List } from "react-window";
 import Grid from "@material-ui/core/Grid";
@@ -283,18 +82,17 @@ export default function ResourceCards(props) {
     setAnchorEl(null);
   };
 
-  // tentative logic pending seed data
-
   const handleSortHighestReviews = reviews => {
     resources.sort((a, b) => {
-      return ("" + a.reviews).localeCompare(b.reviews);
+      return b.reviews.length - a.reviews.length;
     });
     setAnchorEl(null);
   };
 
+  //still need to access vote scores, not correct yet
   const handleSortHighestRating = rating => {
     resources.sort((a, b) => {
-      return ("" + a.rating).localeCompare(b.rating);
+      return b.votes.length - a.votes.length;
     });
     setAnchorEl(null);
   };
