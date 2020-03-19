@@ -56,12 +56,31 @@ export default function ResourceCards(props) {
   const resources = useSelector(state => state.resources);
 
   const listOfCards = resources.map((card, i) => {
+
+    // let upVotes = 0;
+
+    // card.votes && card.votes.map(vote => {
+    //   if (vote.type === "up") {
+    //     upVotes++
+    //   }
+    // })
+
+    // let downVotes = 0;
+
+    // card.votes && card.votes.map(vote => {
+    //   if (vote.type === "down") {
+    //     downVotes++
+    //   }
+    // })
+
     return (
       <LazyLoad key={i} once={true} placeholder={<Loading />}>
         <ResourceCard
           key={i}
           toggleDrawer={props.toggleDrawer}
           card={card}
+          // upVotes={upVotes}
+          // downVotes={downVotes}
           image={faker.image.abstract()}
         />
       </LazyLoad>

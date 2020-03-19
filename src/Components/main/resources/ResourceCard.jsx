@@ -36,7 +36,7 @@ import {
   removeResourceVote,
   getOneResourceVote
 } from "../../../Store/votes/resourceVotesActions";
-import {updateResource} from "../../../Store/resources/resourcesActions"
+import { updateResource } from "../../../Store/resources/resourcesActions"
 import resourceVotesReducer from "../../../Store/votes/resourceVotesReducer";
 
 const useStyles = makeStyles(theme => ({
@@ -92,12 +92,12 @@ export default function ResourceCard(props) {
   const toggleHoverState = () => {
     setHover(!hover);
   };
-// console.log("PROPS>RESOURCE", props.card.id)
+  // console.log("PROPS>RESOURCE", props.card.id)
   const handleVote = (type) => {
     // dispatch(addResourceVote(props.card.id, user.id, type));
 
 
-    dispatch(addResourceVote({user_id: 1, resource_id: props.card.id, type: type}));
+    dispatch(addResourceVote({ user_id: 1, resource_id: props.card.id, type: type }));
     //i want to add vote up if thumbs up is clicked and vote down if thumbs down is clicked
     //if the user has already clicked on thumbs up and they want to click on thumbs down we want to also
     //do a subtraction from thumbs up so a delete api call
@@ -115,6 +115,30 @@ export default function ResourceCard(props) {
     }
     return sum / reviews.length
   }
+
+  const getUpVotes = () => {
+    let upVotes = 0;
+
+    props.card.votes && props.card.votes.map(vote => {
+      if (vote.type === "up") {
+        upVotes++
+      }
+    })
+    return upVotes
+  }
+  const upVotes = getUpVotes()
+
+  const getDownVotes = () => {
+    let downVotes = 0;
+
+    props.card.votes && props.card.votes.map(vote => {
+      if (vote.type === "down") {
+        downVotes++
+      }
+    })
+    return downVotes
+  }
+  const downVotes = getDownVotes()
 
   return (
     <>
@@ -147,8 +171,8 @@ export default function ResourceCard(props) {
             }}
           />
         ) : (
-          ""
-        )}
+            ""
+          )}
         <Grid style={{ width: "600px" }}>
           <CardHeader
             // avatar={
@@ -240,10 +264,10 @@ export default function ResourceCard(props) {
             >
               {/* Do we still want to put a upvote/downvote counter in the resources table */}
               <IconButton onClick={() => handleVote("up")}>
-                
+
                 <ThumbUpIcon style={{ color: "#007791" }} />
               </IconButton>
-              <div style={{ marginLeft: "-5px" }}>{props.card.upvotes}</div>
+              <div style={{ marginLeft: "-5px" }}>{upVotes}</div>
             </div>
             <div
               style={{
@@ -255,7 +279,7 @@ export default function ResourceCard(props) {
               <IconButton onClick={() => handleVote("down")}>
                 <ThumbDownIcon style={{ color: "#EC5252" }} />
               </IconButton>
-              <div style={{ marginLeft: "-5px" }}>{props.card.downvotes}</div>
+              <div style={{ marginLeft: "-5px" }}>{downVotes}</div>
             </div>
             {/* <div className={classes.grow}></div> */}
             {/* <IconButton

@@ -7,6 +7,7 @@ import List from '@material-ui/core/List';
 
 import { useDispatch } from 'react-redux';
 import { getAllResources } from './Store/resources/resourcesActions';
+import { getAllResourceVotes } from './Store/votes/resourceVotesActions';
 
 import './index.css';
 import TopNav from './Components/layout/TopNav';
@@ -106,6 +107,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getAllResources());
+    dispatch(getAllResourceVotes());
   }, [dispatch])
 
   const toggleDrawer = (side, open) => event => {
