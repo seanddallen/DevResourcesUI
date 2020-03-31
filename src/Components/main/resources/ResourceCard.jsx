@@ -106,16 +106,6 @@ export default function ResourceCard(props) {
   };
   // const handleVoteDown = () => {};
 
-  const averageRating = () => {
-    let { reviews } = props.card;
-    let sum = 0;
-
-    for (let i = 0; i < reviews.length; i++) {
-      sum += reviews[i].rating
-    }
-    return sum / reviews.length
-  }
-
   const getUpVotes = () => {
     let upVotes = 0;
 
@@ -139,6 +129,16 @@ export default function ResourceCard(props) {
     return downVotes
   }
   const downVotes = getDownVotes()
+
+  const averageRating = () => {
+    let { reviews } = props.card;
+    let sum = 0;
+
+    for (let i = 0; i < reviews.length; i++) {
+      sum += reviews[i].rating;
+    }
+    return sum / reviews.length;
+  };
 
   return (
     <>
