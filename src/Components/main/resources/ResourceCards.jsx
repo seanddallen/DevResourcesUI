@@ -57,6 +57,7 @@ export default function ResourceCards(props) {
 
   const listOfCards = resources.map((card, i) => {
 
+    //CODE TO CALCULATE UP/DOWN VOTES AND PASS DOWN THROUGH PROPS
     // let upVotes = 0;
 
     // card.votes && card.votes.map(vote => {
