@@ -2,7 +2,25 @@ import { FETCH_ALL_USERS, FETCH_ONE_USER } from "../actionTypes";
 
 const initialState = {
   all: [],
-  one: {}
+  one: {},
+  current: {
+    id: 1,
+    first_name: "Hall",
+    last_name: "Finley",
+    username: "Alexander3",
+    email: "alexanderfinley@shadease.com",
+    employment: "Employed-Mid",
+    education: "CS Degree",
+    experience: "5-10 years",
+    specialty: "Dev-Ops",
+    approved: true,
+    linkedinUrl: "https://randoLinkedIn.com",
+    githubUrl: "https://randoGitHub.com",
+    personalUrl: "https://randoPersonalSite.com",
+    role: "user",
+    score: 264,
+    image: "randoImg.jpeg"
+  }
 };
 
 export default (state = initialState, action) => {

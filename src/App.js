@@ -1,26 +1,26 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import {
-  MuiThemeProvider,
-  createMuiTheme,
-  makeStyles
-} from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
+import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
 
-import "./index.css";
-import TopNav from "./Components/layout/TopNav";
-import StickyNav from "./Components/layout/StickyNav";
-import Footer from "./Components/layout/Footer";
-import Main from "./Components/main/Main";
-import Login from "./Components/login/Login";
-import Registration from "./Components/login/Registration";
-import Profile from "./Components/profile/Profile";
-import FiltersDrawer from "./Components/main/filters/FiltersDrawer";
-import ReviewDrawer from "./Components/main/reviews/ReviewDrawer";
-import Rankings from "./Components/rankings/Rankings";
-import Admin from "./Components/admin/Admin";
+import { useDispatch } from 'react-redux';
+import { getAllResources } from './Store/resources/resourcesActions';
+import { getAllResourceVotes } from './Store/votes/resourceVotesActions';
+
+import './index.css';
+import TopNav from './Components/layout/TopNav';
+import StickyNav from './Components/layout/StickyNav';
+import Footer from './Components/layout/Footer';
+import Main from './Components/main/Main';
+import Login from './Components/login/Login';
+import Registration from './Components/login/Registration';
+import Profile from './Components/profile/Profile';
+import FiltersDrawer from './Components/main/filters/FiltersDrawer';
+import ReviewDrawer from './Components/main/reviews/ReviewDrawer';
+import Rankings from './Components/rankings/Rankings';
+import Admin from './Components/admin/Admin';
 
 const theme = createMuiTheme({
   //PRIMARY (blue) - #007791
@@ -101,12 +101,19 @@ function App() {
   const classes = useStyles();
   const [drawer, setDrawer] = React.useState({ left: false, right: false });
   const [resourceId, setResourceId] = React.useState(null);
+  
+  // useEffect for initial API calls
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllResources());
+    dispatch(getAllResourceVotes());
+  }, [dispatch])
 
   const toggleDrawer = (side, open, id) => event => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
+    if (event.type === 'keydown' && 
+       (event.key === 'Tab' || event.key === 'Shift')
+      ) {
       return;
     }
     setDrawer({ ...drawer, [side]: !drawer[side] });

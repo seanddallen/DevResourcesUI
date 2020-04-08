@@ -1,16 +1,6 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import clsx from "clsx";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
@@ -21,10 +11,33 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 import StarHalfIcon from "@material-ui/icons/StarHalf";
 import ThumbUpIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbDownIcon from "@material-ui/icons/ThumbDownAlt";
-import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
-import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
+import {
+  Grid,
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Collapse,
+  Avatar,
+  IconButton,
+  Typography,
+  Button,
+  Fab,
+  makeStyles
+} from "@material-ui/core";
+
+import {
+  addResourceVote,
+  getAllResourceVotes,
+  updateResourceVote,
+  removeResourceVote,
+  getOneResourceVote
+} from "../../../Store/votes/resourceVotesActions";
+import { updateResource } from "../../../Store/resources/resourcesActions"
+import resourceVotesReducer from "../../../Store/votes/resourceVotesReducer";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -65,8 +78,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function ResourceCard(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(false);
   const [hover, setHover] = React.useState(false);
+
+  const user = useSelector(state => state.users.current)
+  // console.log("USER", user)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -74,6 +91,53 @@ export default function ResourceCard(props) {
 
   const toggleHoverState = () => {
     setHover(!hover);
+  };
+  // console.log("PROPS>RESOURCE", props.card.id)
+  const handleVote = (type) => {
+    // dispatch(addResourceVote(props.card.id, user.id, type));
+
+
+    dispatch(addResourceVote({ user_id: 1, resource_id: props.card.id, type: type }));
+    //i want to add vote up if thumbs up is clicked and vote down if thumbs down is clicked
+    //if the user has already clicked on thumbs up and they want to click on thumbs down we want to also
+    //do a subtraction from thumbs up so a delete api call
+    //once they have hit up and down we disable the voting on the resource for that user
+    //if()
+  };
+  // const handleVoteDown = () => {};
+
+  const getUpVotes = () => {
+    let upVotes = 0;
+
+    props.card.votes && props.card.votes.map(vote => {
+      if (vote.type === "up") {
+        upVotes++
+      }
+    })
+    return upVotes
+  }
+  const upVotes = getUpVotes()
+
+  const getDownVotes = () => {
+    let downVotes = 0;
+
+    props.card.votes && props.card.votes.map(vote => {
+      if (vote.type === "down") {
+        downVotes++
+      }
+    })
+    return downVotes
+  }
+  const downVotes = getDownVotes()
+
+  const averageRating = () => {
+    let { reviews } = props.card;
+    let sum = 0;
+
+    for (let i = 0; i < reviews.length; i++) {
+      sum += reviews[i].rating;
+    }
+    return sum / reviews.length;
   };
 
   return (
@@ -97,14 +161,18 @@ export default function ResourceCard(props) {
             <EditIcon />
           </Fab>
         )}
-        <img
-          // src={require("../../../assets/images/mrwr.jpg")}
-          src={props.image}
-          style={{
-            height: "100%",
-            width: "200px"
-          }}
-        />
+        {props.image ? (
+          <img
+            // src={require("../../../assets/images/mrwr.jpg")}
+            src={props.image}
+            style={{
+              height: "100%",
+              width: "200px"
+            }}
+          />
+        ) : (
+            ""
+          )}
         <Grid style={{ width: "600px" }}>
           <CardHeader
             // avatar={
@@ -125,13 +193,10 @@ export default function ResourceCard(props) {
                 </IconButton>
               </>
             }
-            title={`#${props.card}: Modern React with Redux`}
+            title={props.card.title}
             subheader={
-              <a
-                href="https://www.udemy.com/course/react-redux/"
-                target="_blank"
-              >
-                www.udemy.com/course/react-redux/
+              <a href="#" target="_blank">
+                {props.card.url}
               </a>
             }
           />
@@ -148,13 +213,7 @@ export default function ResourceCard(props) {
             }}
           >
             <Typography variant="body2" color="textSecondary" component="p">
-              Description: Donec aliquam ornare nunc, eget gravida diam sodales
-              nec. Morbi nec commodo felis, suscipit viverra orci. Pellentesque
-              quis est tincidunt, feugiat nisl vitae, ultrices mi. Sed tempor a
-              tellus a rhoncus. Nam pretium, velit nec imperdiet porttitor,
-              tellus ipsum pretium mauris, vitae sollicitudin nisi velit sed
-              nunc. Cras ut magna eu magna vestibulum finibus. Cras ut magna eu
-              magna vestibulum finibus.
+              {props.card.description}
             </Typography>
           </CardContent>
           <CardActions
@@ -181,7 +240,7 @@ export default function ResourceCard(props) {
                 <Rating
                   name="half-rating"
                   readOnly={true}
-                  value={3.6}
+                  value={averageRating()}
                   precision={0.1}
                 />
               </div>
@@ -191,7 +250,7 @@ export default function ResourceCard(props) {
                 onClick={props.toggleDrawer("right", true, props.card)}
               >
                 <div style={{ fontSize: "14px", marginLeft: "10px" }}>
-                  236 Reviews
+                  {props.card.reviews.length} Reviews
                 </div>
               </Button>
             </Grid>
@@ -203,10 +262,12 @@ export default function ResourceCard(props) {
                 marginTop: "10px"
               }}
             >
-              <IconButton>
-                <ThumbUpIcon />
+              {/* Do we still want to put a upvote/downvote counter in the resources table */}
+              <IconButton onClick={() => handleVote("up")}>
+
+                <ThumbUpIcon style={{ color: "#007791" }} />
               </IconButton>
-              <div style={{ marginLeft: "-5px" }}>36</div>
+              <div style={{ marginLeft: "-5px" }}>{upVotes}</div>
             </div>
             <div
               style={{
@@ -215,10 +276,10 @@ export default function ResourceCard(props) {
                 marginTop: "10px"
               }}
             >
-              <IconButton>
-                <ThumbDownIcon />
+              <IconButton onClick={() => handleVote("down")}>
+                <ThumbDownIcon style={{ color: "#EC5252" }} />
               </IconButton>
-              <div style={{ marginLeft: "-5px" }}>3</div>
+              <div style={{ marginLeft: "-5px" }}>{downVotes}</div>
             </div>
             {/* <div className={classes.grow}></div> */}
             {/* <IconButton
