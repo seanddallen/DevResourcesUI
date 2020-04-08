@@ -71,6 +71,8 @@ export default function ResourceCards(props) {
   const resources = useSelector(state => state.resources);
 
   // VOTES
+
+    //CODE TO CALCULATE UP/DOWN VOTES AND PASS DOWN THROUGH PROPS
     // let upVotes = 0;
 
     // card.votes && card.votes.map(vote => {
