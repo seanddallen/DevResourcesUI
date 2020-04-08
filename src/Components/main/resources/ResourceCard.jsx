@@ -247,7 +247,7 @@ export default function ResourceCard(props) {
               <Button
                 color="primary"
                 style={{ marginLeft: "0px", paddingLeft: "0px" }}
-                onClick={props.toggleDrawer("right", true)}
+                onClick={props.toggleDrawer("right", true, props.card)}
               >
                 <div style={{ fontSize: "14px", marginLeft: "10px" }}>
                   {props.card.reviews.length} Reviews
