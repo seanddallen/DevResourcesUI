@@ -34,7 +34,7 @@ export default function ResourceForm(props) {
         content: content,
         rating: Number(rating),
         user_id: 1,
-        resource_id: props.review
+        resource_id: props.resource.id
       })
     );
     props.setOpenForm(!props.openForm);

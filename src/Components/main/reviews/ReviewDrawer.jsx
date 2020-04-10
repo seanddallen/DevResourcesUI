@@ -50,10 +50,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ReviewDrawer(props) {
-  const reviews = useSelector(state => state.reviews.all);
+export default function ReviewDrawer({ resource, reviews }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(false);
   const [openComments, setOpenComments] = React.useState(false);
   const [openForm, setOpenForm] = React.useState(false);
@@ -78,14 +76,6 @@ export default function ReviewDrawer(props) {
     setExpanded(!expanded);
   };
 
-  useEffect(() => {
-    dispatch(fetchAllReviews());
-  }, []);
-
-  const reviewsByResource = reviews.filter(
-    review => props.resourceId === review.resource_id
-  );
-
   // useEffect(() => {
   //   console.log("here");
   //   for (let i = 0; i < reviewsByResource.length; i++) {
@@ -103,20 +93,20 @@ export default function ReviewDrawer(props) {
   //   }
   // }, [reviewsByResource]);
 
-  for (let i = 0; i < reviewsByResource.length; i++) {
+  for (let i = 0; i < reviews.length; i++) {
     numberOfReviews++;
-    if (reviewsByResource[i].rating === 5) {
+    if (reviews[i].rating === 5) {
       fiveStar += 1;
-    } else if (reviewsByResource[i].rating === 4) {
+    } else if (reviews[i].rating === 4) {
       fourStar += 1;
-    } else if (reviewsByResource[i].rating === 3) {
+    } else if (reviews[i].rating === 3) {
       threeStar += 1;
-    } else if (reviewsByResource[i].rating === 2) {
+    } else if (reviews[i].rating === 2) {
       twoStar += 1;
-    } else if (reviewsByResource[i].rating === 1) {
+    } else if (reviews[i].rating === 1) {
       oneStar += 1;
     }
-    sumOfRatings += reviewsByResource[i].rating;
+    sumOfRatings += reviews[i].rating;
     averageOfRatings = sumOfRatings / numberOfReviews;
   }
 
@@ -126,13 +116,9 @@ export default function ReviewDrawer(props) {
   let percentOfTwoStar = (twoStar / numberOfReviews) * 100;
   let percentOfOneStar = (oneStar / numberOfReviews) * 100;
 
-  console.log("fivestar", fiveStar);
-  const listOfReviews = reviewsByResource.map(review => {
+  const listOfReviews = reviews.map(review => {
     return <Review review={review} />;
   });
-
-  console.log("RES ID: ", props.resourceId);
-  console.log("reviews", reviewsByResource);
 
   return (
     <div>
@@ -145,7 +131,7 @@ export default function ReviewDrawer(props) {
       <Grid style={{ marginBottom: "-20px" }}>
         <ReviewForm
           openForm={openForm}
-          review={props.resourceId}
+          resource={resource}
           setOpenForm={setOpenForm}
         />
       </Grid>

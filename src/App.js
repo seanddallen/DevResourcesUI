@@ -8,6 +8,7 @@ import List from '@material-ui/core/List';
 import { useDispatch } from 'react-redux';
 import { getAllResources } from './Store/resources/resourcesActions';
 import { getAllResourceVotes } from './Store/votes/resourceVotesActions';
+import { fetchAllReviews } from './Store/reviews/reviewsActions';
 
 import './index.css';
 import TopNav from './Components/layout/TopNav';
@@ -100,7 +101,8 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   const [drawer, setDrawer] = React.useState({ left: false, right: false });
-  const [resourceId, setResourceId] = React.useState(null);
+  const [resource, setResource] = React.useState(null);
+  const [reviews, setReviews] = React.useState([]);
   
   // useEffect for initial API calls
   const dispatch = useDispatch();
@@ -108,16 +110,20 @@ function App() {
   useEffect(() => {
     dispatch(getAllResources());
     dispatch(getAllResourceVotes());
+    dispatch(fetchAllReviews());
   }, [dispatch])
 
-  const toggleDrawer = (side, open, id) => event => {
+  const toggleDrawer = (side, open, resource) => event => {
     if (event.type === 'keydown' && 
        (event.key === 'Tab' || event.key === 'Shift')
       ) {
       return;
     }
     setDrawer({ ...drawer, [side]: !drawer[side] });
-    setResourceId(id);
+    setResource(resource);
+    if (resource && resource.reviews) {
+      setReviews(resource.reviews)
+    } 
   };
 
   const sideList = side => (
@@ -138,7 +144,7 @@ function App() {
           // onClick={toggleDrawer(side, false)}
           // onKeyDown={toggleDrawer(side, false)}
         >
-          <ReviewDrawer resourceId={resourceId} />
+          <ReviewDrawer resource={resource} reviews={reviews} />
         </div>
       )}
     </div>
