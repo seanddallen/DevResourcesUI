@@ -14,6 +14,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Rating from "@material-ui/lab/Rating";
 import { fetchAllReviews } from "../../../Store/reviews/reviewsActions";
+import { getAllResources } from "../../../Store/resources/resourcesActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Review from "./Review";
@@ -55,6 +56,7 @@ export default function ReviewDrawer({ resource, reviews }) {
   const [expanded, setExpanded] = React.useState(false);
   const [openComments, setOpenComments] = React.useState(false);
   const [openForm, setOpenForm] = React.useState(false);
+  const [source, setSource] = React.useState([])
   // const [reviews, setReviews] = React.useState([]);
 
   // let [oneStar, setOneStar] = React.useState(0);
@@ -62,6 +64,20 @@ export default function ReviewDrawer({ resource, reviews }) {
   // let [threeStar, setThreeStar] = React.useState(0);
   // let [fourStar, setFourStar] = React.useState(0);
   // let [fiveStar, setFiveStar] = React.useState(0);
+
+  // USEEFFECT
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllResources());
+  }, [dispatch])
+
+  // TRYING TO FILTER TO THIS COMPONENTS RESOURCE AND USE IT TO POPULATE THE COMPONENT SO IT RE-RENDERS AFTER THE POST
+  const allResources = useSelector(state => state.resources);
+  console.log("SOURCES: ", allResources)
+  const thisResource = allResources && allResources.filter(source => source.id === resource.id)[0]
+  setSource(thisResource)
+  console.log("RESOURCE: ", source)
 
   let numberOfReviews = 0;
   let fiveStar = 0;
@@ -116,8 +132,8 @@ export default function ReviewDrawer({ resource, reviews }) {
   let percentOfTwoStar = (twoStar / numberOfReviews) * 100;
   let percentOfOneStar = (oneStar / numberOfReviews) * 100;
 
-  const listOfReviews = reviews.map(review => {
-    return <Review review={review} />;
+  const listOfReviews = reviews.map((review, i) => {
+    return <Review key={i} review={review} />;
   });
 
   return (
