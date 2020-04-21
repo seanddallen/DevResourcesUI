@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ReviewDrawer({ resource, reviews }) {
+export default function ReviewDrawer({ resource }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [openComments, setOpenComments] = React.useState(false);
@@ -65,19 +65,9 @@ export default function ReviewDrawer({ resource, reviews }) {
   // let [fourStar, setFourStar] = React.useState(0);
   // let [fiveStar, setFiveStar] = React.useState(0);
 
-  // USEEFFECT
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getAllResources());
-  }, [dispatch])
-
-  // TRYING TO FILTER TO THIS COMPONENTS RESOURCE AND USE IT TO POPULATE THE COMPONENT SO IT RE-RENDERS AFTER THE POST
-  const allResources = useSelector(state => state.resources);
-  console.log("SOURCES: ", allResources)
-  const thisResource = allResources && allResources.filter(source => source.id === resource.id)[0]
-  setSource(thisResource)
-  console.log("RESOURCE: ", source)
+  // REVIEWS
+  const allReviews = useSelector(state => state.reviews.all);
+  const recReviews = allReviews.filter(review => review.resource_id === resource.id)
 
   let numberOfReviews = 0;
   let fiveStar = 0;
@@ -109,20 +99,20 @@ export default function ReviewDrawer({ resource, reviews }) {
   //   }
   // }, [reviewsByResource]);
 
-  for (let i = 0; i < reviews.length; i++) {
+  for (let i = 0; i < recReviews.length; i++) {
     numberOfReviews++;
-    if (reviews[i].rating === 5) {
+    if (recReviews[i].rating === 5) {
       fiveStar += 1;
-    } else if (reviews[i].rating === 4) {
+    } else if (recReviews[i].rating === 4) {
       fourStar += 1;
-    } else if (reviews[i].rating === 3) {
+    } else if (recReviews[i].rating === 3) {
       threeStar += 1;
-    } else if (reviews[i].rating === 2) {
+    } else if (recReviews[i].rating === 2) {
       twoStar += 1;
-    } else if (reviews[i].rating === 1) {
+    } else if (recReviews[i].rating === 1) {
       oneStar += 1;
     }
-    sumOfRatings += reviews[i].rating;
+    sumOfRatings += recReviews[i].rating;
     averageOfRatings = sumOfRatings / numberOfReviews;
   }
 
@@ -132,7 +122,7 @@ export default function ReviewDrawer({ resource, reviews }) {
   let percentOfTwoStar = (twoStar / numberOfReviews) * 100;
   let percentOfOneStar = (oneStar / numberOfReviews) * 100;
 
-  const listOfReviews = reviews.map((review, i) => {
+  const listOfReviews = recReviews.map((review, i) => {
     return <Review key={i} review={review} />;
   });
 
