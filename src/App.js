@@ -120,7 +120,9 @@ function App() {
       return;
     }
     setDrawer({ ...drawer, [side]: !drawer[side] });
-    setResource(resource);
+    if (resource) {
+      setResource(resource);
+    }
     if (resource && resource.reviews) {
       setReviews(resource.reviews)
     } 
