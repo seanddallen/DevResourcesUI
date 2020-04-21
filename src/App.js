@@ -5,7 +5,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllResources } from './Store/resources/resourcesActions';
 import { getAllResourceVotes } from './Store/votes/resourceVotesActions';
 import { fetchAllReviews } from './Store/reviews/reviewsActions';
@@ -120,7 +120,9 @@ function App() {
       return;
     }
     setDrawer({ ...drawer, [side]: !drawer[side] });
-    setResource(resource);
+    if (resource) {
+      setResource(resource);
+    }
     if (resource && resource.reviews) {
       setReviews(resource.reviews)
     } 
@@ -144,7 +146,7 @@ function App() {
           // onClick={toggleDrawer(side, false)}
           // onKeyDown={toggleDrawer(side, false)}
         >
-          <ReviewDrawer resource={resource} reviews={reviews} />
+          <ReviewDrawer resource={resource} />
         </div>
       )}
     </div>

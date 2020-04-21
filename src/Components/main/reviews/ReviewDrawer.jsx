@@ -14,6 +14,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Rating from "@material-ui/lab/Rating";
 import { fetchAllReviews } from "../../../Store/reviews/reviewsActions";
+import { getAllResources } from "../../../Store/resources/resourcesActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Review from "./Review";
@@ -50,11 +51,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ReviewDrawer({ resource, reviews }) {
+export default function ReviewDrawer({ resource }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [openComments, setOpenComments] = React.useState(false);
   const [openForm, setOpenForm] = React.useState(false);
+  const [source, setSource] = React.useState([])
   // const [reviews, setReviews] = React.useState([]);
 
   // let [oneStar, setOneStar] = React.useState(0);
@@ -62,6 +64,10 @@ export default function ReviewDrawer({ resource, reviews }) {
   // let [threeStar, setThreeStar] = React.useState(0);
   // let [fourStar, setFourStar] = React.useState(0);
   // let [fiveStar, setFiveStar] = React.useState(0);
+
+  // REVIEWS
+  const allReviews = useSelector(state => state.reviews.all);
+  const recReviews = allReviews.filter(review => review.resource_id === resource.id)
 
   let numberOfReviews = 0;
   let fiveStar = 0;
@@ -93,20 +99,20 @@ export default function ReviewDrawer({ resource, reviews }) {
   //   }
   // }, [reviewsByResource]);
 
-  for (let i = 0; i < reviews.length; i++) {
+  for (let i = 0; i < recReviews.length; i++) {
     numberOfReviews++;
-    if (reviews[i].rating === 5) {
+    if (recReviews[i].rating === 5) {
       fiveStar += 1;
-    } else if (reviews[i].rating === 4) {
+    } else if (recReviews[i].rating === 4) {
       fourStar += 1;
-    } else if (reviews[i].rating === 3) {
+    } else if (recReviews[i].rating === 3) {
       threeStar += 1;
-    } else if (reviews[i].rating === 2) {
+    } else if (recReviews[i].rating === 2) {
       twoStar += 1;
-    } else if (reviews[i].rating === 1) {
+    } else if (recReviews[i].rating === 1) {
       oneStar += 1;
     }
-    sumOfRatings += reviews[i].rating;
+    sumOfRatings += recReviews[i].rating;
     averageOfRatings = sumOfRatings / numberOfReviews;
   }
 
@@ -116,8 +122,8 @@ export default function ReviewDrawer({ resource, reviews }) {
   let percentOfTwoStar = (twoStar / numberOfReviews) * 100;
   let percentOfOneStar = (oneStar / numberOfReviews) * 100;
 
-  const listOfReviews = reviews.map(review => {
-    return <Review review={review} />;
+  const listOfReviews = recReviews.map((review, i) => {
+    return <Review key={i} review={review} />;
   });
 
   return (
