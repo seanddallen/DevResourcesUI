@@ -135,16 +135,16 @@ export default function ResourceCards(props) {
 
   // SEARCH CARDS && POPULATE CARDS
   const listOfCards = resources
-        .filter(resource =>
-          resource.title.toLowerCase().includes(search.toLowerCase())
+        .filter(rec =>
+          rec.title.toLowerCase().includes(search.toLowerCase())
         )
-        .map((card, i) => {
+        .map((resource, i) => {
           return (
             <LazyLoad key={i} once={true} placeholder={<Loading />}>
               <ResourceCard
                 toggleDrawer={props.toggleDrawer}
                 key={i}
-                card={card}
+                resource={resource}
                 image={faker.image.abstract()}
               />
             </LazyLoad>
