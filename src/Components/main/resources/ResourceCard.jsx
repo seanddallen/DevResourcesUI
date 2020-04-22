@@ -36,7 +36,7 @@ import {
   removeResourceVote,
   getOneResourceVote
 } from "../../../Store/votes/resourceVotesActions";
-import { updateResource } from "../../../Store/resources/resourcesActions"
+import { updateResource } from "../../../Store/resources/resourcesActions";
 import resourceVotesReducer from "../../../Store/votes/resourceVotesReducer";
 
 const useStyles = makeStyles(theme => ({
@@ -82,8 +82,11 @@ export default function ResourceCard(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [hover, setHover] = React.useState(false);
 
+  // RESOURCE VOTES
+  const allVotes = useSelector(state => state.votes)
+  const votes = props.resource && allVotes.filter(vote => vote.resource_id === props.resource.id)
+
   const user = useSelector(state => state.users.current)
-  // console.log("USER", user)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -92,12 +95,12 @@ export default function ResourceCard(props) {
   const toggleHoverState = () => {
     setHover(!hover);
   };
-  // console.log("PROPS>RESOURCE", props.card.id)
+
   const handleVote = (type) => {
     // dispatch(addResourceVote(props.card.id, user.id, type));
 
 
-    dispatch(addResourceVote({ user_id: 1, resource_id: props.card.id, type: type }));
+    dispatch(addResourceVote({ user_id: 1, resource_id: props.resource.id, type: type }));
     //i want to add vote up if thumbs up is clicked and vote down if thumbs down is clicked
     //if the user has already clicked on thumbs up and they want to click on thumbs down we want to also
     //do a subtraction from thumbs up so a delete api call
@@ -109,7 +112,7 @@ export default function ResourceCard(props) {
   const getUpVotes = () => {
     let upVotes = 0;
 
-    props.card.votes && props.card.votes.map(vote => {
+    votes && votes.map(vote => {
       if (vote.type === "up") {
         upVotes++
       }
@@ -121,7 +124,7 @@ export default function ResourceCard(props) {
   const getDownVotes = () => {
     let downVotes = 0;
 
-    props.card.votes && props.card.votes.map(vote => {
+    votes && votes.map(vote => {
       if (vote.type === "down") {
         downVotes++
       }
@@ -131,7 +134,7 @@ export default function ResourceCard(props) {
   const downVotes = getDownVotes()
 
   const averageRating = () => {
-    let { reviews } = props.card;
+    let { reviews } = props.resource;
     let sum = 0;
 
     for (let i = 0; i < reviews.length; i++) {
@@ -193,10 +196,10 @@ export default function ResourceCard(props) {
                 </IconButton>
               </>
             }
-            title={props.card.title}
+            title={props.resource.title}
             subheader={
               <a href="#" target="_blank">
-                {props.card.url}
+                {props.resource.url}
               </a>
             }
           />
@@ -213,7 +216,7 @@ export default function ResourceCard(props) {
             }}
           >
             <Typography variant="body2" color="textSecondary" component="p">
-              {props.card.description}
+              {props.resource.description}
             </Typography>
           </CardContent>
           <CardActions
@@ -247,10 +250,10 @@ export default function ResourceCard(props) {
               <Button
                 color="primary"
                 style={{ marginLeft: "0px", paddingLeft: "0px" }}
-                onClick={props.toggleDrawer("right", true, props.card)}
+                onClick={props.toggleDrawer("right", true, props.resource)}
               >
                 <div style={{ fontSize: "14px", marginLeft: "10px" }}>
-                  {props.card.reviews.length} Reviews
+                  {props.resource.reviews.length} Reviews
                 </div>
               </Button>
             </Grid>
