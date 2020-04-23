@@ -54,7 +54,7 @@ export const addResourceVote = newVote => {
       .then(res => {
         dispatch({
           type: types.ADD_RESOURCEVOTES_SUCCESS,
-          payload: res.data[0]
+          payload: res.data
         });
       })
       .catch(err => {

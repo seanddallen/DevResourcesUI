@@ -13,7 +13,10 @@ import IconButton from "@material-ui/core/IconButton";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Rating from "@material-ui/lab/Rating";
-
+import { fetchAllReviews } from "../../../Store/reviews/reviewsActions";
+import { getAllResources } from "../../../Store/resources/resourcesActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import Review from "./Review";
 import ReviewForm from "./ReviewForm";
 
@@ -48,20 +51,79 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ReviewDrawer() {
+export default function ReviewDrawer({ resource }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [openComments, setOpenComments] = React.useState(false);
   const [openForm, setOpenForm] = React.useState(false);
+  const [source, setSource] = React.useState([])
+  // const [reviews, setReviews] = React.useState([]);
+
+  // let [oneStar, setOneStar] = React.useState(0);
+  // let [twoStar, setTwoStar] = React.useState(0);
+  // let [threeStar, setThreeStar] = React.useState(0);
+  // let [fourStar, setFourStar] = React.useState(0);
+  // let [fiveStar, setFiveStar] = React.useState(0);
+
+  // REVIEWS
+  const allReviews = useSelector(state => state.reviews.all);
+  const recReviews = allReviews.filter(review => review.resource_id === resource.id)
+
+  let numberOfReviews = 0;
+  let fiveStar = 0;
+  let fourStar = 0;
+  let threeStar = 0;
+  let twoStar = 0;
+  let oneStar = 0;
+  let sumOfRatings = 0;
+  let averageOfRatings = 0;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const reviews = [1, 2, 3, 4, 5];
+  // useEffect(() => {
+  //   console.log("here");
+  //   for (let i = 0; i < reviewsByResource.length; i++) {
+  //     if (reviewsByResource[i].rating === 5) {
+  //       fiveStar += 1;
+  //     } else if (reviewsByResource[i].rating === 4) {
+  //       fourStar += 1;
+  //     } else if (reviewsByResource[i].rating === 3) {
+  //       threeStar += 1;
+  //     } else if (reviewsByResource[i].rating === 2) {
+  //       twoStar += 1;
+  //     } else if (reviewsByResource[i].rating === 1) {
+  //       oneStar += 1;
+  //     }
+  //   }
+  // }, [reviewsByResource]);
 
-  const listOfReviews = reviews.map(review => {
-    return <Review review={review} />;
+  for (let i = 0; i < recReviews.length; i++) {
+    numberOfReviews++;
+    if (recReviews[i].rating === 5) {
+      fiveStar += 1;
+    } else if (recReviews[i].rating === 4) {
+      fourStar += 1;
+    } else if (recReviews[i].rating === 3) {
+      threeStar += 1;
+    } else if (recReviews[i].rating === 2) {
+      twoStar += 1;
+    } else if (recReviews[i].rating === 1) {
+      oneStar += 1;
+    }
+    sumOfRatings += recReviews[i].rating;
+    averageOfRatings = sumOfRatings / numberOfReviews;
+  }
+
+  let percentOfFiveStar = (fiveStar / numberOfReviews) * 100;
+  let percentOfFourStar = (fourStar / numberOfReviews) * 100;
+  let percentOfThreeStar = (threeStar / numberOfReviews) * 100;
+  let percentOfTwoStar = (twoStar / numberOfReviews) * 100;
+  let percentOfOneStar = (oneStar / numberOfReviews) * 100;
+
+  const listOfReviews = recReviews.map((review, i) => {
+    return <Review key={i} review={review} />;
   });
 
   return (
@@ -73,12 +135,18 @@ export default function ReviewDrawer() {
       </Grid>
       <Divider />
       <Grid style={{ marginBottom: "-20px" }}>
-        <ReviewForm openForm={openForm} setOpenForm={setOpenForm} />
+        <ReviewForm
+          openForm={openForm}
+          resource={resource}
+          setOpenForm={setOpenForm}
+        />
       </Grid>
       {!openForm ? (
         <>
           <Grid style={{ margin: "20px" }}>
-            <Grid style={{ fontSize: "16px" }}>DEVELOPER RATING: 4.6</Grid>
+            <Grid style={{ fontSize: "16px" }}>
+              DEVELOPER RATING: {averageOfRatings.toFixed(1)}
+            </Grid>
             <Grid
               style={{
                 display: "flex",
@@ -96,11 +164,11 @@ export default function ReviewDrawer() {
                   name="half-rating"
                   readOnly={true}
                   size={"large"}
-                  value={4.6}
+                  value={averageOfRatings}
                   precision={0.1}
                 />
               </div>
-              <div style={{ marginLeft: "5px" }}>236</div>
+              <div style={{ marginLeft: "5px" }}>{numberOfReviews}</div>
             </Grid>
             <Grid className={classes.root} style={{ marginTop: "10px" }}>
               <Grid style={{ display: "flex", alignItems: "center" }}>
@@ -109,10 +177,10 @@ export default function ReviewDrawer() {
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={75}
+                  value={percentOfFiveStar}
                   style={{ width: "75%" }}
                 />
-                <div style={{ marginLeft: "5px" }}>200</div>
+                <div style={{ marginLeft: "5px" }}>{fiveStar}</div>
               </Grid>
               <Grid style={{ display: "flex", alignItems: "center" }}>
                 <div style={{ marginRight: "5px" }}>4</div>
@@ -120,10 +188,10 @@ export default function ReviewDrawer() {
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={15}
+                  value={percentOfFourStar}
                   style={{ width: "75%" }}
                 />
-                <div style={{ marginLeft: "5px" }}>20</div>
+                <div style={{ marginLeft: "5px" }}>{fourStar}</div>
               </Grid>
               <Grid style={{ display: "flex", alignItems: "center" }}>
                 <div style={{ marginRight: "6px" }}>3</div>
@@ -131,10 +199,10 @@ export default function ReviewDrawer() {
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={1}
+                  value={percentOfThreeStar}
                   style={{ width: "75%" }}
                 />
-                <div style={{ marginLeft: "5px" }}>3</div>
+                <div style={{ marginLeft: "5px" }}>{threeStar}</div>
               </Grid>
               <Grid style={{ display: "flex", alignItems: "center" }}>
                 <div style={{ marginRight: "6px" }}>2</div>
@@ -142,10 +210,10 @@ export default function ReviewDrawer() {
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={1}
+                  value={percentOfTwoStar}
                   style={{ width: "75%" }}
                 />
-                <div style={{ marginLeft: "5px" }}>3</div>
+                <div style={{ marginLeft: "5px" }}>{twoStar}</div>
               </Grid>
               <Grid style={{ display: "flex", alignItems: "center" }}>
                 <div style={{ marginRight: "10px" }}>1</div>
@@ -153,14 +221,25 @@ export default function ReviewDrawer() {
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={8}
+                  value={percentOfOneStar}
                   style={{ width: "75%" }}
                 />
-                <div style={{ marginLeft: "5px" }}>10</div>
+                <div style={{ marginLeft: "5px" }}>{oneStar}</div>
               </Grid>
             </Grid>
             <Grid style={{ marginTop: "20px" }}>
-              <div style={{ fontSize: "16px" }}>Showing 1-10 of 36 Reviews</div>
+              {numberOfReviews <= 10 ? (
+                <div style={{ fontSize: "16px" }}>
+                  Showing 1-{numberOfReviews} of {numberOfReviews} Reviews
+                </div>
+              ) : (
+                <div style={{ fontSize: "16px" }}>
+                  Showing 1-10 of {numberOfReviews} Reviews
+                </div>
+              )}
+              {/* <div style={{ fontSize: "16px" }}>
+                Showing 1-10 of {numberOfReviews} Reviews
+              </div> */}
             </Grid>
             <Grid style={{ marginTop: "20px" }}>
               <div
