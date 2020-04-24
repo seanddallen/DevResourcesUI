@@ -47,6 +47,45 @@ const tagOptions = [
   { label: "ES6", value: "ES6", resource: "ES6" }
 ];
 
+const typeOptions = [
+  { label: "Education", value: "Education", resource: "Education" },
+  { label: "Career", value: "Career", resource: "Career" },
+  { label: "Print", value: "Print", resource: "Print" },
+  { label: "Media", value: "Media", resource: "Media" },
+  { label: "Practice", value: "Practice", resource: "Practice" },
+  { label: "Reference", value: "Reference", resource: "Reference" },
+  { label: "Tech", value: "Tech", resource: "Tech" },
+  { label: "Gear", value: "Gear", resource: "Gear" },
+  { label: "Merch", value: "Merch", resource: "Merch" },
+  { label: "Fun", value: "Fun", resource: "Fun" },
+];
+
+const subtypeOptions = [
+  { label: "Online Courses", value: "Online Courses", resource: "Online Courses" },
+  { label: "Tutorials", value: "Tutorials", resource: "Tutorials" },
+  { label: "Bootcamps", value: "Bootcamps", resource: "Bootcamps" },
+  { label: "Job Sites", value: "Job Sites", resource: "Job Sites" },
+  { label: "Companies", value: "Companies", resource: "Companies" },
+  { label: "Books", value: "Books", resource: "Books" },
+  { label: "Blogs", value: "Blogs", resource: "Blogs" },
+  { label: "Podcasts", value: "Podcasts", resource: "Podcasts" },
+  { label: "Youtube Channels", value: "Youtube Channels", resource: "Youtube Channels" },
+  { label: "Youtube Playlists", value: "Youtube Playlists", resource: "Youtube Playlists" },
+  { label: "Youtube Videos", value: "Youtube Videos", resource: "Youtube Videos" },
+  { label: "Code Challenges", value: "Code Challenges", resource: "Code Challenges" },
+  { label: "Cheatsheets", value: "Cheatsheets", resource: "Cheatsheets" },
+  { label: "Learning Paths", value: "Learning Paths", resource: "Learning Paths" },
+  { label: "Languages", value: "Languages", resource: "Languages" },
+  { label: "Frameworks", value: "Frameworks", resource: "Frameworks" },
+  { label: "Libraries", value: "Libraries", resource: "Libraries" },
+  { label: "Keyboards", value: "Keyboards", resource: "Keyboards" },
+  { label: "Chairs", value: "Chairs", resource: "Chairs" },
+  { label: "Headphones", value: "Headphones", resource: "Headphones" },
+  { label: "Shirts", value: "Shirts", resource: "Shirts" },
+  { label: "Accessories", value: "Accessories", resource: "Accessories" },
+  { label: "Memes", value: "Memes", resource: "Memes" }
+]
+
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
@@ -68,6 +107,8 @@ export default function ResourceForm(props) {
   const [age, setAge] = React.useState("");
   const [price, setPrice] = React.useState("");
   const [tags, setTags] = React.useState([]);
+  const [type, setType] = React.useState("");
+  const [subtype, setSubtype] = React.useState("");
 
   const dispatch = useDispatch();
 
@@ -81,8 +122,8 @@ export default function ResourceForm(props) {
     }).format(date))
 
     dispatch(addResource({
-      type: 'Select Type',
-      subtype: 'Select Subtype',
+      type: type,
+      subtype: subtype,
       title: title,
       creator: 'Sean Taylor',
       creation_year: creationYear,
@@ -95,8 +136,9 @@ export default function ResourceForm(props) {
       upvotes: 0,
       downvotes: 0,
       approved: false
-
     }))
+
+    props.setOpenForm(!props.openForm)
   }
 
   return (
@@ -195,6 +237,68 @@ export default function ResourceForm(props) {
                 <div
                   style={{
                     marginTop: "10px",
+                    minWidth: "100%",
+                    border: "1px solid #C7C7C7",
+                    borderRadius: "6px"
+                  }}
+                >
+                  <Select
+                    className="basic-single"
+                    classNamePrefix="select"
+                    // defaultValue={languageOptions[0]}
+                    // isClearable={isClearable}
+                    name="type"
+                    options={typeOptions}
+                    className={classes.option}
+                    placeholder="Resource Type"
+                    style={{ color: "#C7C7C7" }}
+                    theme={theme => ({
+                      ...theme,
+                      borderRadius: "6px",
+                      borderWidth: "2px",
+                      colors: {
+                        ...theme.colors,
+                        primary: "#EC5252"
+                      }
+                    })}
+                    value={type.value}
+                    onChange={e => setType(e.value)}
+                  />
+                </div>
+                <div
+                  style={{
+                    marginTop: "20px",
+                    minWidth: "100%",
+                    border: "1px solid #C7C7C7",
+                    borderRadius: "6px"
+                  }}
+                >
+                  <Select
+                    className="basic-single"
+                    classNamePrefix="select"
+                    // defaultValue={languageOptions[0]}
+                    // isClearable={isClearable}
+                    name="subtype"
+                    options={subtypeOptions}
+                    className={classes.option}
+                    placeholder="Resource Subtype"
+                    style={{ color: "#C7C7C7" }}
+                    theme={theme => ({
+                      ...theme,
+                      borderRadius: "6px",
+                      borderWidth: "2px",
+                      colors: {
+                        ...theme.colors,
+                        primary: "#EC5252"
+                      }
+                    })}
+                    value={subtype.value}
+                    onChange={e => setSubtype(e.value)}
+                  />
+                </div>
+                <div
+                  style={{
+                    marginTop: "20px",
                     width: "250px",
                     border: "1px solid #C7C7C7",
                     borderRadius: "6px"
