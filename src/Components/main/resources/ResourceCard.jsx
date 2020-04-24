@@ -86,6 +86,10 @@ export default function ResourceCard(props) {
   const allVotes = useSelector(state => state.votes)
   const votes = props.resource && allVotes.filter(vote => vote.resource_id === props.resource.id)
 
+  // RESOURCE REVIEWS
+  const allReviews = useSelector(state => state.reviews.all);
+  const reviews = props.resource && allReviews.filter(review => review.resource_id === props.resource.id);
+
   const user = useSelector(state => state.users.current)
 
   const handleExpandClick = () => {
@@ -134,7 +138,6 @@ export default function ResourceCard(props) {
   const downVotes = getDownVotes()
 
   const averageRating = () => {
-    let { reviews } = props.resource;
     let sum = 0;
 
     for (let i = 0; i < reviews.length; i++) {
@@ -253,7 +256,7 @@ export default function ResourceCard(props) {
                 onClick={props.toggleDrawer("right", true, props.resource)}
               >
                 <div style={{ fontSize: "14px", marginLeft: "10px" }}>
-                  {props.resource.reviews.length} Reviews
+                  {reviews.length} Reviews
                 </div>
               </Button>
             </Grid>
