@@ -137,6 +137,8 @@ export default function ResourceForm(props) {
       downvotes: 0,
       approved: false
     }))
+
+    props.setOpenForm(!props.openForm)
   }
 
   return (
