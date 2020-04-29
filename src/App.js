@@ -1,11 +1,11 @@
+// TODO: REFACTOR WITH REDUX: Drawer Reducer to open/close left/right drawer
+
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getAllResources } from './Store/resources/resourcesActions';
 import { getAllResourceVotes } from './Store/votes/resourceVotesActions';
 import { fetchAllReviews } from './Store/reviews/reviewsActions';
@@ -13,7 +13,6 @@ import { fetchAllReviews } from './Store/reviews/reviewsActions';
 import './index.css';
 import TopNav from './Components/layout/TopNav';
 import StickyNav from './Components/layout/StickyNav';
-import Footer from './Components/layout/Footer';
 import Main from './Components/main/Main';
 import Login from './Components/login/Login';
 import Registration from './Components/login/Registration';
@@ -60,9 +59,9 @@ const theme = createMuiTheme({
     fontFamily: '"Poppins", Roboto, "Helvetica Neue", Arial, sans-serif'
   },
   overrides: {
-    // MuiInput: {
-    //     underline: 'green'
-    // },
+    MuiInput: {
+        underline: 'green'
+    },
     MuiStepIcon: {
       root: {
         "&$completed": {
@@ -91,12 +90,7 @@ const useStyles = makeStyles({
   rightDrawer: {
     width: 500
   }
-  // topNav: {
-  //   backgroundColor: theme.palette.secondary.main
-  // }
 });
-
-//onClick={toggleDrawer('left', true)}
 
 function App() {
   const classes = useStyles();
@@ -134,8 +128,6 @@ function App() {
         <div
           className={classes.leftDrawer}
           role="presentation"
-          // onClick={toggleDrawer(side, false)}
-          // onKeyDown={toggleDrawer(side, false)}
         >
           <FiltersDrawer />
         </div>
@@ -143,16 +135,12 @@ function App() {
         <div
           className={classes.rightDrawer}
           role="presentation"
-          // onClick={toggleDrawer(side, false)}
-          // onKeyDown={toggleDrawer(side, false)}
         >
           <ReviewDrawer resource={resource} />
         </div>
       )}
     </div>
   );
-
-  //REFACTOR WITH REDUX: Drawer Reducer to open/close left/right drawer
 
   return (
     <div className="App">
@@ -194,7 +182,6 @@ function App() {
           >
             {sideList("right")}
           </Drawer>
-          {/* <Footer/> */}
         </MuiThemeProvider>
       </BrowserRouter>
     </div>
