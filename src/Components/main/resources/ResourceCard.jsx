@@ -1,14 +1,10 @@
-import React, { useEffect } from "react";
+// TODO: user can only vote once and if they change their vote the other vote total decreases by one
+
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import clsx from "clsx";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import StarIcon from "@material-ui/icons/Star";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-import StarHalfIcon from "@material-ui/icons/StarHalf";
 import ThumbUpIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbDownIcon from "@material-ui/icons/ThumbDownAlt";
 import Rating from "@material-ui/lab/Rating";
@@ -17,11 +13,8 @@ import {
   Grid,
   Card,
   CardHeader,
-  CardMedia,
   CardContent,
   CardActions,
-  Collapse,
-  Avatar,
   IconButton,
   Typography,
   Button,
@@ -29,15 +22,7 @@ import {
   makeStyles
 } from "@material-ui/core";
 
-import {
-  addResourceVote,
-  getAllResourceVotes,
-  updateResourceVote,
-  removeResourceVote,
-  getOneResourceVote
-} from "../../../Store/votes/resourceVotesActions";
-import { updateResource } from "../../../Store/resources/resourcesActions";
-import resourceVotesReducer from "../../../Store/votes/resourceVotesReducer";
+import { addResourceVote } from "../../../Store/votes/resourceVotesActions";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -53,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     height: 0,
-    paddingTop: "56.25%" // 16:9
+    paddingTop: "56.25%"
   },
   expand: {
     transform: "rotate(0deg)",
@@ -79,39 +64,23 @@ const useStyles = makeStyles(theme => ({
 export default function ResourceCard(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [expanded, setExpanded] = React.useState(false);
   const [hover, setHover] = React.useState(false);
-
-  // RESOURCE VOTES
-  const allVotes = useSelector(state => state.votes)
-  const votes = props.resource && allVotes.filter(vote => vote.resource_id === props.resource.id)
 
   // RESOURCE REVIEWS
   const allReviews = useSelector(state => state.reviews.all);
   const reviews = props.resource && allReviews.filter(review => review.resource_id === props.resource.id);
 
-  const user = useSelector(state => state.users.current)
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   const toggleHoverState = () => {
     setHover(!hover);
   };
 
+  // RESOURCE VOTES
+  const allVotes = useSelector(state => state.votes)
+  const votes = props.resource && allVotes.filter(vote => vote.resource_id === props.resource.id)
+
   const handleVote = (type) => {
-    // dispatch(addResourceVote(props.card.id, user.id, type));
-
-
     dispatch(addResourceVote({ user_id: 1, resource_id: props.resource.id, type: type }));
-    //i want to add vote up if thumbs up is clicked and vote down if thumbs down is clicked
-    //if the user has already clicked on thumbs up and they want to click on thumbs down we want to also
-    //do a subtraction from thumbs up so a delete api call
-    //once they have hit up and down we disable the voting on the resource for that user
-    //if()
   };
-  // const handleVoteDown = () => {};
 
   const getUpVotes = () => {
     let upVotes = 0;
@@ -137,6 +106,7 @@ export default function ResourceCard(props) {
   }
   const downVotes = getDownVotes()
 
+  // RESOURCE RATINGS
   const averageRating = () => {
     let sum = 0;
 
@@ -169,7 +139,6 @@ export default function ResourceCard(props) {
         )}
         {props.image ? (
           <img
-            // src={require("../../../assets/images/mrwr.jpg")}
             src={props.image}
             style={{
               height: "100%",
@@ -181,15 +150,7 @@ export default function ResourceCard(props) {
           )}
         <Grid style={{ width: "600px" }}>
           <CardHeader
-            // avatar={
-            //   <Avatar aria-label="recipe" className={classes.avatar}>
-            //     R
-            //   </Avatar>
-            // }
             action={
-              // <IconButton aria-label="settings">
-              //   <MoreVertIcon />
-              // </IconButton>
               <>
                 <IconButton aria-label="add to favorites">
                   <FavoriteIcon />
@@ -206,11 +167,6 @@ export default function ResourceCard(props) {
               </a>
             }
           />
-          {/* <CardMedia
-        className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
-      /> */}
           <CardContent
             style={{
               paddingTop: "0px",
@@ -238,11 +194,6 @@ export default function ResourceCard(props) {
               }}
             >
               <div>
-                {/* <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarHalfIcon />
-            <StarBorderIcon /> */}
                 <Rating
                   name="half-rating"
                   readOnly={true}
@@ -268,7 +219,6 @@ export default function ResourceCard(props) {
                 marginTop: "10px"
               }}
             >
-              {/* Do we still want to put a upvote/downvote counter in the resources table */}
               <IconButton onClick={() => handleVote("up")}>
 
                 <ThumbUpIcon style={{ color: "#007791" }} />
@@ -287,49 +237,7 @@ export default function ResourceCard(props) {
               </IconButton>
               <div style={{ marginLeft: "-5px" }}>{downVotes}</div>
             </div>
-            {/* <div className={classes.grow}></div> */}
-            {/* <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton> */}
           </CardActions>
-          {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-            Transfer shrimp to a large plate and set aside, leaving chicken and
-            chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-            onion, salt and pepper, and cook, stirring often until thickened and
-            fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
-            cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is
-            absorbed, 15 to 18 minutes. Reduce heat to medium-low, add reserved
-            shrimp and mussels, tucking them down into the rice, and cook again
-            without stirring, until mussels have opened and rice is just tender,
-            5 to 7 minutes more. (Discard any mussels that don’t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then
-            serve.
-          </Typography>
-        </CardContent>
-      </Collapse> */}
         </Grid>
       </Card>
     </>

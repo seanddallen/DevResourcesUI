@@ -1,22 +1,20 @@
 import React from "react";
 import { useSelector } from 'react-redux';
 import LazyLoad from 'react-lazyload';
-import { VariableSizeList as List } from 'react-window';
-import Grid from "@material-ui/core/Grid";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
 import {
   IconButton,
   Card,
-  fade,
-  makeStyles
+  makeStyles,
+  Menu,
+  MenuItem,
+  TextField,
+  InputAdornment,
+  Grid
 } from "@material-ui/core";
 import faker from "faker";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
 
 import ResourceCard from "./ResourceCard";
@@ -45,13 +43,6 @@ const Loading = () => (
   </div>
 )
 
-// React-Window
-const rowHeights = new Array(200)
-  .fill(true)
-  .map(() => 500);
-
-const getItemSize = index => rowHeights[index];
-
 export default function ResourceCards(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -68,46 +59,31 @@ export default function ResourceCards(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
   const resources = useSelector(state => state.resources);
 
-  // VOTES
-
-    //CODE TO CALCULATE UP/DOWN VOTES AND PASS DOWN THROUGH PROPS
-    // let upVotes = 0;
-
-    // card.votes && card.votes.map(vote => {
-    //   if (vote.type === "up") {
-    //     upVotes++
-    //   }
-    // })
-
-    // let downVotes = 0;
-
-    // card.votes && card.votes.map(vote => {
-    //   if (vote.type === "down") {
-    //     downVotes++
-    //   }
-    // })
-
-    // SORTS
+  // SORTS
   const handleSortNewest = () => {
     resources.sort((a, b) => {
       return ("" + b.creation_year).localeCompare(a.creation_year);
     });
     setAnchorEl(null);
   };
+
   const handleSortShares = () => {
     resources.sort((a, b) => {
       return b.shares - a.shares;
     });
     setAnchorEl(null);
   };
+
   const handleSortMostReviews = () => {
     resources.sort((a, b) => {
       return b.reviews.length - a.reviews.length;
     });
     setAnchorEl(null);
   };
+
   const handleSortHighestRating = rating => {
     resources.sort((a, b) => {
       let ratingAccA = [];
@@ -131,7 +107,6 @@ export default function ResourceCards(props) {
     });
     setAnchorEl(null);
   };
-  //end SORTS
 
   // SEARCH CARDS && POPULATE CARDS
   const listOfCards = resources
@@ -150,8 +125,6 @@ export default function ResourceCards(props) {
             </LazyLoad>
           );
         })
-
-  //end search
 
   return (
     <Grid
@@ -212,7 +185,6 @@ export default function ResourceCards(props) {
           className={classes.search}
           style={{
             display: "flex",
-            // justifyContent: "space-around",
             alignItems: "center",
             marginBottom: "0px"
           }}

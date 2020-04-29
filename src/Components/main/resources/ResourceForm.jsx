@@ -2,89 +2,20 @@
 //ADD: Year, Price, Level, Tags, Type, Subtype
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Input from "@material-ui/core/Input";
+import { Button, TextField, Input, Fab } from "@material-ui/core";
 import Select from "react-select";
-import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { addResource } from '../../../Store/resources/resourcesActions';
 import { useDispatch } from 'react-redux';
 
-const levelOptions = [
-  { label: "Beginner", value: "Beginner", resource: "Beginner" },
-  { label: "Intermediate", value: "Intermediate", resource: "Intermediate" },
-  { label: "Advanced", value: "Advanced", resource: "Advanced" }
-];
-
-const ageOptions = [
-  { label: "0-1 Years", value: "new", resource: "new" },
-  { label: "1-5 Years", value: "old", resource: "old" },
-  { label: "5+ Years", value: "outdated", resource: "outdated" }
-];
-
-const priceOptions = [
-  { label: "FREE", value: "Free", resource: "Free" },
-  { label: "under $20", value: "under20", resource: "under20" },
-  { label: "$20 - $100", value: "over20", resource: "over20" },
-  { label: "over $100", value: "over100", resource: "over100" }
-];
-
-const tagOptions = [
-  { label: "react", value: "react", resource: "react" },
-  { label: "Redux", value: "Redux", resource: "Redux" },
-  { label: "Angular", value: "Angular", resource: "Angular" },
-  { label: "Vue", value: "Vue", resource: "Vue" },
-  { label: "Node", value: "Node", resource: "Node" },
-  { label: "Knex", value: "Knex", resource: "Knex" },
-  { label: "Postgres", value: "Postgres", resource: "Redux" },
-  { label: "Express", value: "Express", resource: "Express" },
-  { label: "SQL", value: "SQL", resource: "SQL" },
-  { label: "Spring", value: "Spring", resource: "Spring" },
-  { label: "MVC", value: "MVC", resource: "MVC" },
-  { label: "HTML", value: "HTML", resource: "Redux" },
-  { label: "CSS", value: "CSS", resource: "CSS" },
-  { label: "ES6", value: "ES6", resource: "ES6" }
-];
-
-const typeOptions = [
-  { label: "Education", value: "Education", resource: "Education" },
-  { label: "Career", value: "Career", resource: "Career" },
-  { label: "Print", value: "Print", resource: "Print" },
-  { label: "Media", value: "Media", resource: "Media" },
-  { label: "Practice", value: "Practice", resource: "Practice" },
-  { label: "Reference", value: "Reference", resource: "Reference" },
-  { label: "Tech", value: "Tech", resource: "Tech" },
-  { label: "Gear", value: "Gear", resource: "Gear" },
-  { label: "Merch", value: "Merch", resource: "Merch" },
-  { label: "Fun", value: "Fun", resource: "Fun" },
-];
-
-const subtypeOptions = [
-  { label: "Online Courses", value: "Online Courses", resource: "Online Courses" },
-  { label: "Tutorials", value: "Tutorials", resource: "Tutorials" },
-  { label: "Bootcamps", value: "Bootcamps", resource: "Bootcamps" },
-  { label: "Job Sites", value: "Job Sites", resource: "Job Sites" },
-  { label: "Companies", value: "Companies", resource: "Companies" },
-  { label: "Books", value: "Books", resource: "Books" },
-  { label: "Blogs", value: "Blogs", resource: "Blogs" },
-  { label: "Podcasts", value: "Podcasts", resource: "Podcasts" },
-  { label: "Youtube Channels", value: "Youtube Channels", resource: "Youtube Channels" },
-  { label: "Youtube Playlists", value: "Youtube Playlists", resource: "Youtube Playlists" },
-  { label: "Youtube Videos", value: "Youtube Videos", resource: "Youtube Videos" },
-  { label: "Code Challenges", value: "Code Challenges", resource: "Code Challenges" },
-  { label: "Cheatsheets", value: "Cheatsheets", resource: "Cheatsheets" },
-  { label: "Learning Paths", value: "Learning Paths", resource: "Learning Paths" },
-  { label: "Languages", value: "Languages", resource: "Languages" },
-  { label: "Frameworks", value: "Frameworks", resource: "Frameworks" },
-  { label: "Libraries", value: "Libraries", resource: "Libraries" },
-  { label: "Keyboards", value: "Keyboards", resource: "Keyboards" },
-  { label: "Chairs", value: "Chairs", resource: "Chairs" },
-  { label: "Headphones", value: "Headphones", resource: "Headphones" },
-  { label: "Shirts", value: "Shirts", resource: "Shirts" },
-  { label: "Accessories", value: "Accessories", resource: "Accessories" },
-  { label: "Memes", value: "Memes", resource: "Memes" }
-]
+import {
+  levelOptions,
+  ageOptions,
+  priceOptions,
+  tagOptions,
+  typeOptions,
+  subtypeOptions
+} from "./FormOptions"
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -113,7 +44,7 @@ export default function ResourceForm(props) {
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
-    // TODO: add inputs for type and subtype; hash out where getting logged in user to display as creator; add img functionality
+    // TODO: hash out where getting logged in user to display as creator; add img functionality
     e.preventDefault();
 
     const date = new Date();
@@ -243,10 +174,7 @@ export default function ResourceForm(props) {
                   }}
                 >
                   <Select
-                    className="basic-single"
                     classNamePrefix="select"
-                    // defaultValue={languageOptions[0]}
-                    // isClearable={isClearable}
                     name="type"
                     options={typeOptions}
                     className={classes.option}
@@ -274,10 +202,7 @@ export default function ResourceForm(props) {
                   }}
                 >
                   <Select
-                    className="basic-single"
                     classNamePrefix="select"
-                    // defaultValue={languageOptions[0]}
-                    // isClearable={isClearable}
                     name="subtype"
                     options={subtypeOptions}
                     className={classes.option}
@@ -305,10 +230,7 @@ export default function ResourceForm(props) {
                   }}
                 >
                   <Select
-                    className="basic-single"
                     classNamePrefix="select"
-                    // defaultValue={languageOptions[0]}
-                    // isClearable={isClearable}
                     name="experience"
                     options={levelOptions}
                     className={classes.option}
@@ -336,10 +258,7 @@ export default function ResourceForm(props) {
                   }}
                 >
                   <Select
-                    className="basic-single"
                     classNamePrefix="select"
-                    // defaultValue={languageOptions[0]}
-                    // isClearable={isClearable}
                     name="age"
                     options={ageOptions}
                     className={classes.option}
@@ -367,10 +286,7 @@ export default function ResourceForm(props) {
                   }}
                 >
                   <Select
-                    className="basic-single"
                     classNamePrefix="select"
-                    // defaultValue={languageOptions[0]}
-                    // isClearable={isClearable}
                     name="price"
                     options={priceOptions}
                     className={classes.option}
@@ -398,10 +314,7 @@ export default function ResourceForm(props) {
                   }}
                 >
                   <Select
-                    className="basic-single"
                     classNamePrefix="select"
-                    // defaultValue={languageOptions[0]}
-                    // isClearable={isClearable}
                     name="tags"
                     isMulti
                     options={tagOptions}
@@ -417,7 +330,6 @@ export default function ResourceForm(props) {
                         primary: "#EC5252"
                       }
                     })}
-                    // value={tags}
                     onChange={e => setTags([...tags, e.value])}
                   />
                 </div>
