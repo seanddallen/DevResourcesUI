@@ -1,8 +1,5 @@
-import React, { Component } from "react";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
+import React from "react";
 
-import Filters from "./filters/Filters";
 import Cards from "./resources/ResourceCards";
 import ResourceForm from "./resources/ResourceForm";
 import Leaderboard from "./leaderboard/Leaderboard";

@@ -1,11 +1,10 @@
 import React from "react";
-import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import StarIcon from "@material-ui/icons/Star";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-import StarHalfIcon from "@material-ui/icons/StarHalf";
+import { 
+  makeStyles,
+  Divider,
+  Grid,
+  Button
+} from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -45,20 +44,12 @@ export default function Review(props) {
   )[0];
   const reviewDate = props.review.created_at.slice(0, 10);
 
-  // console.log("userByReview", userByReview);
-  // console.log("props", props);
-
   return (
     <>
       <Divider />
       <Grid style={{ margin: "20px" }}>
         <Grid style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
-            {/* <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarHalfIcon />
-            <StarBorderIcon /> */}
             <Rating
               name="half-rating"
               readOnly={true}

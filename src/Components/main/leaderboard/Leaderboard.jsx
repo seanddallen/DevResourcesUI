@@ -1,67 +1,3 @@
-// import React from "react";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Table from "@material-ui/core/Table";
-// import TableBody from "@material-ui/core/TableBody";
-// import TableCell from "@material-ui/core/TableCell";
-// import TableHead from "@material-ui/core/TableHead";
-// import TableRow from "@material-ui/core/TableRow";
-// import Paper from "@material-ui/core/Paper";
-
-// const useStyles = makeStyles({
-//   root: {
-//     // width: "100%",
-//     // overflowX: "auto"
-//   },
-//   table: {
-//     width: 300
-//   }
-// });
-
-// function createData(rank, score, user) {
-//   return { rank, score, user };
-// }
-
-// const rows = [
-//   createData("#1", 1200, "Sean Tayler"),
-//   createData("#2", 1200, "Sean Tayler"),
-//   createData("#3", 1200, "Sean Tayler"),
-//   createData("#4", 1200, "Sean Tayler"),
-//   createData("#5", 1200, "Sean Tayler"),
-//   createData("#6", 1200, "Sean Tayler")
-// ];
-
-// export default function SimpleTable() {
-//   const classes = useStyles();
-
-//   return (
-//     <Paper
-//       className={classes.root}
-//       style={{ width: "300px", marginRight: "0px" }}
-//     >
-//       <Table className={classes.table} aria-label="simple table">
-//         <TableHead>
-//           <TableRow>
-//             <TableCell align="left">Rank</TableCell>
-//             <TableCell align="left">Score</TableCell>
-//             <TableCell align="left">User</TableCell>
-//           </TableRow>
-//         </TableHead>
-//         <TableBody>
-//           {rows.map(row => (
-//             <TableRow key={row.name}>
-//               <TableCell component="th" scope="row" align="left">
-//                 {row.rank}
-//               </TableCell>
-//               <TableCell align="left">{row.score}</TableCell>
-//               <TableCell align="left">{row.user}</TableCell>
-//             </TableRow>
-//           ))}
-//         </TableBody>
-//       </Table>
-//     </Paper>
-//   );
-// }
-
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -78,16 +14,13 @@ const useStyles = makeStyles(theme => ({
   card: {
     margin: "10px",
     width: "300px"
-    // "&:hover": {
-    //   boxShadow: "-1px 5px 29px 0px rgba(0,0,0,0.5)"
-    // }
   },
   grow: {
     flexGrow: 1
   },
   media: {
     height: 0,
-    paddingTop: "56.25%" // 16:9
+    paddingTop: "56.25%"
   },
   expand: {
     transform: "rotate(0deg)",
@@ -146,12 +79,6 @@ export default function ResourceCard(props) {
       <>
         <Grid style={{ marginTop: "-5px", marginBottom: "-5px" }}>
           <CardHeader
-            // avatar={
-            //   <Avatar aria-label="recipe" className={classes.avatar}>
-            //     S
-            //   </Avatar>
-            // }
-            // title="Resource Title"
             subheader={
               <div style={{ display: "flex" }}>
                 <div
@@ -212,7 +139,6 @@ export default function ResourceCard(props) {
         margin: "10px -20px 0px 50px"
       }}
     >
-      {/* <div style={{ fontSize: "14px", fontWeight: "bold" }}>LEADERBOARD</div> */}
       <Grid
         container
         style={{
