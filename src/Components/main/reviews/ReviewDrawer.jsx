@@ -1,22 +1,10 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import CloseIcon from "@material-ui/icons/Close";
-import StarIcon from "@material-ui/icons/Star";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-import StarHalfIcon from "@material-ui/icons/StarHalf";
-import IconButton from "@material-ui/core/IconButton";
+import { Divider, Grid, IconButton, LinearProgress } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import Rating from "@material-ui/lab/Rating";
-import { fetchAllReviews } from "../../../Store/reviews/reviewsActions";
-import { getAllResources } from "../../../Store/resources/resourcesActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import Review from "./Review";
 import ReviewForm from "./ReviewForm";
 
@@ -28,7 +16,6 @@ const BorderLinearProgress = withStyles({
   bar: {
     borderRadius: 0,
     backgroundColor: "#ff6c5c"
-    // width: "200px"
   }
 })(LinearProgress);
 
@@ -54,16 +41,7 @@ const useStyles = makeStyles(theme => ({
 export default function ReviewDrawer({ resource }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [openComments, setOpenComments] = React.useState(false);
   const [openForm, setOpenForm] = React.useState(false);
-  const [source, setSource] = React.useState([])
-  // const [reviews, setReviews] = React.useState([]);
-
-  // let [oneStar, setOneStar] = React.useState(0);
-  // let [twoStar, setTwoStar] = React.useState(0);
-  // let [threeStar, setThreeStar] = React.useState(0);
-  // let [fourStar, setFourStar] = React.useState(0);
-  // let [fiveStar, setFiveStar] = React.useState(0);
 
   // REVIEWS
   const allReviews = useSelector(state => state.reviews.all);
@@ -81,23 +59,6 @@ export default function ReviewDrawer({ resource }) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
-  // useEffect(() => {
-  //   console.log("here");
-  //   for (let i = 0; i < reviewsByResource.length; i++) {
-  //     if (reviewsByResource[i].rating === 5) {
-  //       fiveStar += 1;
-  //     } else if (reviewsByResource[i].rating === 4) {
-  //       fourStar += 1;
-  //     } else if (reviewsByResource[i].rating === 3) {
-  //       threeStar += 1;
-  //     } else if (reviewsByResource[i].rating === 2) {
-  //       twoStar += 1;
-  //     } else if (reviewsByResource[i].rating === 1) {
-  //       oneStar += 1;
-  //     }
-  //   }
-  // }, [reviewsByResource]);
 
   for (let i = 0; i < recReviews.length; i++) {
     numberOfReviews++;
@@ -155,11 +116,6 @@ export default function ReviewDrawer({ resource }) {
               }}
             >
               <div>
-                {/* <StarIcon />
-                <StarIcon />
-                <StarIcon />
-                <StarHalfIcon />
-                <StarBorderIcon /> */}
                 <Rating
                   name="half-rating"
                   readOnly={true}
@@ -236,10 +192,7 @@ export default function ReviewDrawer({ resource }) {
                 <div style={{ fontSize: "16px" }}>
                   Showing 1-10 of {numberOfReviews} Reviews
                 </div>
-              )}
-              {/* <div style={{ fontSize: "16px" }}>
-                Showing 1-10 of {numberOfReviews} Reviews
-              </div> */}
+              )}  
             </Grid>
             <Grid style={{ marginTop: "20px" }}>
               <div

@@ -1,9 +1,7 @@
-// Title, Link, Description, Image
+// Title, Link, Description, Image?
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Input from "@material-ui/core/Input";
+import { Button, TextField } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import { addOneReview } from "../../../Store/reviews/reviewsActions";
 import { useDispatch } from "react-redux";
@@ -18,14 +16,8 @@ export default function ResourceForm(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [title, setTitle] = React.useState("");
-  const [link, setLink] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [image, setImage] = React.useState("");
   const [rating, setRating] = React.useState("");
   const [content, setContent] = React.useState("");
-  const [resourceId, setResourceId] = React.useState("");
-  const [userId, setUserId] = React.useState("");
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -79,7 +71,6 @@ export default function ResourceForm(props) {
               }}
               noValidate
               autoComplete="off"
-              // onSubmit={handleSubmit}
             >
               <span>RATE: </span>
               <Rating
