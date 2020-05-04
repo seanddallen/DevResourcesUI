@@ -6,8 +6,8 @@ import usersReducer from "./users/usersReducer";
 import resourcesReducer from "./resources/resourcesReducer";
 import reviewsReducer from "./reviews/reviewsReducer";
 // import commentsReducer from './reducers/commentsReducer'
-import resourceVotesReducer from './votes/resourceVotesReducer'
-// import favoritesReducer from './reducers/favoritesReducer'
+import resourceVotesReducer from './votes/resourceVotesReducer';
+import favoritesReducer from './favorites/favoritesReducer';
 // import drawersReducer from './reducers/drawersReducer'
 
 const rootReducer = combineReducers({
@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
   reviews: reviewsReducer,
   //   comments: commentsReducer,
   votes: resourceVotesReducer,
-  //   favorites: favoritesReducer,
+    favorites: favoritesReducer,
   //   drawers: drawersReducer
 });
 

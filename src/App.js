@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { getAllResources } from './Store/resources/resourcesActions';
 import { getAllResourceVotes } from './Store/votes/resourceVotesActions';
 import { fetchAllReviews } from './Store/reviews/reviewsActions';
+import { fetchAllFavorites } from './Store/favorites/favoritesActions';
 
 import './index.css';
 import TopNav from './Components/layout/TopNav';
@@ -105,6 +106,7 @@ function App() {
     dispatch(getAllResources());
     dispatch(getAllResourceVotes());
     dispatch(fetchAllReviews());
+    dispatch(fetchAllFavorites());
   }, [dispatch])
 
   const toggleDrawer = (side, open, resource) => event => {
