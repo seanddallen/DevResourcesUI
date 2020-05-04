@@ -1,7 +1,4 @@
-import Constants from "./resourceVotesConstants";
 import * as types from "./resourceVotesConstants";
-
-// import { FETCH_RESOURCES } from '../actionTypes';
 
 const initialState = [];
 
