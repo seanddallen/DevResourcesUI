@@ -65,6 +65,7 @@ export default function ResourceCard(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [hover, setHover] = React.useState(false);
+  // const [favorite, setFavorite] = React.useState(false);
 
   // RESOURCE REVIEWS
   const allReviews = useSelector(state => state.reviews.all);
@@ -116,6 +117,10 @@ export default function ResourceCard(props) {
     return sum / reviews.length;
   };
 
+  // FAVORITE
+  const favorites = useSelector(state => state.favorites);
+  const favorite = favorites && props.resource && favorites.filter(fav => fav.resource_id === props.resource.id && fav.user_id === 1);
+
   return (
     <>
       <Card
@@ -153,7 +158,9 @@ export default function ResourceCard(props) {
             action={
               <>
                 <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
+                  <FavoriteIcon color={
+                    favorite.length > 0 ? "secondary" : ""
+                  } />
                 </IconButton>
                 <IconButton aria-label="share">
                   <ShareIcon />
