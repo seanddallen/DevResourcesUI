@@ -23,6 +23,7 @@ import {
 } from "@material-ui/core";
 
 import { addResourceVote } from "../../../Store/votes/resourceVotesActions";
+import { addOneFavorite, removeOneFavorite } from "../../../Store/favorites/favoritesActions";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -121,6 +122,18 @@ export default function ResourceCard(props) {
   const favorites = useSelector(state => state.favorites);
   const favorite = favorites && props.resource && favorites.filter(fav => fav.resource_id === props.resource.id && fav.user_id === 1);
 
+  const handleClickFavorite = () => {
+    if (favorite.length > 0) {
+      dispatch(removeOneFavorite(favorite[0].id))
+    } else {
+      dispatch(addOneFavorite({
+        user_id: 1,
+        resource_id: props.resource.id,
+        note: ""
+      }))
+    }
+  }
+
   return (
     <>
       <Card
@@ -157,10 +170,12 @@ export default function ResourceCard(props) {
           <CardHeader
             action={
               <>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon color={
-                    favorite.length > 0 ? "secondary" : ""
-                  } />
+                <IconButton aria-label="add to favorites" onClick={() => handleClickFavorite()} >
+                  <FavoriteIcon 
+                    color={
+                      favorite.length > 0 ? "secondary" : ""
+                          }
+                  />
                 </IconButton>
                 <IconButton aria-label="share">
                   <ShareIcon />

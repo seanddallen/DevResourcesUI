@@ -21,6 +21,6 @@ export const removeOneFavorite = id => async dispatch => {
     let res = await axios.delete(`http://localhost:8000/favorites/${id}`);
     dispatch({
         type: REMOVE_ONE_FAVORITE,
-        payload: res.data[0]
+        payload: res.data
     });
 };
