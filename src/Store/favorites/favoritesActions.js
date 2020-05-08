@@ -22,5 +22,5 @@ export const removeOneFavorite = id => async dispatch => {
     dispatch({
         type: REMOVE_ONE_FAVORITE,
         payload: res.data
-    });
+    }); 
 };

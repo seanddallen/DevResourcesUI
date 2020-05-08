@@ -1,6 +1,7 @@
 // TODO: user can only vote once and if they change their vote the other vote total decreases by one
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -143,17 +144,19 @@ export default function ResourceCard(props) {
         onMouseLeave={toggleHoverState}
       >
         {hover && (
-          <Fab
-            className={classes.fabColor}
-            aria-label="edit"
-            style={{
-              position: "absolute",
-              marginLeft: "-20px",
-              marginTop: "-20px"
-            }}
-          >
-            <EditIcon />
-          </Fab>
+          <Link to="/recEdit">
+            <Fab
+              className={classes.fabColor}
+              aria-label="edit"
+              style={{
+                position: "absolute",
+                marginLeft: "-20px",
+                marginTop: "-20px"
+              }}
+            >
+              <EditIcon />
+            </Fab>
+          </Link>
         )}
         {props.image ? (
           <img

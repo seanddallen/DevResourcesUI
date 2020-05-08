@@ -22,6 +22,7 @@ import FiltersDrawer from './Components/main/filters/FiltersDrawer';
 import ReviewDrawer from './Components/main/reviews/ReviewDrawer';
 import Rankings from './Components/rankings/Rankings';
 import Admin from './Components/admin/Admin';
+import EditResourceForm from './Components/main/resources/EditResourceForm';
 
 const theme = createMuiTheme({
   //PRIMARY (blue) - #007791
@@ -173,6 +174,7 @@ function App() {
             <Route path="/profile" component={Profile} />
             <Route path="/rankings" component={Rankings} />
             <Route path="/admin" component={Admin} />
+            <Route path="/recEdit" component={EditResourceForm} />
           </Switch>
           <Drawer open={drawer.left} onClose={toggleDrawer("left", false)}>
             {sideList("left")}
