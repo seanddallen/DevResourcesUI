@@ -31,6 +31,7 @@ export default function Main(props) {
               <Cards
                 toggleDrawer={props.toggleDrawer}
                 style={{ marginTop: "0px" }}
+                handleRecEditClick={props.handleRecEditClick}
               />
             </div>
           </div>

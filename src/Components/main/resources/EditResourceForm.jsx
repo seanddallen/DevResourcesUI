@@ -3,7 +3,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, TextField, Input, Fab } from "@material-ui/core";
+import { Button, TextField, Input } from "@material-ui/core";
 import Select from "react-select";
 import AddIcon from "@material-ui/icons/Add";
 import { addResource } from '../../../Store/resources/resourcesActions';
@@ -27,20 +27,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function EditResourceForm(props) {
+export default function EditResourceForm({ 
+    resource,
+    openForm,
+    setOpenForm
+}) {
   const classes = useStyles();
 
   // Hooks for Form State
-  const [title, setTitle] = React.useState("");
-  const [link, setLink] = React.useState("");
-  const [description, setDescription] = React.useState("");
+  const [title, setTitle] = React.useState(resource.title);
+  const [link, setLink] = React.useState(resource.url);
+  const [description, setDescription] = React.useState(resource.description);
   const [image, setImage] = React.useState("");
-  const [level, setLevel] = React.useState("");
+  const [level, setLevel] = React.useState(resource.skill_level);
   const [age, setAge] = React.useState("");
-  const [price, setPrice] = React.useState("");
+  const [price, setPrice] = React.useState(resource.price);
   const [tags, setTags] = React.useState([]);
-  const [type, setType] = React.useState("");
-  const [subtype, setSubtype] = React.useState("");
+  const [type, setType] = React.useState(resource.type);
+  const [subtype, setSubtype] = React.useState(resource.subtype);
 
   const dispatch = useDispatch();
 
@@ -70,7 +74,12 @@ export default function EditResourceForm(props) {
       approved: false
     }))
 
-    props.setOpenForm(!props.openForm)
+    setOpenForm(!openForm)
+  }
+
+  const getCurrentOption = (optionArray, resourceVal) => {
+      const currentOption = optionArray.filter(option => option.value === resourceVal);
+      return currentOption
   }
 
   return (
@@ -168,7 +177,7 @@ export default function EditResourceForm(props) {
                     name="type"
                     options={typeOptions}
                     className={classes.option}
-                    placeholder="Resource Type"
+                    defaultValue={getCurrentOption(typeOptions, type)}
                     style={{ color: "#C7C7C7" }}
                     theme={theme => ({
                       ...theme,
@@ -196,6 +205,7 @@ export default function EditResourceForm(props) {
                     name="subtype"
                     options={subtypeOptions}
                     className={classes.option}
+                    defaultValue={getCurrentOption(subtypeOptions, subtype)}
                     placeholder="Resource Subtype"
                     style={{ color: "#C7C7C7" }}
                     theme={theme => ({
@@ -224,6 +234,7 @@ export default function EditResourceForm(props) {
                     name="experience"
                     options={levelOptions}
                     className={classes.option}
+                    defaultValue={getCurrentOption(levelOptions, level)}
                     placeholder="Resource Level"
                     style={{ color: "#C7C7C7" }}
                     theme={theme => ({
@@ -252,6 +263,7 @@ export default function EditResourceForm(props) {
                     name="age"
                     options={ageOptions}
                     className={classes.option}
+                    defaultValue={getCurrentOption(ageOptions, age)}
                     placeholder="Resource Age"
                     style={{ color: "#C7C7C7" }}
                     theme={theme => ({
@@ -280,6 +292,7 @@ export default function EditResourceForm(props) {
                     name="price"
                     options={priceOptions}
                     className={classes.option}
+                    defaultValue={getCurrentOption(priceOptions, price)}
                     placeholder="Resource Price"
                     style={{ color: "#C7C7C7" }}
                     theme={theme => ({
@@ -309,6 +322,7 @@ export default function EditResourceForm(props) {
                     isMulti
                     options={tagOptions}
                     className={classes.option}
+                    defaultValue={getCurrentOption(tagOptions, tags)}
                     placeholder="Resource Tags"
                     style={{ color: "#C7C7C7" }}
                     theme={theme => ({

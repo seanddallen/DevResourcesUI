@@ -153,6 +153,7 @@ export default function ResourceCard(props) {
                 marginLeft: "-20px",
                 marginTop: "-20px"
               }}
+              onClick={() => props.handleRecEditClick(props.resource)}
             >
               <EditIcon />
             </Fab>

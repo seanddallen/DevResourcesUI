@@ -121,6 +121,7 @@ export default function ResourceCards(props) {
                 key={i}
                 resource={resource}
                 image={faker.image.abstract()}
+                handleRecEditClick={props.handleRecEditClick}
               />
             </LazyLoad>
           );

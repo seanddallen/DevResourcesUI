@@ -1,7 +1,7 @@
 // TODO: REFACTOR WITH REDUX: Drawer Reducer to open/close left/right drawer
 
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 
@@ -145,6 +145,13 @@ function App() {
     </div>
   );
 
+  // RESOURCE EDIT
+  // const history = useHistory();
+  const handleRecEditClick = resource => {
+    console.log("RESOURCE: ", resource)
+    setResource(resource);
+  }
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -167,14 +174,14 @@ function App() {
             <Route
               exact
               path="/"
-              component={() => <Main toggleDrawer={toggleDrawer} />}
+              component={() => <Main toggleDrawer={toggleDrawer} handleRecEditClick={handleRecEditClick} />}
             />
             <Route path="/login" component={Login} />
             <Route path="/registration" component={Registration} />
             <Route path="/profile" component={Profile} />
             <Route path="/rankings" component={Rankings} />
             <Route path="/admin" component={Admin} />
-            <Route path="/recEdit" component={EditResourceForm} />
+            <Route path="/recEdit" component={() => <EditResourceForm resource={resource} />} />
           </Switch>
           <Drawer open={drawer.left} onClose={toggleDrawer("left", false)}>
             {sideList("left")}
