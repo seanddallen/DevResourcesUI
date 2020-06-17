@@ -85,10 +85,14 @@ export default function EditResourceForm({
   const getTags = e => {
       console.log("EVENT: ", e)
       const values = [];
+      if (e) {
       for (let i = 0; i < e.length; i++) {
           values.push(e[i].value)
       }
       return values
+    } else {
+        return values
+    }
   }
 
   console.log("TAGS: ", tags)
