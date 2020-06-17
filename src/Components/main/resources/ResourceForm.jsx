@@ -63,6 +63,7 @@ export default function ResourceForm(props) {
       image: 'someRandoImg.jpeg',
       price: price,
       skill_level: level,
+      age: age,
       shares: 0,
       upvotes: 0,
       downvotes: 0,

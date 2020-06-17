@@ -148,7 +148,6 @@ function App() {
   // RESOURCE EDIT
   // const history = useHistory();
   const handleRecEditClick = resource => {
-    console.log("RESOURCE: ", resource)
     setResource(resource);
   }
 

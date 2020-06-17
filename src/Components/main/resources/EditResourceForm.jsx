@@ -40,7 +40,7 @@ export default function EditResourceForm({
   const [description, setDescription] = React.useState(resource.description);
   const [image, setImage] = React.useState("");
   const [level, setLevel] = React.useState(resource.skill_level);
-  const [age, setAge] = React.useState("");
+  const [age, setAge] = React.useState(resource.age);
   const [price, setPrice] = React.useState(resource.price);
   const [tags, setTags] = React.useState([]);
   const [type, setType] = React.useState(resource.type);
@@ -81,6 +81,17 @@ export default function EditResourceForm({
       const currentOption = optionArray.filter(option => option.value === resourceVal);
       return currentOption
   }
+
+  const getTags = e => {
+      console.log("EVENT: ", e)
+      const values = [];
+      for (let i = 0; i < e.length; i++) {
+          values.push(e[i].value)
+      }
+      return values
+  }
+
+  console.log("TAGS: ", tags)
 
   return (
     <div
@@ -334,7 +345,7 @@ export default function EditResourceForm({
                         primary: "#EC5252"
                       }
                     })}
-                    onChange={e => setTags([...tags, e.value])}
+                    onChange={e => setTags(getTags(e))}
                   />
                 </div>
               </div>
