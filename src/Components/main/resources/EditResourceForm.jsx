@@ -34,6 +34,16 @@ export default function EditResourceForm({
 }) {
   const classes = useStyles();
 
+  const getStartingTags = () => {
+    const startingTags = [];
+    const tags = resource && resource.tags.map(tag => tag.name);
+    for (let i = 0; i < tags.length; i++) {
+        startingTags.push(tagOptions.filter(option => tags[i] === option.value)[0])
+    }
+    return startingTags
+}
+const startTags = getStartingTags()
+
   // Hooks for Form State
   const [title, setTitle] = React.useState(resource.title);
   const [link, setLink] = React.useState(resource.url);
@@ -42,9 +52,11 @@ export default function EditResourceForm({
   const [level, setLevel] = React.useState(resource.skill_level);
   const [age, setAge] = React.useState(resource.age);
   const [price, setPrice] = React.useState(resource.price);
-  const [tags, setTags] = React.useState([]);
+  const [tags, setTags] = React.useState(startTags);
   const [type, setType] = React.useState(resource.type);
   const [subtype, setSubtype] = React.useState(resource.subtype);
+
+  console.log("TAGS: ", tags)
 
   const dispatch = useDispatch();
 
@@ -81,21 +93,6 @@ export default function EditResourceForm({
       const currentOption = optionArray.filter(option => option.value === resourceVal);
       return currentOption
   }
-
-  const getTags = e => {
-      console.log("EVENT: ", e)
-      const values = [];
-      if (e) {
-      for (let i = 0; i < e.length; i++) {
-          values.push(e[i].value)
-      }
-      return values
-    } else {
-        return values
-    }
-  }
-
-  console.log("TAGS: ", tags)
 
   return (
     <div
@@ -337,7 +334,7 @@ export default function EditResourceForm({
                     isMulti
                     options={tagOptions}
                     className={classes.option}
-                    defaultValue={getCurrentOption(tagOptions, tags)}
+                    defaultValue={tags}
                     placeholder="Resource Tags"
                     style={{ color: "#C7C7C7" }}
                     theme={theme => ({
@@ -349,7 +346,7 @@ export default function EditResourceForm({
                         primary: "#EC5252"
                       }
                     })}
-                    onChange={e => setTags(getTags(e))}
+                    onChange={e => setTags(e)}
                   />
                 </div>
               </div>
