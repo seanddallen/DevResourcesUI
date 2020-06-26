@@ -109,24 +109,6 @@ export const updateResourceVote = (upvote, downvote, id) => {
         })
     }
 }
-// export const updateResourceVote = (type) => {
-//     return dispatch => {
-        
-//         axios.patch(`http://localhost:8000/resources/${id}`, updatedInfo)
-//         .then(res => {
-//             dispatch({
-//                 type: UPDATE_RESOURCE_VOTE,
-//                 payload: res.data[0]
-//             })
-//         })
-//         .catch(err => {
-//             dispatch({
-//                 type: UPDATE_RESOURCES_FAILED,
-//                 payload: err
-//             })
-//         })
-//     }
-// }
 
 export const removeResource = id => {
     return dispatch => {
